@@ -1,0 +1,13 @@
+# Resonite tty server
+
+Welcome to the official repository for the resonite tty server. This is a simple server that allows you to connect the resonite coderunner to a tty server to run code.
+
+## Installation
+run pip install asyncio websockets
+
+## Usage
+run python3 server.py
+
+# Notes
+
+This only can be run on linux unfortunatly because of pexpect
