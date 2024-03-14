@@ -1,0 +1,6 @@
+string cat = "Cat"
+
+for(int i = 0; i < cat.Length; i++)
+{
+    Console.WriteLine(cat[i]);
+}
