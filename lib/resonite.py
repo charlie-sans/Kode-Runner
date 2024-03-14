@@ -44,3 +44,10 @@ def get_host_name():
 def get_host_user():
   return os.getlogin()
 
+def mono(path,code):# mono software runner
+  write(path,code)
+  os.system("csc" +  " " + path)
+  # get the name of the file without the extension
+  name = os.path.splitext(path)[0]
+  os.system(f"mono {name}")
+
