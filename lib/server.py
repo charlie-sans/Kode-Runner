@@ -2,11 +2,39 @@ import asyncio
 import websockets
 import pexpect
 import os
-
+import subprocess
 WS_HOST = "127.0.0.1"
 WS_PORT = 5000
-
+ws_port2 = 5001
+SHELL = "/bin/bash"
 TEMP_PYTHON_FILE = "temp.py"
+TEMP_BASH_FILE = "temp.sh"
+
+async def execute_shell(code, websocket):
+    with open(TEMP_BASH_FILE, 'w') as file:
+        file.write(code)
+    
+    child = pexpect.spawn(f"/bin/bash {TEMP_BASH_FILE}", encoding="utf-8")
+
+    while True:
+        try:
+            index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+            if index == 0:
+                await websocket.send(child.before)
+            elif index == 1:
+                await websocket.send(child.before)
+                break
+        except pexpect.exceptions.TIMEOUT:
+            break
+    os.remove(TEMP_BASH_FILE)
+
+async def shell(websocket, path):
+    try:
+        async for code in websocket:
+            await execute_shell(code, websocket)
+    except websockets.exceptions.ConnectionClosedOK:
+        pass
+
 
 async def execute_code(code, websocket):
     with open(TEMP_PYTHON_FILE, 'w') as file:
@@ -35,6 +63,9 @@ async def server(websocket, path):
 
 
 ws_server = websockets.serve(server, WS_HOST, WS_PORT)
-
+ws_shell = websockets.serve(shell, WS_HOST, ws_port2)
+print("Server started at port", WS_PORT)
+print("Shell started at port", ws_port2)
+asyncio.get_event_loop().run_until_complete(ws_shell)
 asyncio.get_event_loop().run_until_complete(ws_server)
 asyncio.get_event_loop().run_forever()
