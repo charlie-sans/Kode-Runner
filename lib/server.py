@@ -9,8 +9,8 @@ WS_HOST = "127.0.0.1"
 WS_PORT = 5000
 ws_port2 = 5001
 SHELL = "/bin/bash"
-TEMP_PYTHON_FILE = "temp.py"
-TEMP_BASH_FILE = "temp.sh"
+TEMP_PYTHON_FILE = "code/temp.py"
+TEMP_BASH_FILE = "code/temp.sh"
 DIRECTORY= "code"
 if not os.path.exists(DIRECTORY):
     os.makedirs(DIRECTORY)
