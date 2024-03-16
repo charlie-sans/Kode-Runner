@@ -248,22 +248,33 @@ async def server(websocket, path):
     except websockets.exceptions.ConnectionClosedOK:
         pass
 
+async def handler(websocket, path):
+    if path == "/shell":
+        await shell(websocket, path)
+    elif path == "/node":
+        await NODE(websocket, path)
+    elif path == "/cpp":
+        await CPP(websocket, path)
+    elif path == "/go":
+        await GO(websocket, path)
+    elif path == "/py":
+        await server(websocket, path)
+    
+
+
 
 ws_server = websockets.serve(server, WS_HOST, WS_PORT)
-ws_shell = websockets.serve(shell, WS_HOST, ws_port2)
-ws_node = websockets.serve(NODE, WS_HOST, ws_port3)
-ws_cpp = websockets.serve(CPP, WS_HOST, ws_port4)
-ws_go = websockets.serve(GO, WS_HOST, ws_port5)
+
 
 
 print("Server started at port", WS_PORT)
-print("Shell started at port", ws_port2)
-print("Node started at port", ws_port3)
-print("C++ started at port", ws_port4)
-print("Go started at port", ws_port5)
-asyncio.get_event_loop().run_until_complete(ws_go)
-asyncio.get_event_loop().run_until_complete(ws_shell)
+print("Shell started at address https://localhost:5000/shell")
+print("Node started at address https://localhost:5000/node")
+print("C++ started at address https://localhost:5000/cpp")
+print("Go started at address https://localhost:5000/go")
+print("Python started at address https://localhost:5000/py")
+
+
 asyncio.get_event_loop().run_until_complete(ws_server)
-asyncio.get_event_loop().run_until_complete(ws_node)
-asyncio.get_event_loop().run_until_complete(ws_cpp)
+
 asyncio.get_event_loop().run_forever()
