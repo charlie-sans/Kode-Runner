@@ -3,12 +3,49 @@ import websockets
 import pexpect
 import os
 import subprocess
+import re
+
 WS_HOST = "127.0.0.1"
 WS_PORT = 5000
 ws_port2 = 5001
 SHELL = "/bin/bash"
 TEMP_PYTHON_FILE = "temp.py"
 TEMP_BASH_FILE = "temp.sh"
+DIRECTORY= "code"
+if not os.path.exists(DIRECTORY):
+    os.makedirs(DIRECTORY)
+def translate_terminal_colors(code):
+    color_mapping = {
+        '0': 'black',
+        '1': 'red',
+        '2': 'green',
+        '3': 'yellow',
+        '4': 'blue',
+        '5': 'magenta',
+        '6': 'cyan',
+        '7': 'white'
+    }
+    
+    translated_code = ''
+    i = 0
+    while i < len(code):
+        if code[i] == '\x1b' and code[i+1] == '[':
+            j = i + 2
+            while code[j].isdigit() or code[j] == ';':
+                j += 1
+            if code[j] == 'm':
+                color_codes = code[i+2:j].split(';')
+                for color_code in color_codes:
+                    if color_code in color_mapping:
+                        translated_code += f'<color={color_mapping[color_code]}>'
+                    else:
+                        translated_code += f'<color={color_code}>'
+                i = j + 1
+                continue
+        translated_code += code[i]
+        i += 1
+    
+    return translated_code
 
 async def execute_shell(code, websocket):
     with open(TEMP_BASH_FILE, 'w') as file:
@@ -20,9 +57,11 @@ async def execute_shell(code, websocket):
         try:
             index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0:
-                await websocket.send(child.before)
+                coded_text = translate_terminal_colors(child.before)
+                await websocket.send(coded_text)
             elif index == 1:
-                await websocket.send(child.before)
+                coded_text = translate_terminal_colors(child.before)
+                await websocket.send(coded_text)
                 break
         except pexpect.exceptions.TIMEOUT:
             break

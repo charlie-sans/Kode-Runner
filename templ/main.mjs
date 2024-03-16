@@ -5,4 +5,3 @@ function fibonachii(n) {
     return fibonachii(n - 1) + fibonachii(n - 2);
 }
 
-console.log(fibonachii(10));
