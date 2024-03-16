@@ -6,7 +6,9 @@ Runner is a simple, yet powerful tool that allows you to run code in a variety o
 
 
 ## Usage
-clone the repo and run /lib/server.py on a linux system. sorry windows.
+clone the repo and cd into the directory.
+
+run /lib/server.py on a linux system. sorry windows.
 spawn out Code from Charlie's public folder inside of a world in resonite and hit the purple button to connect to the server.
 once you hear tada.wav, you are connected and can start running code.
 
