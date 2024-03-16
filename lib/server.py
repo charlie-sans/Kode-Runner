@@ -22,6 +22,8 @@ TEMP_PYTHON_FILE = "code/temp.py"
 TEMP_BASH_FILE = "code/temp.sh"
 TEMP_CPP_FILE = "code/temp.cpp"
 TEMP_NODE_FILE = "code/temp.js"
+TEMP_GO_FILE = "code/temp.go"
+
 DIRECTORY= "code"
 if not os.path.exists(DIRECTORY):
     os.makedirs(DIRECTORY)
@@ -106,6 +108,35 @@ def translate_terminal_colors(code):
         i += 1
     
     return translated_code
+### START
+async def execute_GO(code, websocket):
+    with open(TEMP_GO_FILE, 'w') as file:
+        file.write(code)
+    
+    child = pexpect.spawn(f"g++ {TEMP_GO_FILE} -o temp", encoding="utf-8")
+
+    while True:
+        try:
+            index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+            if index == 0:
+                coded_text = translate_terminal_colors(child.before)
+                await websocket.send(coded_text)
+            elif index == 1:
+                coded_text = translate_terminal_colors(child.before)
+                await websocket.send(coded_text)
+                break
+        except pexpect.exceptions.TIMEOUT:
+            break
+    os.remove(TEMP_GO_FILE)
+
+async def GO(websocket, path):
+    try:
+        
+        async for code in websocket:
+            await execute_GO(code, websocket)
+    except websockets.exceptions.ConnectionClosedOK:
+        pass
+#### END
 ### START
 async def execute_CPP(code, websocket):
     with open(TEMP_CPP_FILE, 'w') as file:
@@ -222,12 +253,15 @@ ws_server = websockets.serve(server, WS_HOST, WS_PORT)
 ws_shell = websockets.serve(shell, WS_HOST, ws_port2)
 ws_node = websockets.serve(NODE, WS_HOST, ws_port3)
 ws_cpp = websockets.serve(CPP, WS_HOST, ws_port4)
+ws_go = websockets.serve(GO, WS_HOST, ws_port5)
+
 
 print("Server started at port", WS_PORT)
 print("Shell started at port", ws_port2)
 print("Node started at port", ws_port3)
 print("C++ started at port", ws_port4)
-
+print("Go started at port", ws_port5)
+asyncio.get_event_loop().run_until_complete(ws_go)
 asyncio.get_event_loop().run_until_complete(ws_shell)
 asyncio.get_event_loop().run_until_complete(ws_server)
 asyncio.get_event_loop().run_until_complete(ws_node)
