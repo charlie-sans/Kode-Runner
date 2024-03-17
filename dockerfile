@@ -20,5 +20,4 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
-RUN cd /app
-CMD [ "python3","lib/server.py" ]
+ENTRYPOINT [ "/usr/bin/python3", "lib/server.py"]

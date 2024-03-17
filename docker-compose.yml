@@ -1,0 +1,8 @@
+version: '3'
+services:
+  websocket-server:
+    build: ./
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/app
