@@ -10,7 +10,7 @@ from sockets.cpp import CPP
 from sockets.py import server
 from sockets.shell import shell
 
-from colorama import Fore, Back, Style
+
 WS_HOST = "127.0.0.1"
 WS_PORT = 5000
 

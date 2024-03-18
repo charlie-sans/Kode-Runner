@@ -24,7 +24,7 @@ def translate_terminal_colors(code):
         '15': 'white',
         '[51C': 'red',
         '[21a': '',
- 
+        '[K': '',
         '31': 'red',
         '32': 'green',
         '33': 'yellow',
