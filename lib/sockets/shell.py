@@ -11,8 +11,8 @@ import os
 import pyte
 import signal
 
-TTY_WIDTH = 80
-TTY_HEIGHT = 24
+TTY_WIDTH = 170
+TTY_HEIGHT = 28
 
 colour_map = {
     "black": "000000",
