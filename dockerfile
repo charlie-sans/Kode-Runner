@@ -15,11 +15,6 @@ WORKDIR /app
 # Install any needed packages specified in requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-RUN chmod 444 /app*
-RUN chmod 777 /app/code
 
-RUN useradd -r --shell /bin/sh limiteduser
-
-USER limiteduser
 
 ENTRYPOINT [ "/usr/bin/python3", "lib/server.py"]
