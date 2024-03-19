@@ -10,6 +10,8 @@ import pty
 import os
 import pyte
 import signal
+import time
+
 
 TTY_WIDTH = 170
 TTY_HEIGHT = 28
@@ -69,7 +71,9 @@ async def process_screen(buffer):
 
             colour = cell.fg
             if cell == " ":
-                continue
+                pass
+            if cell == "":
+                pass
             if (colour in colour_map):
                 colour = colour_map[cell.fg]
 
@@ -95,6 +99,7 @@ async def shell(websocket, path):
 
     async def send_shell():
         while True:
+            time.sleep(0.5)
             output = await asyncio.get_event_loop().run_in_executor(None, os.read, master_fd, 1024)
             if output:
                 stream.feed(output.decode())
