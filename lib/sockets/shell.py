@@ -68,6 +68,8 @@ async def process_screen(buffer):
             cell = buffer[row][col]
 
             colour = cell.fg
+            if cell == " ":
+                continue
             if (colour in colour_map):
                 colour = colour_map[cell.fg]
 
