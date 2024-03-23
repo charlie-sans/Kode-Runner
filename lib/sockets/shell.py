@@ -1,120 +1,38 @@
-"""
-(C) 2024 sinkhole.wattlefoxxo.com 
-all rights reserved
-"""
-
-import asyncio
 import websockets
-import subprocess
-import pty
+import pexpect
 import os
-import pyte
-import signal
-import time
+
+from sockets.termc import translate_terminal_colors
+TEMP_BASH_FILE = "temp.sh"
 
 
-TTY_WIDTH = 170
-TTY_HEIGHT = 28
+### START
+async def execute_shell(code, websocket):
+    with open(TEMP_BASH_FILE, 'w') as file:
+        file.write(code)
+    
+    child = pexpect.spawn(f"/bin/bash {TEMP_BASH_FILE}", encoding="utf-8")
 
-colour_map = {
-    "black": "000000",
-    "red": "ff0000",
-    "green": "00ff00",
-    "brown": "ffff00",
-    "blue": "0000ff",
-    "magenta": "ff00ff",
-    "cyan": "00ffff",
-    "white": "ffffff",
-    "default": "ffffff"
-}
-
-key_map = {
-    "ctrl+A": b'\x01',
-    "ctrl+B": b'\x02',
-    "ctrl+C": b'\x03',
-    "ctrl+D": b'\x04',
-    "ctrl+E": b'\x05',
-    "ctrl+F": b'\x06',
-    "ctrl+G": b'\x07',
-    "ctrl+H": b'\x08',
-    "ctrl+I": b'\x09',
-    "ctrl+J": b'\x0A',
-    "ctrl+K": b'\x0B',
-    "ctrl+L": b'\x0C',
-    "ctrl+M": b'\x0D',
-    "ctrl+N": b'\x0E',
-    "ctrl+O": b'\x0F',
-    "ctrl+P": b'\x10',
-    "ctrl+Q": b'\x11',
-    "ctrl+R": b'\x12',
-    "ctrl+S": b'\x13',
-    "ctrl+T": b'\x14',
-    "ctrl+U": b'\x15',
-    "ctrl+V": b'\x16',
-    "ctrl+W": b'\x17',
-    "ctrl+X": b'\x18',
-    "ctrl+Y": b'\x19',
-    "ctrl+Z": b'\x1A',
-    "ctrl+[": b'\x1B',
-    "ctrl+\\": b'\x1C',
-    "ctrl+]": b'\x1D',
-    "ctrl+^": b'\x1E',
-    "ctrl+_": b'\x1F'
-}
-
-async def process_screen(buffer):
-    output = []
-    for row in range(TTY_HEIGHT):
-        line = ""
-        for col in range(TTY_WIDTH):
-            cell = buffer[row][col]
-
-            colour = cell.fg
-            if cell == " ":
-                pass
-            if cell == "":
-                pass
-            if (colour in colour_map):
-                colour = colour_map[cell.fg]
-
-            line += f"<color=#{colour}>{cell.data}</color>"
-        output.append(line)
-    return output
-
+    while True:
+        try:
+            index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+            if index == 0:
+                coded_text = translate_terminal_colors(child.before)
+                await websocket.send(coded_text)
+            elif index == 1:
+                coded_text = translate_terminal_colors(child.before)
+                await websocket.send(coded_text)
+                break
+        except pexpect.exceptions.TIMEOUT:
+            break
+    os.remove(TEMP_BASH_FILE)
 
 async def shell(websocket, path):
-    screen = pyte.Screen(TTY_WIDTH, TTY_HEIGHT)
-    stream = pyte.Stream(screen)
+    try:
+        async for code in websocket:
+            await execute_shell(code, websocket)
+    except websockets.exceptions.ConnectionClosedOK:
+        pass
+#### END
 
-    master_fd, slave_fd = pty.openpty()
-
-    process = await asyncio.create_subprocess_exec(
-        "/bin/bash",
-        stdin=slave_fd,
-        stdout=slave_fd,
-        stderr=slave_fd,
-        start_new_session=True,
-        env={"TERM": "xterm"}
-    )
-
-    async def send_shell():
-        while True:
-            time.sleep(0.5)
-            output = await asyncio.get_event_loop().run_in_executor(None, os.read, master_fd, 1024)
-            if output:
-                stream.feed(output.decode())
-                display_content = "\n".join(await process_screen(screen.buffer))
-                await websocket.send(display_content)
     
-    async def receive_shell():
-        async for command in websocket:
-            if command in key_map:
-                os.write(master_fd, key_map[command])
-            else:
-                os.write(master_fd, command.encode())
-
-    await asyncio.gather(
-        send_shell(),
-        receive_shell()
-    )
-

@@ -1,6 +1,3 @@
-import os
-import pexpect
-import websockets
 import ast
 import os
 
@@ -39,32 +36,3 @@ class UnsafeCodeException(Exception):
     def UnsafeCodeException(self):
         return self.message
     
-from sockets.termc import translate_terminal_colors
-TEMP_PYTHON_FILE = "temp.py"
-async def execute_code(code, websocket):
-    with open(TEMP_PYTHON_FILE, 'w') as file:
-        file.write(code)
-    if not check_code_safety(code):
-        await websocket.send("Unsafe code detected.")
-        os.remove(TEMP_PYTHON_FILE)
-        return
-    child = pexpect.spawn(f"python3 {TEMP_PYTHON_FILE}", encoding="utf-8")
-
-    while True:
-        try:
-            index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
-            if index == 0:
-                await websocket.send(child.before)
-            elif index == 1:
-                await websocket.send(child.before)
-                break
-        except pexpect.exceptions.TIMEOUT:
-            break
-    os.remove(TEMP_PYTHON_FILE)
-
-async def server(websocket, path):
-    try:
-        async for code in websocket:
-            await execute_code(code, websocket)
-    except websockets.exceptions.ConnectionClosedOK:
-        pass

@@ -3,7 +3,7 @@ import websockets
 import pexpect
 import os
 from sockets.termc import translate_terminal_colors
-TEMP_GO_FILE = "temp.go"
+TEMP_GO_FILE = "/code/temp.go"
 
 ### START
 async def execute_GO(code, websocket):
