@@ -2,3 +2,4 @@ asyncio
 websockets
 colorama
 pyte
+termplotlib

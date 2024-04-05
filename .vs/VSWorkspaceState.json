@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\lib",
-    "\\lib\\sockets"
+    "\\coderunner-help",
+    "\\coderunner-help\\src"
   ],
+  "SelectedNode": "\\coderunner-help",
   "PreviewInSolutionExplorer": false
 }

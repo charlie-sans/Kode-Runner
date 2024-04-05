@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wtAN+mrYdBKD2xfcOmzQoz72fNW/KUUpJYGQbzu81X5Rhz3AsyXua/gby/RLvzp0jIGsVMy5ZzIn3D2MkkfUfQ==",
+  "success": true,
+  "projectFilePath": "D:\\postreset\\repos\\csvmjs\\coderunner-web\\coderunner-web.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\GAMER\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\microsoft.visualstudio.azure.containers.tools.targets.1.19.5.nupkg.sha512"
+  ],
+  "logs": []
+}
