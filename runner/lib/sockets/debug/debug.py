@@ -14,15 +14,19 @@ async def de_bug(websocket, message,type):
     if type == "WARNING":
         output = "<color=#ffff00><<WARNING>></color>" + message
         await websocket.send(output)
+        print(Fore.YELLOW + "<<WARNING>>" + message)
     elif type == "ERROR":
         output = "<color=#ff0000><<ERROR>></color>" + message
         await websocket.send(output)
+        print(Fore.RED + "<<ERROR>>" + message)
     elif type == "INFO":
         output = "<color=#00ff00><<INFO>></color>" + message
         await websocket.send(output)
+        print   (Fore.GREEN + "<<INFO>>" + message)
     elif type == "DEBUG":
         output = "<color=#0000ff><<DEBUG>></color>" + message
         await websocket.send(output)
+        print(Fore.BLUE + "<<DEBUG>>" + message)
     else:
         await websocket.send(message)
         

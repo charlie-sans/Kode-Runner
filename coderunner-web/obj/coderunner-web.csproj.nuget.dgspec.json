@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\postreset\\repos\\csvmjs\\coderunner-web\\coderunner-web.csproj": {}
+    "C:\\Users\\GAMER\\coderunner\\coderunner-web\\coderunner-web.csproj": {}
   },
   "projects": {
-    "D:\\postreset\\repos\\csvmjs\\coderunner-web\\coderunner-web.csproj": {
+    "C:\\Users\\GAMER\\coderunner\\coderunner-web\\coderunner-web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\postreset\\repos\\csvmjs\\coderunner-web\\coderunner-web.csproj",
+        "projectUniqueName": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\coderunner-web.csproj",
         "projectName": "coderunner-web",
-        "projectPath": "D:\\postreset\\repos\\csvmjs\\coderunner-web\\coderunner-web.csproj",
+        "projectPath": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\coderunner-web.csproj",
         "packagesPath": "C:\\Users\\GAMER\\.nuget\\packages\\",
-        "outputPath": "D:\\postreset\\repos\\csvmjs\\coderunner-web\\obj\\",
+        "outputPath": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -27,6 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\GAMER\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,6 +40,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -48,6 +54,18 @@
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.19.5, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[4.0.0, )"
             }
           },
           "imports": [
@@ -69,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

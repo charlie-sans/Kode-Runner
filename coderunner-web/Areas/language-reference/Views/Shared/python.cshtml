@@ -1,0 +1,49 @@
+﻿@page
+@* @model pythonModel *@
+
+@{
+    
+    ViewData["Title"] = "Python Reference";
+
+    string api_ref = "/language-reference/python.json";
+    // read the json file's content
+    string json = System.IO.File.ReadAllText(api_ref);
+    
+    // parse the json content
+    dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+    string title = data.title;
+    string content = data.content;
+    string code = data.code;
+    string output = data.output;
+
+    // generate the code block with the code content
+    
+
+    
+    
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Reference</title>
+</head>
+<body>
+    <h1>Python Reference</h1>
+    <p>Welcome to the Python reference for CodeRunner!</p>
+    @{
+        for (int i = 0; i < data.Count; i++)
+        {
+            <h2>@data[i].title</h2>
+            <p>@data[i].content</p>
+            <pre><code class="language-python">@data[i].code</code></pre>
+            <h2>Output</h2>
+            <pre><code class="language-python">@data[i].output</code></pre>
+        }
+    }
+</body>
+</html>

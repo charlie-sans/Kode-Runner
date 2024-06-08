@@ -1,0 +1,162 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\GAMER\\coderunner\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|c:\\users\\gamer\\coderunner\\coderunner-web\\areas\\language-reference\\controllers\\lang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|solutionrelative:coderunner-web\\areas\\language-reference\\controllers\\lang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|c:\\users\\gamer\\coderunner\\coderunner-web\\areas\\language-reference\\views\\shared\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|solutionrelative:coderunner-web\\areas\\language-reference\\views\\shared\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|c:\\users\\gamer\\coderunner\\coderunner-web\\areas\\language-reference\\views\\shared\\python.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|solutionrelative:coderunner-web\\areas\\language-reference\\views\\shared\\python.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|c:\\users\\gamer\\coderunner\\coderunner-web\\areas\\language-reference\\views\\shared\\python.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|solutionrelative:coderunner-web\\areas\\language-reference\\views\\shared\\python.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|c:\\users\\gamer\\coderunner\\coderunner-web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|solutionrelative:coderunner-web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|c:\\users\\gamer\\coderunner\\coderunner-web\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|solutionrelative:coderunner-web\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|c:\\users\\gamer\\coderunner\\coderunner-web\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2146EE7C-6924-4CAC-9702-226236BAC879}|coderunner-web\\coderunner-web.csproj|solutionrelative:coderunner-web\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\GAMER\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\build\\Container.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{f019fb29-c2c2-4d27-9abf-739533c939be}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Areas\\language-reference\\Views\\Shared\\Index.cshtml",
+              "RelativeDocumentMoniker": "coderunner-web\\Areas\\language-reference\\Views\\Shared\\Index.cshtml",
+              "ToolTip": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Areas\\language-reference\\Views\\Shared\\Index.cshtml",
+              "RelativeToolTip": "coderunner-web\\Areas\\language-reference\\Views\\Shared\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-07T01:14:32.541Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lang.cs",
+              "DocumentMoniker": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Areas\\language-reference\\Controllers\\lang.cs",
+              "RelativeDocumentMoniker": "coderunner-web\\Areas\\language-reference\\Controllers\\lang.cs",
+              "ToolTip": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Areas\\language-reference\\Controllers\\lang.cs",
+              "RelativeToolTip": "coderunner-web\\Areas\\language-reference\\Controllers\\lang.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-07T01:14:05.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Pages\\Error.cshtml",
+              "RelativeDocumentMoniker": "coderunner-web\\Pages\\Error.cshtml",
+              "ToolTip": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Pages\\Error.cshtml",
+              "RelativeToolTip": "coderunner-web\\Pages\\Error.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-06T10:31:21.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Container.targets",
+              "DocumentMoniker": "C:\\Users\\GAMER\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\build\\Container.targets",
+              "RelativeDocumentMoniker": "..\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\build\\Container.targets",
+              "ToolTip": "C:\\Users\\GAMER\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\build\\Container.targets",
+              "RelativeToolTip": "..\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\build\\Container.targets",
+              "ViewState": "AQIAAMMAAAAAAAAAAAD4v9YAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2024-06-06T10:24:00.689Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Program.cs",
+              "RelativeDocumentMoniker": "coderunner-web\\Program.cs",
+              "ToolTip": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Program.cs",
+              "RelativeToolTip": "coderunner-web\\Program.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAACMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T10:21:33.375Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ScaffoldingReadMe.txt",
+              "DocumentMoniker": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\ScaffoldingReadMe.txt",
+              "RelativeDocumentMoniker": "coderunner-web\\ScaffoldingReadMe.txt",
+              "ToolTip": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\ScaffoldingReadMe.txt",
+              "RelativeToolTip": "coderunner-web\\ScaffoldingReadMe.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-06-06T10:21:18.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "python.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Areas\\language-reference\\Views\\Shared\\python.cshtml.cs",
+              "RelativeDocumentMoniker": "coderunner-web\\Areas\\language-reference\\Views\\Shared\\python.cshtml.cs",
+              "ToolTip": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Areas\\language-reference\\Views\\Shared\\python.cshtml.cs",
+              "RelativeToolTip": "coderunner-web\\Areas\\language-reference\\Views\\Shared\\python.cshtml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T10:19:13.919Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "python.cshtml",
+              "DocumentMoniker": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Areas\\language-reference\\Views\\Shared\\python.cshtml",
+              "RelativeDocumentMoniker": "coderunner-web\\Areas\\language-reference\\Views\\Shared\\python.cshtml",
+              "ToolTip": "C:\\Users\\GAMER\\coderunner\\coderunner-web\\Areas\\language-reference\\Views\\Shared\\python.cshtml",
+              "RelativeToolTip": "coderunner-web\\Areas\\language-reference\\Views\\Shared\\python.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-06T10:16:05.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
