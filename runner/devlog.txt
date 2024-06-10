@@ -29,5 +29,33 @@ this file type is used to store project information such as the name of the proj
 - added a api reference for the client and the server using the included asp.net application
 - added desktop support through a seccond display inside the client
 - added a debug mode for the client as well as a screen to view the debug information from the client and the server in real time should anything go wrong.
+- added a Tabbed system for files in the client
+- added a tab system for the client so settings can exist!
+- added a settings tab for the client
+- added a settings file for the client
 
 
+planned features for 2.0 and beyond:
+
+- ability to run multiple projects with different build systems, languages and files
+- change the build system to be more dynamic and allow for more then just compiling and running code
+- language server protocol support for the client for better code completion and error checking
+- better error handling for the client and the server
+- code completion for the client
+- better support for multiple files and projects
+- new gui for the client to look more like Visual studio code or other IDE's
+- Themes for the client
+- Plugin support through the api reference for the server and client 
+
+* plans for the ui implementation
+ 1. add a new tab for the project manager
+    2. add a new tab for the build system
+    3. add a new tab for the debug information
+    4. add a new tab for the language server protocol
+    5. add a new tab for the api reference
+    6. add a new tab for the settings
+    7. add a new tab for the code completion
+    8. add a new tab for the file explorer
+    9. add a new tab for the output
+
+-ui style for Jetbrains products and Visual studio/Visual studio code

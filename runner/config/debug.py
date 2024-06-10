@@ -39,23 +39,19 @@ async def de_bug(message,type):
         "black": "#000000",
     }
     if type == "WARNING":
-        output = "<color=#ffff00><<WARNING>></color>" + message
-        await print(output)
-        print(Fore.YELLOW + "<<WARNING>>" + message)
+        
+        print(Fore.YELLOW + "<<WARNING>> " + message)
     elif type == "ERROR":
-        output = "<color=#ff0000><<ERROR>></color>" + message
-        await print(output)
-        print(Fore.RED + "<<ERROR>>" + message)
+        
+        print(Fore.RED + "<<ERROR>> " + message)
     elif type == "INFO":
-        output = "<color=#00ff00><<INFO>></color>" + message
-        await print(output)
-        print   (Fore.GREEN + "<<INFO>>" + message)
+        
+        print   (Fore.GREEN + "<<INFO>> " + message)
     elif type == "DEBUG":
-        output = "<color=#0000ff><<DEBUG>></color>" + message
-        await print(output)
-        print(Fore.BLUE + "<<DEBUG>>" + message)
+        
+        print(Fore.BLUE + "<<DEBUG>> " + message)
     else:
-        await print(output)
+        print(message)
         
 async def debug(websocket, path):
     # connect the user to the debug socket
