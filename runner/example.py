@@ -1,0 +1,1 @@
+print('Hello, world! this is python inside opf resonite!')

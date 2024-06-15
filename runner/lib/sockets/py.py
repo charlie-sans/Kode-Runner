@@ -5,7 +5,7 @@ import ast
 import os
 from sockets.debug.debug import de_bug
 def check_code_safety(code, websocket):
-    de_bug(websocket, "Checking code safety", "INFO")
+    de_bug( "Checking code safety", "INFO")
     """Checks code for potentially unsafe operations, such as removing root directories."""
 
     try:
@@ -38,12 +38,12 @@ class UnsafeCodeException(Exception):
     def __init__(self, message):
         super().__init__(message)
     def UnsafeCodeException(self, webcosket):
-        de_bug(websockets, "Unsafe code detected", "ERROR")
+        de_bug( "Unsafe code detected", "ERROR")
     
 from sockets.termc import translate_terminal_colors
 TEMP_PYTHON_FILE = "temp.py"
 async def execute_code(code, websocket):
-    de_bug(websocket, "Executing Python code", "INFO")
+    de_bug( "Executing Python code", "INFO")
     with open(TEMP_PYTHON_FILE, 'w') as file:
         file.write(code)
     if not check_code_safety(code, websocket):
@@ -61,7 +61,7 @@ async def execute_code(code, websocket):
                 await websocket.send(child.before)
                 break
         except pexpect.exceptions.TIMEOUT as e:
-            de_bug(websocket, f"Execution timed out {e}", "ERROR")
+            de_bug( f"Execution timed out {e}", "ERROR")
             break
     os.remove(TEMP_PYTHON_FILE)
 
@@ -70,5 +70,5 @@ async def server(websocket, path):
         async for code in websocket:
             await execute_code(code, websocket)
     except websockets.exceptions.ConnectionClosedOK as e: 
-        de_bug(websocket, f"Connection closed: {e}", "ERROR")
+        de_bug( f"Connection closed: {e}", "ERROR")
         pass

@@ -1,17 +1,43 @@
-{
+import asyncio
+import os
+import json as js
+
+try:
+    import websockets
+except ImportError:
+    print("Websockets not installed. Running 'pip install websockets' to install it")
+    os.system("pip install websockets")
+    import websockets
+    
+# PMSSystem tester
+
+
+# open the websocket server
+
+jsonz = """{
     "PMS_System": "1.0",
-    "Project_Name": "<Project Name>",
-      "Project_Files": [{
-                "File_Name": "main.cpp",
-                "File_Extention": ".cpp"
-                "File_Contents": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\";\n    return 0;\n}" 
+    "Project_Name": "Coderunner",
+    "Project_Files": [{
+            "File_Name": "main",
+            "File_Extention": ".cpp"
             },
             {
-                "File_Name": "test.pms",
-                "File_Extention": ".pms"
-                "File_Contents": "This is a test file for the CodeRunner PMS System.""
+            "File_Name": "imgui",
+            "File_Extention": ".cpp"
+            },
+            {
+            "File_Name": "imgui_demo",
+            "File_Extention": ".cpp"
+            },
+            {
+            "File_Name": "imgui_draw",
+            "File_Extention": ".cpp"
+            },
+        {
+            "File_Name": "test",
+            "File_Extention": ".hpp"
             }
-        ],
+    ],
     "Project_Build_System": "Rust",
     "Project_Output": "main.exe",
     "Project_Use_Multiple_Build_Systems": false,
@@ -19,11 +45,10 @@
         "Build_System_Name": "Rust",
         "Build_System_Arguments": [{
                 "Argument_Type": "string",
-                "Argument_Value": "cpp"
+                "Argument_Value": "c++"
             },
             {
                 "Argument_Type": "json",
-                "Argument_Value1": "main.cpp",
                 "Argument_Value2": "test.pms"
             },
             {
@@ -79,3 +104,13 @@
         ]
     }
 }
+"""
+
+jzons = js.loads(jsonz)
+# read the json array of files and the contents of the files
+
+for project_file in jzons["Project_Files"]:
+    # Extract and assign the values to variables
+    file_name = project_file["File_Name"]
+    file_extension = project_file["File_Extention"]
+    print(f"File Name: {file_name}, File Extension: {file_extension}")

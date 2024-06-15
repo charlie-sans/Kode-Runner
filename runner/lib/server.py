@@ -1,6 +1,6 @@
 import asyncio
 import os
-
+from config import config
 try:
     import websockets
 except ImportError:
@@ -10,8 +10,10 @@ except ImportError:
 import pexpect
 import os
 import subprocess
-from sockets.debug.debug import de_bug
 import re
+
+from sockets.debug.debug import de_bug
+import PMSSystem.PMSsystem as PMSsystem
 from sockets.go import GO
 from sockets.js import NODE
 from sockets.cpp import CPP
@@ -20,38 +22,29 @@ from sockets.shell import shell
 from sockets.debug import debug
 from sockets.lua import LUA
 from sockets.mono import MONO
-endpoints = ["ws://localhost:5000/mono,","ws://localhost:5000/js,","ws://localhost:5000/py,","ws://localhost:5000/cpp,","ws://localhost:5000/lua,","ws://localhost:5000/shell,"]
-WS_HOST = "0.0.0.0"
-WS_PORT = 5000
+conf = config()
 
-
-
-DIRECTORY= "code"
-if not os.path.exists(DIRECTORY):
-    os.makedirs(DIRECTORY)
+if not os.path.exists(conf.DIRECTORY):
+    os.makedirs(conf.DIRECTORY)
 
 async def handler(websocket, path):
+    print(websocket, path)
     match path:
-        case "/mono":
-            de_bug(websocket, "Connected to mono server", "INFO")
-            await MONO(websocket, path)
-        case "/cpp":
-            de_bug(websocket, "Connected to cpp server", "INFO")
-            await CPP(websocket, path)
+        case "/lang":
+            pass
+        case "/test":
+           
+            data = PMSsystem.PMSSystem.assign(await websocket.recv())
+      
+            await websocket.send(data)
+        case "/PMS":
+            await PMSsystem.PMSSystem.PMSSystemStartup(websocket, path)
+        case "/code":
+            await PMSsystem.PMSSystem.PMSCode(websocket, path)
         case "/py":
-            de_bug(websocket, "Connected to python server", "INFO")
             await server(websocket, path)
-        case "/js":
-            de_bug(websocket, "Connected to node server", "INFO")
-            await NODE(websocket, path)
-        case "/go":
-            de_bug(websocket, "Connected to go server", "INFO")
-            await GO(websocket, path)
-        case "/lua":
-            de_bug(websocket, "Connected to lua server", "INFO")
-            await LUA(websocket, path)
         case "/shell":
-            de_bug(websocket, "Connected to shell server", "INFO")
+            de_bug( "Connected to shell server", "INFO")
             await shell(websocket, path)
         case "/debug":
             de_bug(websocket, "Connected to debug server", "INFO")
@@ -64,16 +57,16 @@ async def handler(websocket, path):
                 # send the received code to all connected clients
                 for client in websockets:
                     await client.send(code)
-        case "/request":
-            await websocket.send(endpoints)
+        case "/request": await websocket.send(conf.endpoints)
         case _: await websocket.send("Invalid path")
 
 
 
-ws_server = websockets.serve(handler, WS_HOST, WS_PORT)
+ws_server = websockets.serve(handler, conf.WS_HOST, conf.WS_PORT)
 
 print("CodeRunner Server version 2.0")
-print("Server started at port", WS_PORT)
+print("TEST SERVER: Things may break")
+print("Server started at port", conf.WS_PORT)
 print("Relay started at address https://localhost:5000/")
 print("Press Ctrl+C to stop the server")
 asyncio.get_event_loop().run_until_complete(ws_server)
