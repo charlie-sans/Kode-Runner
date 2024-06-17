@@ -23,6 +23,7 @@ class config:
         self.WS_HOST = "0.0.0.0"
         self.WS_PORT = 5000
         self.DIRECTORY= "code"
+        self.help = "welcome to CodeRunner!"
 conf = config()
 if conf.runnerVersion == "":
     de_bug("runnerVersion is not set, please set it in the config file.", "ERROR")

@@ -21,16 +21,16 @@
             },
             {
                 "Argument_Type": "json",
-                "Argument_Value1": "main.cpp",
-                "Argument_Value2": "test.pms"
+                "Argument_Value": "main.cpp"
+
             },
             {
                 "Argument_Type": "string",
-                "Argument_Value1": "main.exe"
+                "Argument_Value": "main.exe"
             },
             {
                 "Argument_Type": "bool",
-                "Argument_Value1": false
+                "Argument_Value": false
             }
         ]
     }],
@@ -76,4 +76,8 @@
             }
         ]
     }
+} {
+    "File_Name": "main",
+
+    "File_Contents": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n    return 0;\n}"
 }

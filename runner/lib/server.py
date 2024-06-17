@@ -32,10 +32,23 @@ async def handler(websocket, path):
     match path:
         case "/lang":
             pass
+        case "/js":
+            await NODE(websocket, path)
+        case "/go":
+            await GO(websocket, path)
+        case "/cpp":
+            await CPP(websocket, path)
+        case "/lua":
+            await LUA(websocket, path)
+        case "/mono":
+            await MONO(websocket, path)
+        
+        case "/help":
+            await websocket.send(conf.help)
         case "/test":
-           
+            websocket.send("starting test")
             data = PMSsystem.PMSSystem.assign(await websocket.recv())
-      
+            print(data)
             await websocket.send(data)
         case "/PMS":
             await PMSsystem.PMSSystem.PMSSystemStartup(websocket, path)
@@ -44,7 +57,7 @@ async def handler(websocket, path):
         case "/py":
             await server(websocket, path)
         case "/shell":
-            de_bug( "Connected to shell server", "INFO")
+            de_bug("Connected to shell server", "INFO")
             await shell(websocket, path)
         case "/debug":
             de_bug(websocket, "Connected to debug server", "INFO")

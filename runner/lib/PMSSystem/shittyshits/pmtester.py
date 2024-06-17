@@ -3,7 +3,7 @@ import os
 import json as js
 
 try:
-    import websockets
+    import websockets.sync.client as ws
 except ImportError:
     print("Websockets not installed. Running 'pip install websockets' to install it")
     os.system("pip install websockets")
@@ -38,29 +38,10 @@ jsonz = """{
             "File_Extention": ".hpp"
             }
     ],
-    "Project_Build_System": "Rust",
+    "Project_Build_System": "Coderunner-Tools",
     "Project_Output": "main.exe",
     "Project_Use_Multiple_Build_Systems": false,
-    "Project_Build_Systems": [{
-        "Build_System_Name": "Rust",
-        "Build_System_Arguments": [{
-                "Argument_Type": "string",
-                "Argument_Value": "c++"
-            },
-            {
-                "Argument_Type": "json",
-                "Argument_Value2": "test.pms"
-            },
-            {
-                "Argument_Type": "string",
-                "Argument_Value1": "main.exe"
-            },
-            {
-                "Argument_Type": "bool",
-                "Argument_Value1": false
-            }
-        ]
-    }],
+
     "Project_Use_Language_Server_Protocol": false,
     "Project_Language_Server_Protocol": {
         "Language_Server_Protocol_Name": "LSP",
@@ -105,12 +86,33 @@ jsonz = """{
     }
 }
 """
+"""    "Project_Build_Systems": [{
+        "Build_System_Name": "CodeRunner-Tools",
+        "Build_System_Arguments": [{
+                "Argument_Type": "string",
+                "Argument_Value": "c++"
+            },
+            {
+                "Argument_Type": "string",
+                "Argument_Value2": "main.cpp"
+            },
+            {
+                "Argument_Type": "string",
+                "Argument_Value1": "main.exe"
+            },
+            {
+                "Argument_Type": "bool",
+                "Argument_Value1": false
+            }
+        ]
+    }],"""
+import asyncio
+from websockets.sync.client import connect
 
-jzons = js.loads(jsonz)
-# read the json array of files and the contents of the files
+def hello():
+    with connect("ws://localhost:5000/PMS") as websocket:
+        websocket.send(js.dumps(jsonz))
+        message = websocket.recv()
+        print(f"Received: {message}")
 
-for project_file in jzons["Project_Files"]:
-    # Extract and assign the values to variables
-    file_name = project_file["File_Name"]
-    file_extension = project_file["File_Extention"]
-    print(f"File Name: {file_name}, File Extension: {file_extension}")
+hello()
