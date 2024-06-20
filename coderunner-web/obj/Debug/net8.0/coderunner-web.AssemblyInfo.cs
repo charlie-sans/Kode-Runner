@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("coderunner-web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef9357a06923f5896090699b7b09888db9276296")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e59ca8d48bf0514fcbd79339b67645748a78c332")]
 [assembly: System.Reflection.AssemblyProductAttribute("coderunner-web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("coderunner-web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
