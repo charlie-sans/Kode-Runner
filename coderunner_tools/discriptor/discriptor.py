@@ -11,7 +11,15 @@ import json
 import logging
 import asyncio
 import websockets
-
+import configparser
+import argparse
+import time 
+import threading
+import requests
+import coderunner_tools.discriptor.jsonthing as jsonthing
+from coderunner_tools.discriptor.jsonthing import JsonCreatorWindow
+#import textural
+import http.server
 
 #############
 # C 2024 OpenStudio
@@ -28,6 +36,7 @@ import websockets
 class WebTester(PySide6.QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+        self.jsonconfig = JsonCreatorWindow()
         self.setWindowTitle("Websocket Tester")
         self.layout = PySide6.QtWidgets.QHBoxLayout()  # Use QHBoxLayout instead of QVBoxLayout
         self.setLayout(self.layout)
@@ -68,6 +77,13 @@ class WebTester(PySide6.QtWidgets.QWidget):
         self.response_output = PySide6.QtWidgets.QPlainTextEdit()
         self.right_layout.addWidget(self.response_output)
         
+        # button to create the json window from os.system
+        self.create_json_button = PySide6.QtWidgets.QPushButton("Create JSON")
+        self.create_json_button.clicked.connect(self.jsonconfig.show)
+        self.right_layout.addWidget(self.create_json_button)
+        
+        
+        
         #!sidebar
         self.sidebar = PySide6.QtWidgets.QVBoxLayout()
         self.layout.addLayout(self.sidebar)
@@ -91,15 +107,87 @@ class WebTester(PySide6.QtWidgets.QWidget):
         
         
         #!sidebar
-        
-        
-        
+        self.response = None
 
         self.webview = None
         self.websocketlink = None
         self.websocket = None
         self.responses = None
+        self.backgroundColor = None
+        self.textColor = None
+        self.textSize = None
+        self.Font = None
+        self.foregroundcolor = None
+        self.windowcolor = None
+        self.sidecolor = None
+        self.basecolor = None
+        self.alternatebasecolor = None
+        self.testslist = {}
+
+        def jsonconfig_show():
+            self.jsonconfig.show()
+        def read_config():
+            try:
+                
+                config = configparser.ConfigParser()
+                config.read("config.ini")
+                self.websocketlink = config["WEBSOCKET"]["link"]
+                self.websocket = self.websocket()
+                self.basecolor = config["COLORS"]["basecolor"]
+                self.alternatebasecolor = config["COLORS"]["alternatebasecolor"]
+                self.foregroundcolor = config["COLORS"]["foregroundcolor"]
+                self.windowcolor = config["COLORS"]["windowcolor"]
+                self.sidecolor = config["COLORS"]["sidecolor"]
+                self.Font = config["FONTS"]["font"]
+                self.textSize = config["FONTS"]["textsize"]
+                self.textColor = config["FONTS"]["textcolor"]
+                self.backgroundColor = config["FONTS"]["backgroundcolor"]
+                # stylesheet defined in the config file
+                stylesheet = None
+                with open(config["STYLESHEET"]["stylesheet"], "r") as file:
+                    stylesheet = file.read()
+                self.setStyleSheet(stylesheet)
+            except Exception as e:
+                print(f"Error reading config file: {e}")
+        
+        read_config()
+        
     
+    def generate_test_list(self):
+        files = os.listdir("tests")
+        filelist = [f"tests/{file}" for file in files if file.endswith(".json")]
+        for file in filelist:
+            # file is a json file with the test data so we need to parse it
+            with open(file, "r") as f:
+                data = json.load(f)
+                self.test_list.addItem(data["name"])
+                filename = file.split(".")[0]
+                self.testslist[filename] = data
+                
+    def run_test(self):
+        test = self.test_list.currentItem().text()
+        # use the file that we parsed earlier to get the test data
+        test_data = self.testslist[test]
+        if test_data["type"] == "Websocket":
+            self.websocket.sendTextMessage(test_data["test_data"])
+            data = self.websocket.receive()
+            
+            if data is None:
+                self.response_output.appendPlainText("No response received")
+                return
+            
+            # i love writing this BULLSHIT IN VR WTF BROOO
+            if data != test_data["expected_response"]:
+                self.response_output.appendPlainText(f"Test failed. Expected {test_data['expected_response']} but received {data}") # Print the response
+                
+        elif test_data["type"] == "http-get":
+            response = requests.get(test_data["url"])
+            self.response_output.appendPlainText(response.text)
+            
+        elif test_data["type"] == "http-post":
+            response = requests.post(test_data["url"], data=test_data["test_data"])
+            self.response_output.appendPlainText(response.text)
+            
     def webview(self):
         self.webview = PySide6.QtWebEngineWidgets.QWebEngineView()
         self.layout.addWidget(self.webview)
@@ -185,7 +273,7 @@ class WebTester(PySide6.QtWidgets.QWidget):
             self.test_pms()
         elif test == "Test CodeWriter":
             self.test_codewriter()
-        elif test == "Test P-L-S":
+        elif test == "Test linterimpl":
             self.test_pylinterinpl()
         elif test == "Test Parser":
             self.test_parser()
@@ -208,4 +296,5 @@ class WebTester(PySide6.QtWidgets.QWidget):
 app = PySide6.QtWidgets.QApplication([])
 window = WebTester()
 window.show()
+window.generate_test_list()
 app.exec()
