@@ -90,7 +90,7 @@ from config import config
 #     }
 # }
 
-
+# this is a comment 
 
 
 conf = config()
@@ -159,8 +159,8 @@ class PMSSystem:
                 #os.system("./build.sh")                
                 
     def setup_multiple_build_systems(PMSBuildSystems):
-        pass
-    
+
+        print("Setting up multiple build systems is not supported yet")
 
     
         
