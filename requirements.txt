@@ -1,7 +1,0 @@
-asyncio
-websockets
-colorama
-pyte
-termplotlib
-pexpect
-textual
