@@ -159,14 +159,8 @@ class PMSSystem:
                 #os.system("./build.sh")                
                 
     def setup_multiple_build_systems(PMSBuildSystems):
-<<<<<<< HEAD
-        pass    
-=======
 
         print("Setting up multiple build systems is not supported yet")
-
-    
->>>>>>> c36c3041e8c05666ccafc6e01825bf43bbd7c0ba
         
     def setup_language_server_protocol(PMSLanguageServerProtocolName, PMSLanguageServerProtocolVersion, PMSLanguageServerProtocolSupport):
         PMSLSP = PMSLanguageServerProtocolName
