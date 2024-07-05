@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "type_traits": "c",
-        "xtr1common": "c",
-        "xutility": "c"
-    }
-}

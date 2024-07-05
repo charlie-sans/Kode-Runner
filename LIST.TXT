@@ -1,2 +1,4 @@
-/DEBUG LOGS AND EVERYTHING
-lang output processes
+with coderunner, certain parts of the system must be built into one.
+
+currently we do not have a build system to package each of the contents for the server.
+
