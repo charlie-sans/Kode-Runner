@@ -10,7 +10,7 @@ from config import config
 
 # This is the main function that will be called by the CodeRunner when the project is run
 
-# example json
+# example json b
 # {
 #     "PMS_System": "1.0",
 #     "Project_Name": "<Project Name>",
@@ -159,10 +159,7 @@ class PMSSystem:
                 #os.system("./build.sh")                
                 
     def setup_multiple_build_systems(PMSBuildSystems):
-        pass
-    
-
-    
+        pass    
         
     def setup_language_server_protocol(PMSLanguageServerProtocolName, PMSLanguageServerProtocolVersion, PMSLanguageServerProtocolSupport):
         PMSLSP = PMSLanguageServerProtocolName
@@ -208,50 +205,41 @@ class PMSSystem:
         return jsthing.loads(json_file)
 
     def assign(json_file):
+        
         print("Assigning the json file")
         
         json = json_file
         print("Json: " + str(json))
         projects = []
         system= PMSSystem()
-        
         try:
-            for project_file in json["Project_Files"]:
-                # Extract and assign the values to variables
-                file_name = project_file["File_Name"]
-                file_extension = project_file["File_Extention"]
-                system.PMSProjectFiles.append(file_name + file_extension)
+            system.PMSProjectFiles = [project_file["File_Name"] + project_file["File_Extention"] for project_file in json["Project_Files"]]
         except KeyError:
             print("Error: The project files are not set, please set them in the pms file.")
-           
+
         try:
             system.PMSProjectBuildSystem = json["Project_Build_Systems"][0]["Build_System_Name"]
-            print("setting Build System: " + system.PMSProjectBuildSystem)
-            #system.PMSProjectOutput = json["Project_Output"]
+            print("Setting Build System: " + system.PMSProjectBuildSystem)
             system.PMSProjectUseMultipleBuildSystems = json["Project_Use_Multiple_Build_Systems"]
         except KeyError as k:
             print("Error: The project build system is not set, please set it in the pms file.")
             print(k)
-            
+
         try:
-            for project in json["Project_Build_Systems"]:
-                system.PMSProjectBuildSystems.append(project["Build_System_Name"])
-                system.PMSProjectUseLanguageServerProtocol = json["Project_Use_Language_Server_Protocol"]
+            system.PMSProjectBuildSystems = [project["Build_System_Name"] for project in json["Project_Build_Systems"]]
+            system.PMSProjectUseLanguageServerProtocol = json["Project_Use_Language_Server_Protocol"]
         except KeyError:
-            print("no project build systems set, please set them in the pms file.")
-          
+            print("No project build systems set, please set them in the pms file.")
+
         try:
-            for project in json["Project_Language_Server_Protocol"]:
-                system.PMSProjectLanguageServerProtocol.append(project)
+            system.PMSProjectLanguageServerProtocol = json["Project_Language_Server_Protocol"]
             system.PMSProjectErrorHandling = json["Project_Error_Handling"]
             system.PMSProjectCodeCompletion = json["Project_Code_Completion"]
             system.PMSProjectMultipleFilesSupport = json["Project_Multiple_Files_Support"]
-            for project in json["Project_GUI"]:
-                system.PMSProjectGUI.append(project)
+            system.PMSProjectGUI = json["Project_GUI"]
             system.PMSProjectName = json["Project_Name"]
         except KeyError:
             print("Error: The project language server protocol is not set, please set it in the pms file.")
-           
         if not os.path.exists(system.PMSProjectLocation):
             os.makedirs(system.PMSProjectLocation)
             
@@ -331,7 +319,7 @@ class PMSSystem:
             filecontents = parsed_code["File_Contents"]
             # get the file extention from the name 
             fileext = re.split(r"\.", filename)[1]
-            with open(filename, "w") as f:
+            with open("code/" + filename, "w") as f:
                 f.write(filecontents)
             await websocket.send("File saved successfully " + filename)
             

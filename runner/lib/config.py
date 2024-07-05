@@ -21,7 +21,7 @@ class config:
         self.supportedBuildSystemsArguments = []
         self.endpoints = ["ws://localhost:5000/mono,","ws://localhost:5000/js,","ws://localhost:5000/py,","ws://localhost:5000/cpp,","ws://localhost:5000/lua,","ws://localhost:5000/shell,"]
         self.WS_HOST = "0.0.0.0"
-        self.WS_PORT = 5000
+        self.WS_PORT = 5001
         self.DIRECTORY= "code"
         self.help = "welcome to CodeRunner!"
 conf = config()

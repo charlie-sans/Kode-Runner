@@ -16,8 +16,8 @@ import argparse
 import time 
 import threading
 import requests
-import coderunner_tools.discriptor.jsonthing as jsonthing
-from coderunner_tools.discriptor.jsonthing import JsonCreatorWindow
+
+from jsonthing import JsonCreatorWindow
 #import textural
 import http.server
 
