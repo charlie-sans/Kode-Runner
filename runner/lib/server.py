@@ -59,7 +59,7 @@ async def handler(websocket, path):
         case "/py":
             await server(websocket, path)
         case "/shell":
-            de_bug("Connected to shell server", "INFO")
+            #de_bug("Connected to shell server", "INFO")
             await shell(websocket, path)
         case "/debug":
             de_bug(websocket, "Connected to debug server", "INFO")

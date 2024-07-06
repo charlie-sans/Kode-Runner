@@ -18,8 +18,7 @@ async def execute_CPP( websocket):
         try:
             index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0 or index==1:
-                coded_text = translate_terminal_colors(child.before)
-                print(type(child.after), child.after)
+                #coded_text = translate_terminal_colors(child.before)
                 await websocket.send(child.after)
             elif index == 2:
                 break
