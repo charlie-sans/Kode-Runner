@@ -5,7 +5,7 @@ import ast
 import os
 from sockets.debug.debug import de_bug
 def check_code_safety(code, websocket):
-    de_bug( "Checking code safety", "INFO")
+    print( "Checking code safety", "INFO")
     """Checks code for potentially unsafe operations, such as removing root directories."""
 
     try:
@@ -38,27 +38,27 @@ class UnsafeCodeException(Exception):
     def __init__(self, message):
         super().__init__(message)
     def UnsafeCodeException(self, webcosket):
-        de_bug( "Unsafe code detected", "ERROR")
+        print( "Unsafe code detected", "ERROR")
     
 from sockets.termc import translate_terminal_colors
 TEMP_PYTHON_FILE = "temp.py"
 async def execute_code(code, websocket):
-    de_bug( "Executing Python code", "INFO")
+    print( "Executing Python code", "INFO")
     with open(TEMP_PYTHON_FILE, 'w') as file:
         file.write(code)
-    if not check_code_safety(code, websocket):
-        await websocket.send("Unsafe code detected.")
-        os.remove(TEMP_PYTHON_FILE)
-        return
+    #if not check_code_safety(code, websocket):
+     #   await websocket.send("Unsafe code detected.")
+      #  os.remove(TEMP_PYTHON_FILE)
+       # return
     child = pexpect.spawn(f"python3 {TEMP_PYTHON_FILE}", encoding="utf-8")
 
     while True:
         try:
-            index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
-            if index == 0:
-                await websocket.send(child.before)
-            elif index == 1:
-                await websocket.send(child.before)
+            index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+            if index == 0 or index == 1:
+                await websocket.send(child.after)
+            elif index == 2:
+                #await websocket.send(child.before)
                 break
         except pexpect.exceptions.TIMEOUT as e:
             de_bug( f"Execution timed out {e}", "ERROR")
