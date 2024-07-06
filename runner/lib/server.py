@@ -26,6 +26,8 @@ conf = config()
 
 if not os.path.exists(conf.DIRECTORY):
     os.makedirs(conf.DIRECTORY)
+    
+os.chdir(conf.DIRECTORY)
 
 async def handler(websocket, path):
     print(websocket, path)
