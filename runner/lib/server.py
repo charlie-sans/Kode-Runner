@@ -14,14 +14,12 @@ import re
 
 from sockets.debug.debug import de_bug
 import PMSSystem.PMSsystem as PMSsystem
-from sockets.go import GO
-from sockets.js import NODE
+
 from sockets.cpp import CPP
-from sockets.py import server
-from sockets.shell import shell
+
+
 from sockets.debug import debug
-from sockets.lua import LUA
-from sockets.mono import MONO
+
 conf = config()
 
 if not os.path.exists(conf.DIRECTORY):
@@ -34,16 +32,10 @@ async def handler(websocket, path):
     match path:
         case "/lang":
             pass
-        case "/js":
-            await NODE(websocket, path)
-        case "/go":
-            await GO(websocket, path)
+       
         case "/cpp":
             await CPP(websocket, path)
-        case "/lua":
-            await LUA(websocket, path)
-        case "/mono":
-            await MONO(websocket, path)
+      
         
         case "/help":
             await websocket.send(conf.help)
@@ -56,11 +48,11 @@ async def handler(websocket, path):
             await PMSsystem.PMSSystem.PMSSystemStartup(websocket, path)
         case "/code":
             await PMSsystem.PMSSystem.PMSCode(websocket, path)
-        case "/py":
-            await server(websocket, path)
-        case "/shell":
-            #de_bug("Connected to shell server", "INFO")
-            await shell(websocket, path)
+        # case "/py":
+        #     await server(websocket, path)
+        # case "/shell":
+        #     #de_bug("Connected to shell server", "INFO")
+        #     await shell(websocket, path)
         case "/debug":
             de_bug(websocket, "Connected to debug server", "INFO")
             await debug(websocket, path)
