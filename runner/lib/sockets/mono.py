@@ -13,11 +13,10 @@ async def execute_code(code, websocket):
     child = pexpect.spawn("mono temp.exe", encoding="utf-8")
     while True:
         try:
-            index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
-            if index == 0:
-                await websocket.send(child.before)
-            elif index == 1:
-                await websocket.send(child.before)
+            index = child.expect(['\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+            if index == 0 or index == 1:
+                await websocket.send(child.after)
+            elif index == 2:
                 break
         except pexpect.exceptions.TIMEOUT as e:
             de_bug(websocket, f"Execution timed out {e}", "ERROR")

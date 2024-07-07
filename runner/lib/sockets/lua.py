@@ -14,13 +14,11 @@ async def execute_NODE(code, websocket):
 
         while True:
             try:
-                index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
-                if index == 0:
-                    coded_text = translate_terminal_colors(child.before)
-                    await websocket.send(coded_text)
-                elif index == 1:
-                    coded_text = translate_terminal_colors(child.before)
-                    await websocket.send(coded_text)
+                index = child.expect(['\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+                if index == 0 or index == 1:
+                    #coded_text = translate_terminal_colors(child.after)
+                    await websocket.send(child.after)
+                elif index == 2:
                     break
             except pexpect.exceptions.TIMEOUT:
                 break
