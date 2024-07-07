@@ -4,6 +4,7 @@ import websockets
 import ast
 import os
 from sockets.debug.debug import de_bug
+from sockets.termc import new_char
 def check_code_safety(code, websocket):
     print( "Checking code safety", "INFO")
     """Checks code for potentially unsafe operations, such as removing root directories."""
@@ -56,7 +57,10 @@ async def execute_code(code, websocket):
         try:
             index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0 or index == 1:
-                await websocket.send(child.after)
+                translated_code = new_char(child.after)
+                if translated_code == None:
+                    continue
+                await websocket.send(translated_code)
             elif index == 2:
                 #await websocket.send(child.before)
                 break

@@ -3,7 +3,7 @@ import websockets
 import pexpect
 import os
 from sockets.debug.debug import de_bug
-from sockets.termc import translate_terminal_colors
+from sockets.termc import new_char
 TEMP_CPP_FILE = "temp.cpp"
 async def execute_CPP( websocket):
     
@@ -18,8 +18,10 @@ async def execute_CPP( websocket):
         try:
             index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0 or index==1:
-                #coded_text = translate_terminal_colors(child.before)
-                await websocket.send(child.after)
+                translated_code = new_char(child.after)
+                if translated_code == None:
+                    continue
+                await websocket.send(translated_code)
             elif index == 2:
                 break
         except pexpect.exceptions.TIMEOUT as e:
