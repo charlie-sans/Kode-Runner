@@ -2,7 +2,7 @@ import os
 import pexpect
 import websockets
 
-from sockets.termc import translate_terminal_colors
+from sockets.termc import convert_string_to_color_code
 TEMP_NODE_FILE = "temp.js"
 ### START
 async def execute_NODE(code, websocket):

@@ -40,7 +40,7 @@ class UnsafeCodeException(Exception):
     def UnsafeCodeException(self, webcosket):
         print( "Unsafe code detected", "ERROR")
     
-from sockets.termc import translate_terminal_colors
+from sockets.termc import convert_string_to_color_code
 TEMP_PYTHON_FILE = "temp.py"
 async def execute_code(code, websocket):
     print( "Executing Python code", "INFO")

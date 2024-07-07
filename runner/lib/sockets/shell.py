@@ -2,7 +2,7 @@ import websockets
 import pexpect
 import os
 
-from sockets.termc import translate_terminal_colors
+from sockets.termc import convert_string_to_color_code
 TEMP_BASH_FILE = "temp.sh"
 
 

@@ -2,7 +2,7 @@ import asyncio
 import websockets
 import pexpect
 import os
-from sockets.termc import translate_terminal_colors
+from sockets.termc import convert_string_to_color_code
 TEMP_GO_FILE = "/code/temp.go"
 
 ### START
@@ -16,10 +16,10 @@ async def execute_GO(code, websocket):
         try:
             index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0:
-                coded_text = translate_terminal_colors(child.before)
+                coded_text = convert_string_to_color_code(child.before)
                 await websocket.send(coded_text)
             elif index == 1:
-                coded_text = translate_terminal_colors(child.before)
+                coded_text = convert_string_to_color_code(child.before)
                 await websocket.send(coded_text)
                 break
         except pexpect.exceptions.TIMEOUT:

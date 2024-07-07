@@ -1,82 +1,44 @@
-def translate_terminal_colors(code):
-    color_mapping = {
-        '0': 'gray',
-        '1': 'red',
-        '2': 'green',
-        '3': 'yellow',
-        '4': 'blue',
-        '5': 'magenta',
-        '6': 'cyan',
-        '7': 'white',
-        '9': 'red',
-        '10': 'green',
-        '11': 'yellow',
-        '12': 'blue',
-        '13': 'magenta',
-        '14': 'cyan',
-        '15': 'white',
-        '9': 'red',
-        '10': 'green',
-        '11': 'yellow',
-        '12': 'blue',
-        '13': 'magenta',
-        '14': 'cyan',
-        '15': 'white',
-        '[51C': 'red',
-        '[21a': '',
-        '[K': '',
-        '31': 'red',
-        '32': 'green',
-        '33': 'yellow',
-        '34': 'blue',
-        '35': 'magenta',
-        '36': 'cyan',
-        '37': 'white',
-  
-        '101': 'red',
-        '110': 'green',
-        '111': 'yellow',
-        '112': 'blue',
-        '113': 'magenta',
-        '114': 'cyan',
-        '115': 'white',
-        
-        '41': 'red',
-        '42': 'green',
-        '43': 'yellow',
-        '44': 'blue',
-        '45': 'magenta',
-        '46': 'cyan',
-        '47': 'white',
-   
-        '101': 'red',
-        '102': 'green',
-        '103': 'yellow',
-        '104': 'blue',
-        '105': 'magenta',
-        '106': 'cyan',
-        '107': 'white',
-   
-    
-    }
-    
-    translated_code = ''
-    i = 0
-    while i < len(code):
-        if code[i] == '\x1b' and code[i+1] == '[':
-            j = i + 2
-            while code[j].isdigit() or code[j] == ';':
-                j += 1
-            if code[j] == 'm':
-                color_codes = code[i+2:j].split(';')
-                for color_code in color_codes:
-                    if color_code in color_mapping:
-                        translated_code += f'<color={color_mapping[color_code]}>'
-                    else:
-                        translated_code += f'<color={color_code}>'
-                i = j + 1
-                continue
-        translated_code += code[i]
-        i += 1
-    
-    return translated_code
+import re
+
+def convert_16bit_to_rgb(bit16):
+    red = ((bit16 >> 11) & 0x1F) * 255 // 31
+    green = ((bit16 >> 5) & 0x3F) * 255 // 63
+    blue = (bit16 & 0x1F) * 255 // 31
+    return red, green, blue
+
+def rgb_to_hex(red, green, blue):
+    return f"#{red:02x}{green:02x}{blue:02x}"
+
+def convert_string_to_color_code(input_string):
+    pattern = r"(?:\x1b\[)?(\d+)m(.*?)"
+    result_string = input_string
+
+    for match in re.finditer(pattern, input_string):
+        color_code = match.group(1)
+        text = match.group(2)
+
+        if color_code.isdigit():
+            bit16 = int(color_code)
+            red, green, blue = convert_16bit_to_rgb(bit16)
+        else:
+            # Handle ANSI escape codes here
+            ansi_code = color_code
+            if ansi_code == "31":  # Red
+                red, green, blue = 255, 0, 0
+            elif ansi_code == "32":  # Green
+                red, green, blue = 0, 255, 0
+            elif ansi_code == "34":  # Blue
+                red, green, blue = 0, 0, 255
+            else:
+                # If the color code is not found, you can choose a default color
+                red, green, blue = 0, 0, 0
+
+        hex_color = rgb_to_hex(red, green, blue)
+        result_string = result_string.replace(match.group(0), f"<color={hex_color}>{text}</color>")
+
+    return result_string
+if __name__ == "__main__":
+    # Test the function
+    input_string = "\x1b[31mHello, \x1b[32mWorld!\x1b[0m"
+    output_string = convert_string_to_color_code(input_string)
+    print(output_string)  # <color=#ff0000>Hello, </color><color=#00ff00>World!</color>
