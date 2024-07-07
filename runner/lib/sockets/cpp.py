@@ -3,7 +3,7 @@ import websockets
 import pexpect
 import os
 from sockets.debug.debug import de_bug
-from sockets.termc import parse_ansi_escape_codes
+from sockets.termc import translate_terminal_colors
 TEMP_CPP_FILE = "temp.cpp"
 async def execute_CPP( websocket):
     
@@ -19,9 +19,7 @@ async def execute_CPP( websocket):
             index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0 or index==1:
                 #coded_text = translate_terminal_colors(child.before)
-                coded_text = parse_ansi_escape_codes(child.after)
-               
-                await websocket.send(coded_text)
+                await websocket.send(child.after)
             elif index == 2:
                 break
         except pexpect.exceptions.TIMEOUT as e:
@@ -40,12 +38,10 @@ async def write_CPP(code, websocket):
         try:
             index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0:
-                coded_text = parse_ansi_escape_codes(child.before)
-                print(coded_text)
+                coded_text = translate_terminal_colors(child.before)
                 await websocket.send(coded_text)
             elif index == 1:
-                coded_text = parse_ansi_escape_codes(child.before)
-                print(coded_text)
+                coded_text = translate_terminal_colors(child.before)
                 await websocket.send(coded_text)
                 break
         except pexpect.exceptions.TIMEOUT as e:

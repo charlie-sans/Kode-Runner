@@ -1,29 +1,82 @@
-import re
-
-def parse_ansi_escape_codes(text):
-    result = []
-    current_color = None
-    for char in text:
-        if char == '\x1b':
-            # Start of an escape sequence
-            count = 1
-            while count > 0:
-                char = text[text.index(char) + count]
-                if char == '[':
-                    count += 1
-                elif char == 'm':
-                    count -= 1
-            # Extract the color code
-            color_code = text[text.index(char):text.index('m')].strip()
-            if color_code.startswith('38'):
-                # This is a 256-color code
-                color_number = int(color_code.split(';')[1])
-                hex_color = '#{:02x}{:02x}{:02x}'.format(*divmod(color_number * 10 % 256, 256))
-                current_color = hex_color
-            else:
-                # Reset color
-                current_color = None
-            result.append((current_color, text[text.index(char):]))
-        else:
-            result.append((current_color, char))
-    return result
+def translate_terminal_colors(code):
+    color_mapping = {
+        '0': 'gray',
+        '1': 'red',
+        '2': 'green',
+        '3': 'yellow',
+        '4': 'blue',
+        '5': 'magenta',
+        '6': 'cyan',
+        '7': 'white',
+        '9': 'red',
+        '10': 'green',
+        '11': 'yellow',
+        '12': 'blue',
+        '13': 'magenta',
+        '14': 'cyan',
+        '15': 'white',
+        '9': 'red',
+        '10': 'green',
+        '11': 'yellow',
+        '12': 'blue',
+        '13': 'magenta',
+        '14': 'cyan',
+        '15': 'white',
+        '[51C': 'red',
+        '[21a': '',
+        '[K': '',
+        '31': 'red',
+        '32': 'green',
+        '33': 'yellow',
+        '34': 'blue',
+        '35': 'magenta',
+        '36': 'cyan',
+        '37': 'white',
+  
+        '101': 'red',
+        '110': 'green',
+        '111': 'yellow',
+        '112': 'blue',
+        '113': 'magenta',
+        '114': 'cyan',
+        '115': 'white',
+        
+        '41': 'red',
+        '42': 'green',
+        '43': 'yellow',
+        '44': 'blue',
+        '45': 'magenta',
+        '46': 'cyan',
+        '47': 'white',
+   
+        '101': 'red',
+        '102': 'green',
+        '103': 'yellow',
+        '104': 'blue',
+        '105': 'magenta',
+        '106': 'cyan',
+        '107': 'white',
+   
+    
+    }
+    
+    translated_code = ''
+    i = 0
+    while i < len(code):
+        if code[i] == '\x1b' and code[i+1] == '[':
+            j = i + 2
+            while code[j].isdigit() or code[j] == ';':
+                j += 1
+            if code[j] == 'm':
+                color_codes = code[i+2:j].split(';')
+                for color_code in color_codes:
+                    if color_code in color_mapping:
+                        translated_code += f'<color={color_mapping[color_code]}>'
+                    else:
+                        translated_code += f'<color={color_code}>'
+                i = j + 1
+                continue
+        translated_code += code[i]
+        i += 1
+    
+    return translated_code

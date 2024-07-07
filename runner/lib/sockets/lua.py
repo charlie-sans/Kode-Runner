@@ -2,7 +2,7 @@ import os
 import pexpect
 import websockets
 
-from sockets.termc import convert_string_to_color_code
+from sockets.termc import translate_terminal_colors
 TEMP_NODE_FILE = "temp.lua"
 ### START
 async def execute_NODE(code, websocket):

@@ -1,7 +1,7 @@
 import os
 import pexpect
 import websockets
-from sockets.termc import convert_string_to_color_code
+from sockets.termc import translate_terminal_colors
 from sockets.debug.debug import de_bug
 
 TEMP_PYTHON_FILE = "temp.cs"
