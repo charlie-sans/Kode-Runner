@@ -5,3 +5,6 @@ __pycache__
 coderunner-tools/target
 .venv
 runner/lib/config.py
+coderunner-web/bin
+coderunner-web/obj
+coderunner_tools/coderunner-build/target
