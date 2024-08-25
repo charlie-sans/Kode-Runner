@@ -18,14 +18,13 @@ async def execute_CPP( websocket):
     while True:
         try:
             index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
-            if index == 0 or index==1:
-                coded_text = translate_terminal_colors(child.before)
-                
-                await websocket.send(coded_text)
+            if index == 0 or index == 1:
+                await websocket.send(child.after)
             elif index == 2:
+                #await websocket.send(child.before)
                 break
         except pexpect.exceptions.TIMEOUT as e:
-           
+            de_bug( f"Execution timed out {e}", "ERROR")
             break
    
  

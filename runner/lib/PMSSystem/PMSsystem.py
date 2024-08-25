@@ -1,3 +1,4 @@
+import pexpect 
 import json as jsthing
 import os
 import websockets
@@ -92,7 +93,8 @@ from config import config
 
 # this is a comment 
 
-
+PMSProjectFiless = "main.c"
+Run_After_Build = False
 conf = config()
 class PMSSystem:
     def __init__(self) -> None:
@@ -124,190 +126,50 @@ class PMSSystem:
             return
             
      
-        
-    def setup_build_system(system):
-        PMSS = system.PMSProjectBuildSystem
-        if PMSS == "Coderunner-Tools":
-            print("Setting up the build system")
-            print("Build System Name: " + PMSS)
-            print("supported Build System Arguments: " + str(conf.supportedBuildSystemsArguments))
-            print("Build System Parsed Arguments: " + str(PMSSystem.arguments))
-            
-            
-            if PMSSystem.arguments == {}:
-                print("Error: The build system arguments are not set, please set them in the pms file.")
-                return
-            else:
-                with open("./build.sh") as f:
-                    print("Build System complete, writing the commands to the file ")
-                    f.write("#!/bin/bash\n")
-                    f.write("echo 'Building the project...'\n")
-                    f.write("echo 'Build System Name: " + PMSS + "'\n")
-                    f.write("echo 'Build System Arguments: " + str(PMSSystem.arguments) + "'\n")
-                    f.write("echo 'Build System Parsed Arguments: " + str(PMSSystem.arguments) + "'\n")
-                    f.write("echo 'Build System complete'\n")
-                    f.write("building Project\n")
-                    for arguments in PMSSystem.arguments:
-                        # split the arguments and join them back together on a space
-                        arguments = " ".join(arguments.split())
-                        print("Building Project with arguments: " + arguments)
-                        system.buildsystemcmds.append(PMSSystem.buildsystemcmd + " " + arguments)
-                    f.write("echo 'Building Project with arguments: " + arguments + "'\n")
-                    f.write(PMSSystem.buildsystemcmds)
-                    f.write("echo 'Project built successfully'\n")
-                #os.system("chmod +x build.sh")
-                #os.system("./build.sh")                
-                
-    def setup_multiple_build_systems(PMSBuildSystems):
-
-        print("Setting up multiple build systems is not supported yet")
-        
-    def setup_language_server_protocol(PMSLanguageServerProtocolName, PMSLanguageServerProtocolVersion, PMSLanguageServerProtocolSupport):
-        PMSLSP = PMSLanguageServerProtocolName
-        PMSLSV = PMSLanguageServerProtocolVersion
-        PMSLSS = PMSLanguageServerProtocolSupport
-
-        if PMSLSV != conf.langServerVersion:
-            print("Error: The language server protocol version is not supported, are you using the correct version of the CodeRunner?")
-            return
-
-        print("Setting up the language server protocol")
-        print("Language Server Protocol Name: " + PMSLanguageServerProtocolName)
-        print("Language Server Protocol Version: " + PMSLanguageServerProtocolVersion)
-        print("Language Server Protocol Support: " + str(PMSLanguageServerProtocolSupport))
-        #TODO: setup the language server protocol
-        print("Language Server Protocol setup complete")
-    def setup_build_system_protocol(PMSBuildSystemProtocolName, PMSBuildSystemProtocolVersion, PMSBuildSystemProtocolSupport):
-        PMSB = PMSBuildSystemProtocolName
-        PMSV = PMSBuildSystemProtocolVersion
-        PMSS = PMSBuildSystemProtocolSupport
-
-        if PMSV != conf.version:
-            print("Error: The build system protocol version is not supported, are you using the correct version of the CodeRunner?")
-            return
-
-        print("Setting up the build system protocol")
-        print("Build System Protocol Name: " + PMSBuildSystemProtocolName)
-        print("Build System Protocol Version: " + PMSBuildSystemProtocolVersion)
-        print("Build System Protocol Support: " + str(PMSBuildSystemProtocolSupport))
-        print("Build System Protocol setup complete")
-
-    def setup_language_server(json_file):
-        PMSLanguageServerProtocolName = json_file["Language_Server_Protocol_Name"]
-        PMSLanguageServerProtocolVersion = json_file["Language_Server_Protocol_Version"]
-        PMSLanguageServerProtocolSupport = json_file["Language_Server_Protocol_Support"]
-
-        # setup the language server
-        #setup_language_server_protocol(PMSLanguageServerProtocolName, PMSLanguageServerProtocolVersion, PMSLanguageServerProtocolSupport)
-
-
-    # sort the json file
-    def sort_json(json_file):
-        return jsthing.loads(json_file)
-
-    def assign(json_file):
-        
-        print("Assigning the json file")
-        
-        json = json_file
-        print("Json: " + str(json))
-        projects = []
-        system= PMSSystem()
-        try:
-            system.PMSProjectFiles = [project_file["File_Name"] + project_file["File_Extention"] for project_file in json["Project_Files"]]
-        except KeyError:
-            print("Error: The project files are not set, please set them in the pms file.")
-
-        try:
-            system.PMSProjectBuildSystem = json["Project_Build_Systems"][0]["Build_System_Name"]
-            print("Setting Build System: " + system.PMSProjectBuildSystem)
-            system.PMSProjectUseMultipleBuildSystems = json["Project_Use_Multiple_Build_Systems"]
-        except KeyError as k:
-            print("Error: The project build system is not set, please set it in the pms file.")
-            print(k)
-
-        try:
-            system.PMSProjectBuildSystems = [project["Build_System_Name"] for project in json["Project_Build_Systems"]]
-            system.PMSProjectUseLanguageServerProtocol = json["Project_Use_Language_Server_Protocol"]
-        except KeyError:
-            print("No project build systems set, please set them in the pms file.")
-
-        try:
-            system.PMSProjectLanguageServerProtocol = json["Project_Language_Server_Protocol"]
-            system.PMSProjectErrorHandling = json["Project_Error_Handling"]
-            system.PMSProjectCodeCompletion = json["Project_Code_Completion"]
-            system.PMSProjectMultipleFilesSupport = json["Project_Multiple_Files_Support"]
-            system.PMSProjectGUI = json["Project_GUI"]
-            system.PMSProjectName = json["Project_Name"]
-        except KeyError:
-            print("Error: The project language server protocol is not set, please set it in the pms file.")
-        if not os.path.exists(system.PMSProjectLocation):
-            os.makedirs(system.PMSProjectLocation)
-            
-        #     print(f"File Name: {file_name}, File Extension: {file_extension}")
-        # print("Project Files: " + str(system.PMSProjectFiles))
-        # print("Project Build System: " + str(system.PMSProjectBuildSystem))
-        # #print("Project Output: " + system.PMSProjectOutput)
-        # print("Project Use Multiple Build Systems: " + str(system.PMSProjectUseMultipleBuildSystems))
-        # print("Project Build Systems: " + str(system.PMSProjectBuildSystems))
-        # print("Project Use Language Server Protocol: " + str(system.PMSProjectUseLanguageServerProtocol))
-        # print("Project Language Server Protocol: " + str(system.PMSProjectLanguageServerProtocol))
-        # print("Project Error Handling: " + str(system.PMSProjectErrorHandling))
-        # print("Project Code Completion: " + str(system.PMSProjectCodeCompletion))
-        # print("Project Multiple Files Support: " + str(system.PMSProjectMultipleFilesSupport))
-        # print("Project GUI: " + str(system.PMSProjectGUI))
-        # print("Project Name: " + str(system.PMSProjectName))
-        # print("Project Location: " + str(system.PMSProjectLocation))
-        # print("Assigning complete")
-        data = f"""PMS System Started
-        PMS Version: {system.PMSVersion}
-        PMS Project Name: {system.PMSProjectName}
-        PMS Project Files: {system.PMSProjectFiles}
-        PMS Project Build System: {system.PMSProjectBuildSystem}
-        PMS Project Output: {system.PMSProjectOutput}
-        PMS Project Use Multiple Build Systems: {system.PMSProjectUseMultipleBuildSystems}
-        PMS Project Build Systems: {system.PMSProjectBuildSystems}
-        PMS Project Use Language Server Protocol: {system.PMSProjectUseLanguageServerProtocol}
-        PMS Project Language Server Protocol: {system.PMSProjectLanguageServerProtocol}
-        PMS Project Error Handling: {system.PMSProjectErrorHandling}
-        PMS Project Code Completion: {system.PMSProjectCodeCompletion}
-        PMS Project Multiple Files Support: {system.PMSProjectMultipleFilesSupport}
-        PMS Project GUI: {system.PMSProjectGUI}
-        PMS Project Name: {system.PMSProjectName}
-        PMS Project Location: {system.PMSProjectLocation}
-        PMS System setup complete
-        setting up the build script
-        """
-        return data       
-    # read the json files contents and setup the build project
-    def setup_project(json_file):
-        # sort the json file
-        system = PMSSystem()
-        system.jsonInput = PMSSystem.sort_json(json_file)
-        # setup the project
-      
-        PMSSystem.assign(system.jsonInput)
-        
-        # if PMSSystem.jPMSProjectUseLanguageServerProtocol:
-        #     # setup the language server
-        #     PMSSystem.setup_language_server(PMSSystem.PMSProjectLanguageServerProtocol)
-        # elif PMSSystem.PMSProjectUseMultipleBuildSystems:
-        #     # setup multiple build systems
-        #     PMSSystem.setup_multiple_build_systems(PMSSystem.PMSProjectBuildSystems)
-        # else:
-        #     # setup the build system
-        PMSSystem.setup_build_system(system)
+     
  
-    async def PMSSystemStartup(websocket,path):
-        PMSjson = await websocket.recv()
-        PMSSystem.setup_project(PMSjson)
-        system = PMSSystem()
         
-       
-    
-        print("PMS System setup complete")
+                
+    def assign(data,websocket):
+        # we parse the json data, get the project name, files, build system, output, and build system arguments
+        # we then set the values to the class variables
+        # then we call the setup_build_system function to setup the build system
         
+        parsed_data = jsthing.loads(data)
+        PMSSystem.PMSVersion = parsed_data["PMS_System"]
+        PMSSystem.PMSProjectName = parsed_data["Project_Name"]
+        PMSProjectFiless = parsed_data["Main_File"]
+        Run_After_Build = parsed_data["Run_On_Build"]
+        PMSSystem.PMSProjectBuildSystem = parsed_data["Project_Build_Systems"]
+        PMSSystem.PMSProjectOutput = parsed_data["Project_Output"]
+        # print the parsed data so that we know that we have it.
+        print("PMS Version: " + PMSSystem.PMSVersion)
+        print("Project Name: " + PMSSystem.PMSProjectName)
+        print("Project Files: " + str(PMSProjectFiless))
+        print("Project Build System: " + PMSSystem.PMSProjectBuildSystem)
+        print("Project Output: " + str(PMSSystem.PMSProjectOutput))
         
+        # get the build system arguments
+        if parsed_data["Project_Use_Multiple_Build_Systems"]:
+            PMSSystem.PMSProjectUseMultipleBuildSystems = parsed_data["Project_Use_Multiple_Build_Systems"]
+            print("Project Use Multiple Build Systems: " + str(PMSSystem.PMSProjectUseMultipleBuildSystems))
+        if parsed_data["Project_Build_Systems"] != [] :
+            PMSSystem.PMSProjectBuildSystems = parsed_data["Project_Build_Systems"]
+            
+        
+        PMSS = PMSSystem.PMSProjectBuildSystem
+        if PMSS == "cmake":
+            # simple cmake build system
+            clear("code/")
+            with open("code/CMakeLists.txt", "w") as f:
+                f.write("cmake_minimum_required(VERSION 3.10)\n")
+                f.write("project(" + system.PMSProjectName + ")\n")
+                f.write("add_executable(" + system.PMSProjectName + " " + str(PMSProjectFiless) + ")\n")
+                print("cat " + str(PMSProjectFiless))
+            execute_build_system( system, "cmake code/ && make")
+            
+     
+            
     async def PMSCode(websocket, path):
         print("PMS Code")
         print("Path: " + path)
@@ -324,3 +186,74 @@ class PMSSystem:
                 f.write(filecontents)
             await websocket.send("File saved successfully " + filename)
             
+
+    async def PMSSystemStartup(websocket, path):
+        print("PMS System Startup")
+        print("Path: " + path)
+        print("Websocket: " + str(websocket))
+        
+        while True:
+            data = await websocket.recv()
+            print("Data: " + data)
+            PMSSystem.assign(data,websocket)
+            await websocket.send("PMS System started successfully")
+            await websocket.send("[H")
+            await websocket.send("Project Name: " + PMSSystem.PMSProjectName)
+            await websocket.send(" \n")
+            await server(websocket, path)
+            
+            
+            
+async def execute_build_system( websocket,command):
+    print( "Executing  build system", "INFO")
+    
+    #if not check_code_safety(code, websocket):
+     #   await websocket.send("Unsafe code detected.")
+      #  os.remove(TEMP_PYTHON_FILE)
+       # return
+    print("PMSSystem.PMSProjectName")
+    print(PMSSystem.PMSProjectName)
+    child = pexpect.spawn(command, encoding="utf-8")
+
+    while True:
+        try:
+            index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+            if index == 0 or index == 1:
+                await websocket.send(child.after)
+            elif index == 2:
+                #await websocket.send(child.before)
+                break
+        except pexpect.exceptions.TIMEOUT as e:
+            de_bug( f"Execution timed out {e}", "ERROR")
+            break
+async def execute_code( websocket):
+    print( "Executing  code", "INFO")
+    
+    #if not check_code_safety(code, websocket):
+     #   await websocket.send("Unsafe code detected.")
+      #  os.remove(TEMP_PYTHON_FILE)
+       # return
+    print("PMSSystem.PMSProjectName")
+    print(PMSSystem.PMSProjectName)
+    child = pexpect.spawn(f"./" + PMSSystem.PMSProjectName, encoding="utf-8")
+
+    while True:
+        try:
+            index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+            if index == 0 or index == 1:
+                await websocket.send(child.after)
+            elif index == 2:
+                #await websocket.send(child.before)
+                break
+        except pexpect.exceptions.TIMEOUT as e:
+            de_bug( f"Execution timed out {e}", "ERROR")
+            break
+
+
+async def server(websocket, path):
+    try:
+
+        await execute_code( websocket)
+    except websockets.exceptions.ConnectionClosedOK as e: 
+        print("exiting")
+        pass

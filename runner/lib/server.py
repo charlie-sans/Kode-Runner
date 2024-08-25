@@ -15,7 +15,9 @@ import re
 from sockets.debug.debug import de_bug
 import PMSSystem.PMSsystem as PMSsystem
 
+
 from sockets.cpp import CPP
+from sockets.py import server
 
 
 from sockets.debug import debug
@@ -36,6 +38,8 @@ async def handler(websocket, path):
         case "/cpp":
             await CPP(websocket, path)
       
+        case "/py":
+          await server(websocket, path)
         
         case "/help":
             await websocket.send(conf.help)
@@ -46,6 +50,7 @@ async def handler(websocket, path):
             await websocket.send(data)
         case "/PMS":
             await PMSsystem.PMSSystem.PMSSystemStartup(websocket, path)
+
         case "/code":
             await PMSsystem.PMSSystem.PMSCode(websocket, path)
         # case "/py":
@@ -69,7 +74,10 @@ async def handler(websocket, path):
 
 
 
+    
 ws_server = websockets.serve(handler, conf.WS_HOST, conf.WS_PORT)
+
+
 
 print("CodeRunner Server version 2.0")
 print("TEST SERVER: Things may break")
