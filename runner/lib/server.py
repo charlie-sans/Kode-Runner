@@ -29,12 +29,43 @@ if not os.path.exists(conf.DIRECTORY):
     
 os.chdir(conf.DIRECTORY)
 
+
+
+
+async def analyze_code(code):
+    # Write code to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".py") as tmp:
+        tmp_path = tmp.name
+        tmp.write(code.encode('utf-8'))
+        tmp.flush()
+        
+        # Run pyright as a subprocess
+        result = subprocess.run(['pyright', tmp_path, '--outputjson'], capture_output=True, text=True)
+        
+        # Delete the temporary file
+        os.unlink(tmp_path)
+        
+        # Parse pyright's JSON output
+        if result.stdout:
+            output = json.loads(result.stdout)
+            diagnostics = output.get('generalDiagnostics', [])
+            return json.dumps(diagnostics)
+        else:
+            return json.dumps({'Success': 'No output from pyright'})
+
+async def PythonLSP(websocket, path):
+    async for message in websocket:
+        code = message
+        diagnostics = await analyze_code(code)
+        await websocket.send(diagnostics)
+
+
+
 async def handler(websocket, path):
     print(websocket, path)
     match path:
-        case "/lang":
-            pass
-       
+        case "/PYLSP":
+            await PythonLSP(websocket, path)
         case "/cpp":
             await CPP(websocket, path)
       
@@ -49,15 +80,11 @@ async def handler(websocket, path):
             print(data)
             await websocket.send(data)
         case "/PMS":
-            await PMSsystem.PMSSystem.PMSSystemStartup(websocket, path)
+            await PMSsystem.PMSSystem.PMS(websocket, path)
 
         case "/code":
             await PMSsystem.PMSSystem.PMSCode(websocket, path)
-        # case "/py":
-        #     await server(websocket, path)
-        # case "/shell":
-        #     #de_bug("Connected to shell server", "INFO")
-        #     await shell(websocket, path)
+
         case "/debug":
             de_bug(websocket, "Connected to debug server", "INFO")
             await debug(websocket, path)
