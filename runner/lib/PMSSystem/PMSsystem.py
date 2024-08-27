@@ -10,6 +10,7 @@ import threading
 import subprocess
 import asyncio
 import threading
+
 ### START
 async def execute_code(command, websocket):
     print("Executing code")
@@ -56,7 +57,7 @@ async def Write_code_Buffer(websocket, path):
                         with open(project_name + "/" + File_name, "w") as f:
                             f.write(code)
                             print("Code saved successfully")
-                        await websocket.send("Code saved successfully\n")
+                        await websocket.send(f"Code saved successfully to {project_name}/{File_name}\n")
                     else:
                         await websocket.send("<color=red>Error:</color> Project directory not found.\n")
                         # create the project directory
@@ -66,7 +67,7 @@ async def Write_code_Buffer(websocket, path):
                         with open(project_name + "/" + File_name, "w") as f:
                             f.write(code)
                             print("Code saved successfully\n")
-                        await websocket.send("Code saved successfully\n")
+                        await websocket.send(f"Code saved successfully to {project_name}/{File_name}\n")
                         
                         
                 else:
