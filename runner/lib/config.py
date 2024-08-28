@@ -15,11 +15,12 @@ class config:
         self.langServerSupport = []
         self.langServerProtocolSupport = []
         self.langServerProtocolSupportType = []
+        self._debug_enabled = False
         self.supportedLangServer = []
         self.supportedBuildSystems = []
         self.supportedBuiltinBuildSystems = ["Coderunner-Tools"]
         self.supportedBuildSystemsArguments = []
-        self.endpoints = ["ws://localhost:5000/mono,","ws://localhost:5000/js,","ws://localhost:5000/py,","ws://localhost:5000/cpp,","ws://localhost:5000/lua,","ws://localhost:5000/shell,"]
+        self.endpoints = ["ws://localhost:5000/mono,","ws://localhost:5000/js,","ws://localhost:5000/py,","ws://localhost:5000/cpp,","ws://localhost:5000/lua,","ws://localhost:5000/shell,", "ws://localhost:5000/PMS", "ws://localhost:5000/code"]
         self.WS_HOST = "0.0.0.0"
         self.WS_PORT = 5000
         self.DIRECTORY= "code"

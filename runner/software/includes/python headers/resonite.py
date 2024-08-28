@@ -56,7 +56,7 @@ def get_random_string_and_number(length):
   result_str = ''.join(random.choice(letters) for i in range(length))
   return result_str
   
-def grsanas(length): # get random string and number and symbols
+def get_string_num_symbol(length): # get random string and number and symbols
   """get random string and number and symbols
 
 
@@ -71,7 +71,7 @@ def grsanas(length): # get random string and number and symbols
   result_str = ''.join(random.choice(letters) for i in range(length))
   return result_str
   
-def grsauk(length): # get random string and number and symbols and upper case 
+def get_random_str_num_symbol_uppercase(length): # get random string and number and symbols and upper case 
   """get random string and number and symbols and upper case
 
 

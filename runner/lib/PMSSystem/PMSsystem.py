@@ -4,13 +4,15 @@ import os
 import websockets
 import asyncio
 import re
+import klog
 import sys
-from config import config
+import config
 import threading
 import subprocess
 import asyncio
 import threading
-
+conf = config.config()
+_debug_enabled = conf._debug_enabled
 ### START
 async def execute_code(command, websocket):
     print("Executing code")
@@ -38,9 +40,10 @@ async def Write_code_Buffer(websocket, path):
         
         # get the first line of the code
         first_line = code.split("\n")[0]
-        print("First Line: " + first_line)
-        print("seccond Line: " + code.split("\n")[1])
-        print("Third Line: " + code.split("\n")[2])
+        if _debug_enabled:
+            klog.log("First Line: " + first_line)
+            klog.log("Second Line: " + code.split("\n")[1])
+            klog.log("Third Line: " + code.split("\n")[2])
         # check if the first line is a comment
         if first_line.startswith("#") or first_line.startswith("//") or first_line.startswith("/*") or first_line.startswith("<!--") or first_line.startswith("\"\"\""):
             # check if the comment has the filename in it
@@ -50,20 +53,23 @@ async def Write_code_Buffer(websocket, path):
                     # get the project name from the comment
                     project_name = code.split("\n")[2].split("Project: ")[1]
                     File_name = code.split("\n")[1].split("File_name: ")[1]
-                    print("Project Name: " + project_name)
-                    print("File Name: " + File_name)
+                    if _debug_enabled:
+                        klog.log("Project Name: " + project_name)
+                        klog.log("File Name: " + File_name)
                     # find the project directory if it exists
                     if os.path.exists(project_name):
                         # save the code to the project directory
                         with open(project_name + "/" + File_name, "w") as f:
                             f.write(code)
                             print("Code saved successfully")
-                        await websocket.send(f"Code saved successfully to {project_name}/{File_name}\n")
+                        await websocket.send(f"Code saved successfully to: {project_name}/{File_name}\n")
                     else:
                         await websocket.send("<color=red>Error:</color> Project directory not found.\n")
+                        if _debug_enabled:
+                            klog.error("Project directory not found")
                         # create the project directory
                         os.system("mkdir " + project_name)
-                        await websocket.send("Project directory created")
+                        await websocket.send("Project directory created\n")
                         # save the code to the project directory
                         with open(project_name + "/" + File_name, "w") as f:
                             f.write(code)
@@ -72,11 +78,14 @@ async def Write_code_Buffer(websocket, path):
                         
                         
                 else:
-                    await websocket.send("<color=red>Error:</color> Project name and filename not found in comment\n")
+                    await websocket.send("<color=red>Error:</color> Project name and filename not found in block comment\n")
+                    klog.error("Project name and filename not found in block comment")
             else: 
                 await websocket.send("<color=red>Error:</color> Filename not found in comment\n")
+                klog.error("Filename not found in comment")
         else:
             await websocket.send("<color=red>Error:</color> Comment not found in code\n")
+            klog.error("Comment not found in code")
             
             
             
@@ -93,11 +102,14 @@ async def Read_PMS_File(websocket, path,code):
     Entry_point = parsed_code["Main_File"]
     Output_Name = parsed_code["Project_Output"]
     Project_Build_System = parsed_code["Project_Build_Systems"]
-    print("System Version: " + Sysver + "\n")
-    print("Project Name: " + Project_name + "\n")
-    print("Entry Point: " + Entry_point + "\n")
-    print("Output Name: " + Output_Name + "\n")
-    print("Project Build System: " + Project_Build_System + "\n")
+    CodeRunner_libs_to_include = parsed_code["CodeRunner_include_libs"]
+    if _debug_enabled:
+        print("System Version: " + Sysver + "\n")
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
+        print("Project Build System: " + Project_Build_System + "\n")
+    
     
     # Create the project directory
     os.system("mkdir " + Project_name)
@@ -175,9 +187,10 @@ async def init_go(project_vars,websocket):
     Project_name = project_vars[1]  
     Entry_point = project_vars[2]
     Output_Name = project_vars[3]
-    print("Project Name: " + Project_name + "\n")
-    print("Entry Point: " + Entry_point + "\n")
-    print("Output Name: " + Output_Name + "\n")
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
     
     Project_Build_System = project_vars[4]
     # init go
@@ -190,10 +203,11 @@ async def init_cmake(project_vars,websocket):
     Project_name = project_vars[1]  
     Entry_point = project_vars[2]
     Output_Name = project_vars[3]
-    print("Project Name: " + Project_name + "\n")
-    print("Entry Point: " + Entry_point + "\n")
-    print("Output Name: " + Output_Name + "\n")
-    
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
+
     Project_Build_System = project_vars[4]
     # create the CMakeLists.txt file
     with open(Project_name + "/CMakeLists.txt", "w") as f:
@@ -202,11 +216,12 @@ async def init_cmake(project_vars,websocket):
         f.write("add_executable(" + Output_Name + " " + Entry_point + ")\n")
     # create the build directory
     os.system("mkdir " + Project_name + "/build")
-    print("CMakeLists.txt created\n")
-    print("Build directory created\n")
-    print("Running cmake\n")
-    print(Project_name)
-    print(Output_Name)
+    if _debug_enabled:
+        print("CMakeLists.txt created\n")
+        print("Build directory created\n")
+        print("Running cmake\n")
+        print(Project_name)
+        print(Output_Name)
     # run cmake
     await execute_code("cmake -S " + Project_name + " -B " + Project_name + "/build", websocket)
     # # run make
@@ -239,7 +254,6 @@ async def Run_PMS_system(websocket, path,Project_name):
         case "java":
             await execute_code("javac " + Project_name + "/" + Entry_point, websocket)
             await execute_code("java " + Project_name + "/" + Entry_point, websocket)
-            
         case "maven":
             pass
         case "node":
@@ -262,10 +276,11 @@ async def Run_PMS_system(websocket, path,Project_name):
             
 async def PMS(websocket, path):
     # main function for the PMS system
-    print("PMS System")
-    print("Path: " + path)
-    print("Websocket: " + str(websocket))
-    
+    if _debug_enabled:
+        print("PMS System")
+        print("Path: " + path)
+        print("Websocket: " + str(websocket))
+
 
     code = await websocket.recv()
     parsed_code = json.loads(code)
