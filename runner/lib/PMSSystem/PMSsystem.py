@@ -42,7 +42,8 @@ async def Write_code_Buffer(websocket, path):
         print("seccond Line: " + code.split("\n")[1])
         print("Third Line: " + code.split("\n")[2])
         # check if the first line is a comment
-        if first_line.startswith("#") or first_line.startswith("//") or first_line.startswith("/*"):
+        if first_line.startswith("#") or first_line.startswith("//") or first_line.startswith("/*") or first_line.startswith("<!--") or first_line.startswith("\"\"\""):
+            # check if the comment has the filename in it
             if re.search("File_name: ", code.split("\n")[1]): # check if the comment has the filename in it
                 # check if the comment has the project name in it
                 if re.search("Project: ", code.split("\n")[2]):
@@ -109,12 +110,26 @@ async def Read_PMS_File(websocket, path,code):
     with open(Project_name + "/project_vars.json", "w") as f:
         f.write(json.dumps(project_vars))
         
-    await websocket.send("Project saved successfully " + Project_name + "\n" )
-    await websocket.send("Project vars saved successfully " + Project_name + "\n" )
+    await websocket.send("Project named: " + Project_name + "saved successfully\n")
+    await websocket.send("Project vars for " + Project_name + " saved successfully\n")
     await websocket.send("Running PMS System\n" )
     await Run_PMS_system(websocket,path,Project_name)
         
-        
+# imit node
+async def init_node(project_vars,websocket):
+    # get the project vars
+    Sysver = project_vars[0]
+    Project_name = project_vars[1]  
+    Entry_point = project_vars[2]
+    Output_Name = project_vars[3]
+    print("Project Name: " + Project_name + "\n")
+    print("Entry Point: " + Entry_point + "\n")
+    print("Output Name: " + Output_Name + "\n")
+    
+    Project_Build_System = project_vars[4]
+    # init node without npm as we dont need it
+    await execute_code("node " + Project_name + "/" + Entry_point, websocket)
+    
 # init cmake
 async def init_cmake(project_vars,websocket):
     # get the project vars
@@ -164,21 +179,25 @@ async def Run_PMS_system(websocket, path,Project_name):
         case "cmake":
             await init_cmake(project_vars,websocket)
         case "make":
-            pass
+            await execute_code("make " + Project_name + "/" + Entry_point, websocket)
+            await execute_code("./" + Project_name + "/" + Output_Name, websocket)
         case "ant":
             pass
         case "gradle":
             pass
         case "maven":
             pass
-        case "npm":
-            pass
+        case "node":
+            await init_node(project_vars,websocket)
         case "yarn":    
             pass    
-        case "pip":
-            pass
+        case "python":
+            await execute_code("python3 " + Project_name + "/" + Entry_point, websocket)
         case "cargo":
             pass
+        case "rustc":
+            await execute_code("rustc " + Project_name + "/" + Entry_point + " -o " + Project_name + "/" + Output_Name, websocket)
+            await execute_code("./" + Project_name + "/" + Output_Name, websocket)
         case "go":
             pass
         case "dotnet":
