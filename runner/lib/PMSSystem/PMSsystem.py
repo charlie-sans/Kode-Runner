@@ -146,6 +146,43 @@ async def init_gpp(project_vars,websocket):
     await execute_code("g++ " + Project_name + "/" + Entry_point + " -o " + Project_name + "/" + Output_Name, websocket)
     await execute_code("./" + Project_name + "/" + Output_Name, websocket)    
 
+# init cargo
+async def init_cargo(project_vars,websocket):
+    # get the project vars
+    Sysver = project_vars[0]
+    Project_name = project_vars[1]  
+    Entry_point = project_vars[2]
+    Output_Name = project_vars[3]
+    print("Project Name: " + Project_name + "\n")
+    print("Entry Point: " + Entry_point + "\n")
+    print("Output Name: " + Output_Name + "\n")
+    
+    Project_Build_System = project_vars[4]
+    # init cargo through the cargo.toml file
+    with open(Project_name + "/Cargo.toml", "w") as f:
+        f.write("[package]\n")
+        f.write("name = \"" + Project_name + "\"\n")
+        f.write("version = \"0.1.0\"\n")
+        f.write("edition = \"2018\"\n")
+        f.write("[dependencies]\n")
+    # run cargo
+    await execute_code("cargo run", websocket)
+    
+# init go
+async def init_go(project_vars,websocket):
+    # get the project vars
+    Sysver = project_vars[0]
+    Project_name = project_vars[1]  
+    Entry_point = project_vars[2]
+    Output_Name = project_vars[3]
+    print("Project Name: " + Project_name + "\n")
+    print("Entry Point: " + Entry_point + "\n")
+    print("Output Name: " + Output_Name + "\n")
+    
+    Project_Build_System = project_vars[4]
+    # init go
+    await execute_code("go run " + Project_name + "/" + Entry_point, websocket)
+
 # init cmake
 async def init_cmake(project_vars,websocket):
     # get the project vars
@@ -198,9 +235,11 @@ async def Run_PMS_system(websocket, path,Project_name):
             await execute_code("make " + Project_name + "/" + Entry_point, websocket)
             await execute_code("./" + Project_name + "/" + Output_Name, websocket)
         case "g++":
-         
-        case "gradle":
-            pass
+            await init_gpp(project_vars,websocket)
+        case "java":
+            await execute_code("javac " + Project_name + "/" + Entry_point, websocket)
+            await execute_code("java " + Project_name + "/" + Entry_point, websocket)
+            
         case "maven":
             pass
         case "node":
