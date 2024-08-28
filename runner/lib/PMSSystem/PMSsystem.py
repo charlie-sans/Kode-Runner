@@ -129,7 +129,23 @@ async def init_node(project_vars,websocket):
     Project_Build_System = project_vars[4]
     # init node without npm as we dont need it
     await execute_code("node " + Project_name + "/" + Entry_point, websocket)
+
+# init g++
+async def init_gpp(project_vars,websocket):
+    # get the project vars
+    Sysver = project_vars[0]
+    Project_name = project_vars[1]  
+    Entry_point = project_vars[2]
+    Output_Name = project_vars[3]
+    print("Project Name: " + Project_name + "\n")
+    print("Entry Point: " + Entry_point + "\n")
+    print("Output Name: " + Output_Name + "\n")
     
+    Project_Build_System = project_vars[4]
+    # init g++
+    await execute_code("g++ " + Project_name + "/" + Entry_point + " -o " + Project_name + "/" + Output_Name, websocket)
+    await execute_code("./" + Project_name + "/" + Output_Name, websocket)    
+
 # init cmake
 async def init_cmake(project_vars,websocket):
     # get the project vars
@@ -181,8 +197,8 @@ async def Run_PMS_system(websocket, path,Project_name):
         case "make":
             await execute_code("make " + Project_name + "/" + Entry_point, websocket)
             await execute_code("./" + Project_name + "/" + Output_Name, websocket)
-        case "ant":
-            pass
+        case "g++":
+         
         case "gradle":
             pass
         case "maven":
