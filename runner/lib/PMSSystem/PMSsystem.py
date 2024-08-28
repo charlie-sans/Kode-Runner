@@ -102,7 +102,7 @@ async def Read_PMS_File(websocket, path,code):
     Entry_point = parsed_code["Main_File"]
     Output_Name = parsed_code["Project_Output"]
     Project_Build_System = parsed_code["Project_Build_Systems"]
-    CodeRunner_libs_to_include = parsed_code["CodeRunner_include_libs"]
+  #  CodeRunner_libs_to_include = parsed_code["CodeRunner_include_libs"]
     if _debug_enabled:
         print("System Version: " + Sysver + "\n")
         print("Project Name: " + Project_name + "\n")
