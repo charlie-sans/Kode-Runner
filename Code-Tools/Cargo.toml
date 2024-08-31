@@ -1,6 +1,8 @@
 [package]
-name = "coderunner-tools"
+name = "Code-Tools"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+serde = "1.0.209"
+serde_json = "1.0.127"

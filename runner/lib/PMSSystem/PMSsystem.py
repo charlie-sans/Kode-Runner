@@ -102,7 +102,8 @@ async def Read_PMS_File(websocket, path,code):
     Entry_point = parsed_code["Main_File"]
     Output_Name = parsed_code["Project_Output"]
     Project_Build_System = parsed_code["Project_Build_Systems"]
-  #  CodeRunner_libs_to_include = parsed_code["CodeRunner_include_libs"]
+  #java hello world
+  # CodeRunner_libs_to_include = parsed_code["CodeRunner_include_libs"]
     if _debug_enabled:
         print("System Version: " + Sysver + "\n")
         print("Project Name: " + Project_name + "\n")
@@ -122,7 +123,7 @@ async def Read_PMS_File(websocket, path,code):
     with open(Project_name + "/project_vars.json", "w") as f:
         f.write(json.dumps(project_vars))
         
-    await websocket.send("Project named: " + Project_name + "saved successfully\n")
+    await websocket.send("Project named: " + Project_name + " saved successfully\n")
     await websocket.send("Project vars for " + Project_name + " saved successfully\n")
     await websocket.send("Running PMS System\n" )
     await Run_PMS_system(websocket,path,Project_name)
@@ -180,6 +181,25 @@ async def init_cargo(project_vars,websocket):
     # run cargo
     await execute_code("cargo run", websocket)
     
+    
+# init mono
+async def init_mono(project_vars,websocket):
+    # get the project vars
+    Sysver = project_vars[0]
+    Project_name = project_vars[1]  
+    Entry_point = project_vars[2]
+    Output_Name = project_vars[3]
+    print("Project Name: " + Project_name + "\n")
+    print("Entry Point: " + Entry_point + "\n")
+    print("Output Name: " + Output_Name + "\n")
+    
+    Project_Build_System = project_vars[4]
+    # init dotnet
+    await execute_code("csc " + Project_name + "/" + Entry_point, websocket)
+    #output the exe to the build directory given the output name
+    await execute_code("mv " + Output_Name + ".exe " + Project_name + "/" + Output_Name+".exe", websocket)
+    # run the output
+    await execute_code("mono " + Project_name + "/" + Output_Name + ".exe", websocket)
 # init go
 async def init_go(project_vars,websocket):
     # get the project vars
@@ -224,6 +244,7 @@ async def init_cmake(project_vars,websocket):
         print(Output_Name)
     # run cmake
     await execute_code("cmake -S " + Project_name + " -B " + Project_name + "/build", websocket)
+    
     # # run make
     await execute_code("make -C " + Project_name + "/build", websocket)
     # # run the output
@@ -260,19 +281,28 @@ async def Run_PMS_system(websocket, path,Project_name):
             await init_node(project_vars,websocket)
         case "yarn":    
             pass    
-        case "python":
+        case "Python":
             await execute_code("python3 " + Project_name + "/" + Entry_point, websocket)
         case "cargo":
             pass
         case "rustc":
             await execute_code("rustc " + Project_name + "/" + Entry_point + " -o " + Project_name + "/" + Output_Name, websocket)
             await execute_code("./" + Project_name + "/" + Output_Name, websocket)
-        case "go":
-            pass
-        case "dotnet":
-            pass
-            
-            
+        case "Go":
+            await init_go(project_vars,websocket)
+        case "mono":
+            await init_mono(project_vars,websocket)
+        case "bash":
+            await execute_code("bash " + Project_name + "/" + Entry_point, websocket)
+        case "perl":
+            await execute_code("perl " + Project_name + "/" + Entry_point, websocket)
+        case "php":
+            await execute_code("php " + Project_name + "/" + Entry_point, websocket)
+        case "ruby":
+            await execute_code("ruby " + Project_name + "/" + Entry_point, websocket)
+        case "lua":
+            await execute_code("lua " + Project_name + "/" + Entry_point, websocket)
+    
             
 async def PMS(websocket, path):
     # main function for the PMS system
