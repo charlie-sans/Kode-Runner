@@ -8,9 +8,9 @@ except ImportError:
     os.system("pip install websockets")
     import websockets
 import pexpect
-import os
 import subprocess
 import re
+import sys
 
 from sockets.debug.debug import de_bug
 import PMSSystem.PMSsystem as PMSsystem
@@ -19,8 +19,9 @@ import PMSSystem.PMSsystem as PMSsystem
 from sockets.cpp import CPP
 from sockets.py import server
 
-
 from sockets.debug import debug
+
+import passwd_handler
 
 conf = config()
 
@@ -29,7 +30,21 @@ if not os.path.exists(conf.DIRECTORY):
     
 os.chdir(conf.DIRECTORY)
 
-
+if len(sys.argv) > 1:
+    skip_next = False
+    for idx, i in enumerate(sys.argv[1:]):
+        if skip_next == True:
+            skip_next = False
+            continue
+        match i:
+            case "-p":
+                passwd_handler.set_password(sys.argv[idx+2])
+                skip_next = True
+            case "--password":
+                passwd_handler.set_password(sys.argv[idx+2])
+                skip_next = True
+            case _:
+                print("Unknown argument", i)
 
 
 async def analyze_code(code):
@@ -99,6 +114,8 @@ print("CodeRunner Server version 2.0")
 print("TEST SERVER: Things may break")
 print("Server started at port", conf.WS_PORT)
 print("Relay started at address https://localhost:5000/")
+if passwd_handler.has_password:
+    print("Using password authentication\nPassword:", passwd_handler.get_password())
 print("Press Ctrl+C to stop the server")
 asyncio.get_event_loop().run_until_complete(ws_server)
 asyncio.get_event_loop().run_forever()
