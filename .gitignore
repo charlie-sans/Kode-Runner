@@ -4,7 +4,10 @@ __pycache__
 *.tar.gz
 coderunner-tools/target
 .venv
-runner/lib/config.py
+
 coderunner-web/bin
 coderunner-web/obj
 coderunner_tools/coderunner-build/target
+runner/lib/main.build
+runner/lib/main.dist
+runner/lib/main.onefile-build
