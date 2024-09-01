@@ -21,9 +21,11 @@ from sockets.py import server
 
 from sockets.debug import debug
 
-import passwd_handler
+import auth_proxy
 
 conf = config()
+
+password = conf.passwd
 
 if not os.path.exists(conf.DIRECTORY):
     os.makedirs(conf.DIRECTORY)
@@ -38,10 +40,10 @@ if len(sys.argv) > 1:
             continue
         match i:
             case "-p":
-                passwd_handler.set_password(sys.argv[idx+2])
+                password = sys.argv[idx+2]
                 skip_next = True
             case "--password":
-                passwd_handler.set_password(sys.argv[idx+2])
+                password = sys.argv[idx+2]
                 skip_next = True
             case _:
                 print("Unknown argument", i)
@@ -113,9 +115,13 @@ ws_server = websockets.serve(handler, conf.WS_HOST, conf.WS_PORT)
 print("CodeRunner Server version 2.0")
 print("TEST SERVER: Things may break")
 print("Server started at port", conf.WS_PORT)
-print("Relay started at address https://localhost:5000/")
-if passwd_handler.has_password:
-    print("Using password authentication\nPassword:", passwd_handler.get_password())
+print("Relay started at address ws://localhost:5000/")
+if password != "":
+    print("Using password authentication\nPassword:", repr(password))
 print("Press Ctrl+C to stop the server")
+if password != "":
+    import threading # I am definitly **Not** putting this here because I am too lazy to go to the top of the file. - Carson Coder
+    print(f"\nAuth Proxy Starting at ws://{conf.passwd_proxy_host}:{conf.passwd_proxy_port}/")
+    threading.Thread(target=auth_proxy.main, args=(f"ws://localhost:{conf.WS_PORT}",password)).start()
 asyncio.get_event_loop().run_until_complete(ws_server)
 asyncio.get_event_loop().run_forever()

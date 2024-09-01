@@ -61,7 +61,7 @@ async def execute_code(code, websocket):
                 #await websocket.send(child.before)
                 break
         except pexpect.exceptions.TIMEOUT as e:
-            de_bug( f"Execution timed out {e}", "ERROR")
+            await de_bug( f"Execution timed out {e}", "ERROR")
             break
     os.remove(TEMP_PYTHON_FILE)
 
@@ -70,5 +70,5 @@ async def server(websocket, path):
         async for code in websocket:
             await execute_code(code, websocket)
     except websockets.exceptions.ConnectionClosedOK as e: 
-        de_bug( f"Connection closed: {e}", "ERROR")
+        await de_bug( f"Connection closed: {e}", "ERROR")
         pass
