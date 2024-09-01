@@ -17,6 +17,8 @@ the output will appear in the output window on the left monitor.
 
 this assumes that the UI theme issue hasn't been completed yet or you are using the default client included with the server.
 
+password authentication with `-p {password}` or `--password {password}` 
+
 ## Features
 
 - Run code in a variety of languages, including Python, C, C++, and more
@@ -24,6 +26,8 @@ this assumes that the UI theme issue hasn't been completed yet or you are using 
 - Fully interactive terminal
 - Run code in a safe, isolated environment using Docker
 - Easy to use, with a simple and intuitive interface
+
+- Password authentication.
 
 best part about this, is that it is all open source and free to use!
 
