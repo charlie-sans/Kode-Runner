@@ -8,9 +8,9 @@ except ImportError:
     os.system("pip install websockets")
     import websockets
 import pexpect
+import os
 import subprocess
 import re
-import sys
 
 from debug import de_bug
 import PMSsystem
@@ -20,28 +20,13 @@ import PMSsystem
 
 conf = config()
 
-password = conf.passwd
-
 if not os.path.exists(conf.DIRECTORY):
     os.makedirs(conf.DIRECTORY)
     
 os.chdir(conf.DIRECTORY)
 
-if len(sys.argv) > 1:
-    skip_next = False
-    for idx, i in enumerate(sys.argv[1:]):
-        if skip_next == True:
-            skip_next = False
-            continue
-        match i:
-            case "-p":
-                password = sys.argv[idx+2]
-                skip_next = True
-            case "--password":
-                password = sys.argv[idx+2]
-                skip_next = True
-            case _:
-                print("Unknown argument", i)
+
+
 
 async def analyze_code(code):
     # Write code to a temporary file
@@ -90,13 +75,7 @@ ws_server = websockets.serve(handler, conf.WS_HOST, conf.WS_PORT)
 print("CodeRunner Server version 2.0")
 print("TEST SERVER: Things may break")
 print("Server started at port", conf.WS_PORT)
-print("Relay started at address ws://localhost:5000/")
-if password != "":
-    print("Using password authentication\nPassword:", repr(password))
+print("Relay started at address https://localhost:5000/")
 print("Press Ctrl+C to stop the server")
-if password != "":
-    import threading # I am definitly **Not** putting this here because I am too lazy to go to the top of the file. - Carson Coder
-    print(f"\nAuth Proxy Starting at ws://{conf.passwd_proxy_host}:{conf.passwd_proxy_port}/")
-    threading.Thread(target=auth_proxy.main, args=(f"ws://localhost:{conf.WS_PORT}",password)).start()
 asyncio.get_event_loop().run_until_complete(ws_server)
 asyncio.get_event_loop().run_forever()
