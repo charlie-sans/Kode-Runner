@@ -15,8 +15,9 @@ import sys
 from debug import de_bug
 import PMSsystem
 
+from sockets.debug import debug
 
-
+import auth_proxy
 
 conf = config()
 
