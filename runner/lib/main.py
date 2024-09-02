@@ -12,12 +12,8 @@ import subprocess
 import re
 import sys
 
-from sockets.debug.debug import de_bug
-import PMSSystem.PMSsystem as PMSsystem
-
-
-from sockets.cpp import CPP
-from sockets.py import server
+from debug import de_bug
+import PMSsystem
 
 from sockets.debug import debug
 
@@ -47,7 +43,6 @@ if len(sys.argv) > 1:
                 skip_next = True
             case _:
                 print("Unknown argument", i)
-
 
 async def analyze_code(code):
     # Write code to a temporary file
@@ -81,31 +76,12 @@ async def PythonLSP(websocket, path):
 async def handler(websocket, path):
     print(websocket, path)
     match path:
-        case "/PYLSP":
-            await PythonLSP(websocket, path)
-        case "/cpp":
-            await CPP(websocket, path)
-        case "/py":
-          await server(websocket, path)
-        case "/help":
-            await websocket.send(conf.help)
+        
         case "/PMS":
             await PMSsystem.PMS(websocket, path)
         case "/code":
             await PMSsystem. Write_code_Buffer (websocket, path)
-        case "/debug":
-            de_bug(websocket, "Connected to debug server", "INFO")
-            await debug(websocket, path)
-        case "/":
-            # relay all code to everyone connected
-            print("relay server connected")
-            while True:
-                code = await websocket.recv()
-                # send the received code to all connected clients
-                for client in websockets:
-                    await client.send(code)
-                    
-        case "/request": await websocket.send(conf.endpoints)
+        
         case _: await websocket.send("Invalid path")
 
 

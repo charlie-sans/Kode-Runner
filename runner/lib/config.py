@@ -1,4 +1,4 @@
-from sockets.debug.debug import de_bug
+from debug import de_bug
 import asyncio
 import os
 import sys

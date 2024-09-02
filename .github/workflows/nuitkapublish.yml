@@ -1,0 +1,39 @@
+name: Compile and Upload with Nuitka
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Trigger this action on new version tags (e.g., v1.0.0)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.12' # Specify the Python version you need
+
+      - name: Install Nuitka
+        run: pip install nuitka
+
+      - name: Compile Python code with Nuitka
+        run: nuitka --include-package=websockets --onefile runner/lib/main.py
+
+      - name: Archive compiled file
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-python
+          path: main.bin
+
+      - name: Upload Release Asset
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: main.bin
+          asset_name: main.bin
+          asset_content_type: application/octet-stream
