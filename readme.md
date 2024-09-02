@@ -8,7 +8,7 @@ Runner is a simple, yet powerful tool that allows you to run code in a variety o
 
 clone the repo and cd into the runner directory.
 
-run /lib/server.py on a linux system. sorry windows.
+run `lib/main.py` on a linux system or wsl. sorry windows.
 spawn out Code from Charlie's public folder inside of a world in resonite and hit the purple button to connect to the server.
 once you hear tada.wav, you are connected and can start running code.
 
@@ -17,8 +17,6 @@ the output will appear in the output window on the left monitor.
 
 this assumes that the UI theme issue hasn't been completed yet or you are using the default client included with the server.
 
-password authentication with `-p {password}` or `--password {password}` 
-
 ## Features
 
 - Run code in a variety of languages, including Python, C, C++, and more
@@ -26,8 +24,6 @@ password authentication with `-p {password}` or `--password {password}`
 - Fully interactive terminal
 - Run code in a safe, isolated environment using Docker
 - Easy to use, with a simple and intuitive interface
-
-- Password authentication.
 
 best part about this, is that it is all open source and free to use!
 
