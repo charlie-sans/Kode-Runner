@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace coderunner_web.Pages.language_reference.PythonModel
+namespace coderunner_web.Pages.language_reference
 {
-    public class CatModel : PageModel
+    public class PythonModel : PageModel
     {
         public void OnGet()
         {

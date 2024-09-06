@@ -1,6 +1,12 @@
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Hosting;
 var builder = WebApplication.CreateBuilder(args);
 
+ void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllersWithViews()
+            .AddRazorRuntimeCompilation();
+}
 // Add services to the container.
 builder.Services.AddRazorPages();
 
