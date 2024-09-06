@@ -17,51 +17,47 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = coderunner_web
 build_property.RootNamespace = coderunner_web
-build_property.ProjectDir = C:\Users\GAMER\coderunner\coderunner-web\
+build_property.ProjectDir = /home/charlie/git/CodeRunner-projects/coderunner-web/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\GAMER\coderunner\coderunner-web
+build_property.MSBuildProjectDirectory = /home/charlie/git/CodeRunner-projects/coderunner-web
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Areas/language-reference/Views/python.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcbGFuZ3VhZ2UtcmVmZXJlbmNlXFZpZXdzXHB5dGhvbi5jc2h0bWw=
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Areas/language-reference/Views/Shared/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXMvbGFuZ3VhZ2UtcmVmZXJlbmNlL1ZpZXdzL1NoYXJlZC9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Areas/language-reference/Views/Shared/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcbGFuZ3VhZ2UtcmVmZXJlbmNlXFZpZXdzXFNoYXJlZFxJbmRleC5jc2h0bWw=
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Areas/language-reference/Views/Shared/python.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcbGFuZ3VhZ2UtcmVmZXJlbmNlXFZpZXdzXFNoYXJlZFxweXRob24uY3NodG1s
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Pages/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Pages/language-reference/python.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvbGFuZ3VhZ2UtcmVmZXJlbmNlL3B5dGhvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Pages/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Pages/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Pages/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Pages/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/GAMER/coderunner/coderunner-web/Pages/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/GAMER/coderunner/coderunner-web/Pages/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-aec5dou2gk
+[/home/charlie/git/CodeRunner-projects/coderunner-web/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-jls6o4yha6
