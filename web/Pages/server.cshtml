@@ -1,0 +1,179 @@
+@page
+@model serverModel
+@{
+    ViewData["Title"] = "server documentation";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python documentation</title>
+</head>
+<body>
+    <h1>Welcome to the Python documentation for CodeRunner!</h1>
+    <p>This page provides the documentation for the main interactive server 
+    <p>Python is a widely used high-level programming language for general-purpose programming, created by Guido van Rossum and first released in 1991. An interpreted language, Python has a design philosophy that emphasizes code readability (notably using whitespace indentation to delimit code blocks rather than curly braces or keywords), and a syntax that allows programmers to express concepts in fewer lines of code than might be used in languages such as C++ or Java.</p>
+    <p>Python features a dynamic type system and automatic memory management and supports multiple programming paradigms, including object-oriented, imperative, functional programming, and procedural styles. It has a large and comprehensive standard library.</p>
+    <p>Python interpreters are available for many operating systems, allowing Python code to run on a wide variety of systems. CPython, the reference implementation of Python, is open source software and has a community-based development model, as do nearly all of Python's other implementations. Python and CPython are managed by the non-profit Python Software Foundation.</p>
+    <p>Python is a versatile language that can be used for many different types of programming tasks, including web development, data analysis, artificial intelligence, scientific computing, and more. It is widely used in industry and academia, and is a popular choice for beginners learning to program.</p>
+    <p>For more information about Python, see the official Python website at <a href="https://www.python.org/">https://www.python.org/</a>.</p>
+
+    <h2>CodeRunner functions</h2>
+    <section>
+        <h3>write_code_buffer</h3>
+        <p>Handles incoming code from a websocket connection, extracts project and file information from comments, and saves the code to the appropriate project directory.</p>
+        
+        <h4>Args:</h4>
+        <ul>
+            <li><strong>websocket (WebSocket):</strong> The websocket connection object.</li>
+            <li><strong>path (str):</strong> The path associated with the websocket connection.</li>
+        </ul>
+        
+        <h4>Workflow:</h4>
+        <ol>
+            <li>Receives code via the websocket.</li>
+            <li>Extracts the first line of the code to check for a comment.</li>
+            <li>Validates if the first line is a comment using predefined patterns.</li>
+            <li>Checks for project name and filename in the subsequent lines of the comment.</li>
+            <li>If the project directory exists, saves the code to the specified file.</li>
+            <li>If the project directory does not exist, creates it and then saves the code.</li>
+            <li>Sends appropriate success or error messages back through the websocket.</li>
+        </ol>
+        
+        <h4>Comment Patterns:</h4>
+        <ul>
+            <li>Python: <code>#</code></li>
+            <li>C/C++/Java: <code>//</code>, <code>/*</code></li>
+            <li>HTML: <code>&lt;!--</code></li>
+            <li>Python docstrings: <code>"""</code>, <code>'''</code></li>
+            <li>BASIC: <code>REM</code></li>
+            <li>Lisp: <code>;</code></li>
+            <li>Prolog: <code>%</code></li>
+            <li>SQL/Ada: <code>--</code></li>
+            <li>AppleScript: <code>:</code></li>
+            <li>Lua: <code>--[[</code></li>
+        </ul>
+        
+        <h4>Expected Comment Format:</h4>
+        <pre><code>
+        # or // or /* or &lt;!-- or """ or ''' or REM or ; or % or -- or : or --[[
+        File_name: &lt;filename&gt;
+        Project: &lt;project_name&gt;
+        </code></pre>
+        
+        <h4>Example:</h4>
+        <pre><code>
+        # File_name: example.py
+        # Project: ExampleProject
+        print("Hello, World!")
+        </code></pre>
+        
+        <h4>Debugging:</h4>
+        <ul>
+            <li>If <code>_debug_enabled</code> is set to <code>True</code>, logs various stages of processing for debugging purposes.</li>
+        </ul>
+        
+        <h4>Error Handling:</h4>
+        <ul>
+            <li>Sends error messages back through the websocket if comments, filenames, or project names are not found.</li>
+            <li>Logs errors using <code>klog.error</code>.</li>
+        </ul>
+        
+        <h4>Returns:</h4>
+        <p>None</p>
+    </section>
+    <section>
+    <h3>read_pms_file</h3>
+        <section>
+            <h3>read_pms_file</h3>
+            <p>Reads and processes a PMS (Project Management System) file.</p>
+            <p>This function performs the following steps:</p>
+            <ol>
+                <li>Parses the provided JSON code to extract project details.</li>
+                <li>Prints the extracted details if debugging is enabled.</li>
+                <li>Checks if a directory for the project exists; if not, creates it and copies necessary files.</li>
+                <li>Writes the project variables to a JSON file within the project directory.</li>
+                <li>Sends success messages back through the websocket.</li>
+                <li>Initiates the PMS system for the project.</li>
+            </ol>
+            <p><strong>Args:</strong></p>
+            <ul>
+                <li><strong>websocket (WebSocket):</strong> The websocket connection to send messages back to the client.</li>
+                <li><strong>path (str):</strong> The path where the PMS file is located.</li>
+                <li><strong>code (str):</strong> The JSON string containing project details.</li>
+            </ul>
+            <p><strong>Raises:</strong></p>
+            <ul>
+                <li><strong>json.JSONDecodeError:</strong> If the provided code is not a valid JSON string.</li>
+                <li><strong>OSError:</strong> If there is an error creating the project directory or copying files.</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Run the Project Management System (PMS)</h3>
+            <p>Run the Project Management System (PMS) based on the specified build system.</p>
+            
+            <h4>Args:</h4>
+            <ul>
+                <li><strong>websocket (WebSocket):</strong> The WebSocket connection to communicate with the client.</li>
+                <li><strong>path (str):</strong> The path to the project directory.</li>
+                <li><strong>Project_name (str):</strong> The name of the project.</li>
+            </ul>
+            
+            <h4>Prints:</h4>
+            <p>Information about the running PMS system, path, and websocket.</p>
+            
+            <h4>Reads:</h4>
+            <p><code>project_vars.json:</code> A JSON file containing project variables such as system version, project name, entry point, output name, and build system.</p>
+            
+            <h4>Executes:</h4>
+            <p>The appropriate build and run commands based on the specified build system:</p>
+            <ul>
+                <li><code>cmake:</code> Initializes and runs CMake.</li>
+                <li><code>make:</code> Executes make commands and runs the output.</li>
+                <li><code>g++:</code> Initializes and runs g++.</li>
+                <li><code>java:</code> Compiles and runs Java code.</li>
+                <li><code>node:</code> Initializes and runs Node.js.</li>
+                <li><code>Python:</code> Runs Python scripts.</li>
+                <li><code>rustc:</code> Compiles and runs Rust code.</li>
+                <li><code>Go:</code> Initializes and runs Go.</li>
+                <li><code>mono:</code> Initializes and runs Mono.</li>
+                <li><code>bash:</code> Executes bash scripts.</li>
+                <li><code>perl:</code> Executes Perl scripts.</li>
+                <li><code>php:</code> Executes PHP scripts.</li>
+                <li><code>ruby:</code> Executes Ruby scripts.</li>
+                <li><code>lua:</code> Executes Lua scripts.</li>
+            </ul>
+            
+            <h4>Note:</h4>
+            <p>Some build systems such as maven and yarn are currently not implemented and might return a error when ran.</p>
+        </section>
+        
+        
+</body>
+</html>
+
+<style>
+    section {
+        margin-bottom: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        background-color: #f0f0f0; /* Set the background color to a light gray */
+    }
+
+    pre {
+        background-color: #f0f0f0; /* Light gray background for code blocks */
+        border: 1px solid #ddd; /* Light border around code blocks */
+        border-radius: 4px; /* Rounded corners */
+        padding: 10px; /* Padding inside the code block */
+        overflow-x: auto; /* Horizontal scrolling for long code lines */
+    }
+
+    code {
+        font-family: Consolas, "Courier New", monospace; /* Monospaced font for code */
+        color: #c7254e; /* Dark red color for inline code */
+        background-color: #f0f0f0; /* Light pink background for inline code */
+        padding: 2px 4px; /* Padding around inline code */
+        border-radius: 4px; /* Rounded corners for inline code */
+    }
+</style>
