@@ -12,7 +12,7 @@ import subprocess
 import asyncio
 import threading
 conf = config.config()
-_debug_enabled = conf._debug_enabled
+_debug_enabled = False
 ### START
 async def execute_code(command, websocket):
     print("Executing code")
@@ -105,18 +105,15 @@ async def Write_code_Buffer(websocket, path):
             
             
 async def Read_PMS_File(websocket, path,code):
-    print("PMS File")
-    print("Path: " + path)
-    print("Websocket: " + str(websocket))
- 
+
       
     parsed_code = json.loads(code)
-    print("Code: " + str(parsed_code))
     Sysver = parsed_code["PMS_System"]
     Project_name = parsed_code["Project_Name"]
     Entry_point = parsed_code["Main_File"]
     Output_Name = parsed_code["Project_Output"]
     Project_Build_System = parsed_code["Project_Build_Systems"]
+    _debug_enabled = parsed_code["Debug_enabled"]
   #java hello world
   # CodeRunner_libs_to_include = parsed_code["CodeRunner_include_libs"]
     if _debug_enabled:
