@@ -21,10 +21,13 @@ class config:
         self.supportedBuiltinBuildSystems = ["Coderunner-Tools"]
         self.supportedBuildSystemsArguments = []
         self.endpoints = ["ws://localhost:5000/mono,","ws://localhost:5000/js,","ws://localhost:5000/py,","ws://localhost:5000/cpp,","ws://localhost:5000/lua,","ws://localhost:5000/shell,", "ws://localhost:5000/PMS", "ws://localhost:5000/code"]
-        self.WS_HOST = "0.0.0.0" # the host of the websocket server
-        self.WS_PORT = 5000 # the port of the websocket server
-        self.DIRECTORY= "software/code" # the directory where the code will be stored
-        self.help = "welcome to CodeRunner!" # the help message
+        self.WS_HOST = "0.0.0.0"
+        self.WS_PORT = 5000
+        self.DIRECTORY= "code"
+        self.help = "welcome to CodeRunner!"
+        self.passwd = ""
+        self.passwd_proxy_port = 5050
+        self.passwd_proxy_host = "0.0.0.0"
 conf = config()
 if conf.runnerVersion == "":
     de_bug("runnerVersion is not set, please set it in the config file.", "ERROR")
