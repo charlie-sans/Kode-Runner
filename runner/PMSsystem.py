@@ -11,23 +11,44 @@ import threading
 import subprocess
 import asyncio
 import threading
+import signal
+import time
+
 conf = config.config()
 _debug_enabled = False
 ### START
+stopped = False
+current_process = None
+
 async def execute_code(command, websocket):
+    global current_process, stopped
     print("Executing code")
     print("Command: " + command)
-    child = pexpect.spawn(command, encoding="utf-8")
+    current_process = pexpect.spawn(command, encoding="utf-8")
+    print(f"Process PID: {current_process.pid}")  # Print the PID of the current process
     while True:
+        print(stopped)
+        if stopped:
+            await websocket.send("Process stopped\n")
+            current_process.kill(signal.SIGSTOP)
+            stopped = False  # Reset stopped to False
+            break
         try:
-            index = child.expect(['\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
+            index = current_process.expect(['\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0 or index == 1:
-                decolorised_text = re.sub(r'\x1b\[[0-9;]*m', '', child.after)
+                decolorised_text = re.sub(r'\x1b\[[0-9;]*m', '', current_process.after)
                 await websocket.send(decolorised_text)
             elif index == 2:
                 break
         except pexpect.exceptions.TIMEOUT:
             break
+
+def stop_current_process():
+    global stopped
+    stopped = True
+    if current_process:
+        print(f"Stopping process with PID: {current_process.pid}")  # Print the PID of the process being stopped
+        current_process.kill(signal.SIGSTOP)
 
 async def Write_code_Buffer(websocket, path):
 
@@ -48,10 +69,16 @@ async def Write_code_Buffer(websocket, path):
         # check if the first line is a comment
         comment_patterns = [
             r"^#",
+            
             r"^//",
             r"^/\*",
             r"^<!--",
             r"^\"\"\"",
+            # for C 
+            r"^\\*",
+            r"^\/*",
+            # for C++
+            r"^//",
             r"^'''",
             r"^REM",  # For BASIC
             r"^;.*",  # For Lisp
@@ -96,8 +123,21 @@ async def Write_code_Buffer(websocket, path):
                     await websocket.send("<color=red>Error:</color> Project name and filename not found in block comment\n")
                     klog.error("Project name and filename not found in block comment")
             else: 
-                await websocket.send("<color=red>Error:</color> Filename not found in comment\n")
-                klog.error("Filename not found in comment")
+                await websocket.send("<color=yellow>Warning:</color> Filename not found in comment,could it be a makefile?\n")
+                print("Filename not found in comment, could it be a makefile?")
+                # check if the file is a makefile
+                
+                # check for first line comment containing Makefile
+                print("Checking for Makefile")
+                print("First Line: " + first_line)
+                if re.search("#Makefile", first_line):
+                    # save the code to the project directory
+                    project_name = code.split("\n")[1].split("Project: ")[1]
+                    with open(project_name + "/Makefile", "w") as f:
+                        f.write(code)
+                        print("Code saved successfully")
+                    await websocket.send(f"makefile saved successfully to: {project_name}/Makefile\n")
+                    
         else:
             await websocket.send("<color=red>Error:</color> Comment not found in code\n")
             klog.error("Comment not found in code")
@@ -113,6 +153,7 @@ async def Read_PMS_File(websocket, path,code):
     Entry_point = parsed_code["Main_File"]
     Output_Name = parsed_code["Project_Output"]
     Project_Build_System = parsed_code["Project_Build_Systems"]
+    arguments = parsed_code["compiler-arguments"]
     _debug_enabled = parsed_code["Debug_enabled"]
   #java hello world
   # CodeRunner_libs_to_include = parsed_code["CodeRunner_include_libs"]
@@ -133,7 +174,7 @@ async def Read_PMS_File(websocket, path,code):
         os.system("cp code/* " + Project_name)
     
     # make a list of the varibles we parsed from the JSON
-    project_vars = [Sysver, Project_name, Entry_point, Output_Name, Project_Build_System]
+    project_vars = [Sysver, Project_name, Entry_point, Output_Name, Project_Build_System, arguments, _debug_enabled]
     # write the project vars to a file
     with open(Project_name + "/project_vars.json", "w") as f:
         f.write(json.dumps(project_vars))
@@ -264,7 +305,30 @@ async def init_cmake(project_vars,websocket):
     await execute_code("make -C " + Project_name + "/build", websocket)
     # # run the output
     await execute_code("./" + Project_name + "/build/" + Output_Name, websocket)    
-        
+
+# init make
+async def init_make(project_vars,websocket):
+
+    # get the project vars
+    Sysver = project_vars[0]
+    Project_name = project_vars[1]
+    Entry_point = project_vars[2]
+    Output_Name = project_vars[3]
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
+    Project_Build_System = project_vars[4]
+    args = project_vars[5]
+    # run make    
+    if args: # if it's not empty then we can run make with the args that might point to a different makefile command
+        await execute_code("make -C " + Project_name + " " + args, websocket)
+        print("Running make with args")
+        print("make -c " + Project_name + " " + args)
+    else:
+        await execute_code("make -C " + Project_name, websocket)
+    # run the output
+    await execute_code("./" + Project_name + "/" + Output_Name, websocket)
 async def Run_PMS_system(websocket, path,Project_name):
     print("Running PMS System\n")
     print("Path: " + path + "\n")
@@ -283,8 +347,7 @@ async def Run_PMS_system(websocket, path,Project_name):
         case "cmake":
             await init_cmake(project_vars,websocket)
         case "make":
-            await execute_code("make " + Project_name + "/" + Entry_point, websocket)
-            await execute_code("./" + Project_name + "/" + Output_Name, websocket)
+            await init_make(project_vars,websocket)
         case "g++":
             await init_gpp(project_vars,websocket)
         case "java":
@@ -318,6 +381,7 @@ async def Run_PMS_system(websocket, path,Project_name):
         case "lua":
             await execute_code("lua " + Project_name + "/" + Entry_point, websocket)
     
+
             
 async def PMS(websocket, path):
     # main function for the PMS system

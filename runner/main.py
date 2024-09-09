@@ -69,6 +69,12 @@ async def handler(websocket, path):
             await PythonLSP(websocket, path)
         case "/debug":
             await _debug_socket(websocket, path)
+        case "/stop":
+            # receive the string "SIGINT" to stop the currently running process
+            message = await websocket.recv()
+            print("Received message:", message)
+            if message:
+                await PMSsystem.stop_current_process()
         case _: await websocket.send("Invalid path")
 
 
