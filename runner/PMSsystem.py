@@ -27,10 +27,9 @@ async def execute_code(command, websocket):
     current_process = pexpect.spawn(command, encoding="utf-8")
     print(f"Process PID: {current_process.pid}")  # Print the PID of the current process
     while True:
-        print(stopped)
         if stopped:
             await websocket.send("Process stopped\n")
-            current_process.kill(signal.SIGSTOP)
+            current_process.terminate(force=True)
             stopped = False  # Reset stopped to False
             break
         try:
@@ -48,7 +47,6 @@ def stop_current_process():
     stopped = True
     if current_process:
         print(f"Stopping process with PID: {current_process.pid}")  # Print the PID of the process being stopped
-        current_process.kill(signal.SIGSTOP)
 
 async def Write_code_Buffer(websocket, path):
 
