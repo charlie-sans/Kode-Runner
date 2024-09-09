@@ -15,9 +15,8 @@ import sys
 from debug import de_bug
 import PMSsystem
 
-from debug import debug
 
-import auth_proxy
+
 
 conf = config()
 
@@ -81,16 +80,7 @@ async def handler(websocket, path):
             await PMSsystem.PMS(websocket, path)
         case "/code":
             await PMSsystem. Write_code_Buffer (websocket, path)
-        case "/PythonLSP":
-            await PythonLSP(websocket, path)
-        case "/debug":
-            await _debug_socket(websocket, path)
-        case "/stop":
-            # receive the string "SIGINT" to stop the currently running process
-            message = await websocket.recv()
-            print("Received message:", message)
-            if message:
-                await PMSsystem.stop_current_process()
+        
         case _: await websocket.send("Invalid path")
 
 
