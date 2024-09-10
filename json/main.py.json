@@ -1,0 +1,178 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/main.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "analyze_code",
+                    "args": [
+                        {
+                            "name": "code",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "PythonLSP",
+                    "args": [
+                        {
+                            "name": "websocket",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "path",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "handler",
+                    "args": [
+                        {
+                            "name": "websocket",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "path",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                }
+            ],
+            "variables": [
+                {
+                    "name": "conf",
+                    "value": "config()",
+                    "function": null
+                },
+                {
+                    "name": "password",
+                    "value": "conf.passwd",
+                    "function": null
+                },
+                {
+                    "name": "tmp_path",
+                    "value": "tmp.name",
+                    "function": "analyze_code"
+                },
+                {
+                    "name": "result",
+                    "value": "subprocess.run(['pyright', tmp_path, '--outputjson'], capture_output=True, text=True)",
+                    "function": "analyze_code"
+                },
+                {
+                    "name": "output",
+                    "value": "json.loads(result.stdout)",
+                    "function": "analyze_code"
+                },
+                {
+                    "name": "diagnostics",
+                    "value": "output.get('generalDiagnostics', [])",
+                    "function": "analyze_code"
+                },
+                {
+                    "name": "code",
+                    "value": "message",
+                    "function": "PythonLSP"
+                },
+                {
+                    "name": "diagnostics",
+                    "value": "await analyze_code(code)",
+                    "function": "PythonLSP"
+                },
+                {
+                    "name": "message",
+                    "value": "await websocket.recv()",
+                    "function": "handler"
+                },
+                {
+                    "name": "ws_server",
+                    "value": "websockets.serve(handler, conf.WS_HOST, conf.WS_PORT)",
+                    "function": null
+                },
+                {
+                    "name": "skip_next",
+                    "value": "False",
+                    "function": null
+                },
+                {
+                    "name": "tmp_path",
+                    "value": "tmp.name",
+                    "function": null
+                },
+                {
+                    "name": "result",
+                    "value": "subprocess.run(['pyright', tmp_path, '--outputjson'], capture_output=True, text=True)",
+                    "function": null
+                },
+                {
+                    "name": "code",
+                    "value": "message",
+                    "function": null
+                },
+                {
+                    "name": "diagnostics",
+                    "value": "await analyze_code(code)",
+                    "function": null
+                },
+                {
+                    "name": "skip_next",
+                    "value": "False",
+                    "function": null
+                },
+                {
+                    "name": "output",
+                    "value": "json.loads(result.stdout)",
+                    "function": null
+                },
+                {
+                    "name": "diagnostics",
+                    "value": "output.get('generalDiagnostics', [])",
+                    "function": null
+                },
+                {
+                    "name": "message",
+                    "value": "await websocket.recv()",
+                    "function": null
+                },
+                {
+                    "name": "password",
+                    "value": "sys.argv[idx + 2]",
+                    "function": null
+                },
+                {
+                    "name": "skip_next",
+                    "value": "True",
+                    "function": null
+                },
+                {
+                    "name": "password",
+                    "value": "sys.argv[idx + 2]",
+                    "function": null
+                },
+                {
+                    "name": "skip_next",
+                    "value": "True",
+                    "function": null
+                }
+            ]
+        }
+    ]
+}

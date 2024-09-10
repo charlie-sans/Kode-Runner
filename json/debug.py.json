@@ -1,0 +1,143 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/debug.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "de_bug",
+                    "args": [
+                        {
+                            "name": "websocket",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "type",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "de_bug",
+                    "args": [
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "type",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "debug",
+                    "args": [
+                        {
+                            "name": "websocket",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "path",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                }
+            ],
+            "variables": [
+                {
+                    "name": "colortags",
+                    "value": "{'blue': '#0000FF', 'red': '#FF0000', 'green': '#00FF00', 'yellow': '#FFFF00', 'black': '#000000'}",
+                    "function": "de_bug"
+                },
+                {
+                    "name": "output",
+                    "value": "'<color=#ffff00><<WARNING>></color>' + message",
+                    "function": "de_bug"
+                },
+                {
+                    "name": "output",
+                    "value": "'<color=#ff0000><<ERROR>></color>' + message",
+                    "function": "de_bug"
+                },
+                {
+                    "name": "output",
+                    "value": "'<color=#00ff00><<INFO>></color>' + message",
+                    "function": "de_bug"
+                },
+                {
+                    "name": "output",
+                    "value": "'<color=#0000ff><<DEBUG>></color>' + message",
+                    "function": "de_bug"
+                },
+                {
+                    "name": "colortags",
+                    "value": "{'blue': '#0000FF', 'red': '#FF0000', 'green': '#00FF00', 'yellow': '#FFFF00', 'black': '#000000'}",
+                    "function": "de_bug"
+                },
+                {
+                    "name": "message",
+                    "value": "await websocket.recv()",
+                    "function": "debug"
+                },
+                {
+                    "name": "colortags",
+                    "value": "{'blue': '#0000FF', 'red': '#FF0000', 'green': '#00FF00', 'yellow': '#FFFF00', 'black': '#000000'}",
+                    "function": null
+                },
+                {
+                    "name": "colortags",
+                    "value": "{'blue': '#0000FF', 'red': '#FF0000', 'green': '#00FF00', 'yellow': '#FFFF00', 'black': '#000000'}",
+                    "function": null
+                },
+                {
+                    "name": "output",
+                    "value": "'<color=#ffff00><<WARNING>></color>' + message",
+                    "function": null
+                },
+                {
+                    "name": "message",
+                    "value": "await websocket.recv()",
+                    "function": null
+                },
+                {
+                    "name": "output",
+                    "value": "'<color=#ff0000><<ERROR>></color>' + message",
+                    "function": null
+                },
+                {
+                    "name": "output",
+                    "value": "'<color=#00ff00><<INFO>></color>' + message",
+                    "function": null
+                },
+                {
+                    "name": "output",
+                    "value": "'<color=#0000ff><<DEBUG>></color>' + message",
+                    "function": null
+                }
+            ]
+        }
+    ]
+}

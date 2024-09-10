@@ -1,0 +1,168 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/auth_proxy.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "ctos",
+                    "args": [
+                        {
+                            "name": "client",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "server",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "stoc",
+                    "args": [
+                        {
+                            "name": "client",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "server",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "client",
+                    "args": [
+                        {
+                            "name": "socket",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "url",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "server",
+                    "args": [],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "main",
+                    "args": [
+                        {
+                            "name": "websocket_url",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "passwd",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": [
+                {
+                    "name": "ws_url",
+                    "value": "''",
+                    "function": null
+                },
+                {
+                    "name": "password",
+                    "value": "''",
+                    "function": null
+                },
+                {
+                    "name": "conf",
+                    "value": "config.config()",
+                    "function": null
+                },
+                {
+                    "name": "msg",
+                    "value": "await client.recv()",
+                    "function": "ctos"
+                },
+                {
+                    "name": "msg",
+                    "value": "await server.recv()",
+                    "function": "stoc"
+                },
+                {
+                    "name": "websocketurl",
+                    "value": "ws_url + url",
+                    "function": "client"
+                },
+                {
+                    "name": "passwd",
+                    "value": "await socket.recv()",
+                    "function": "client"
+                },
+                {
+                    "name": "password",
+                    "value": "passwd",
+                    "function": "main"
+                },
+                {
+                    "name": "ws_url",
+                    "value": "websocket_url",
+                    "function": "main"
+                },
+                {
+                    "name": "websocketurl",
+                    "value": "ws_url + url",
+                    "function": null
+                },
+                {
+                    "name": "passwd",
+                    "value": "await socket.recv()",
+                    "function": null
+                },
+                {
+                    "name": "password",
+                    "value": "passwd",
+                    "function": null
+                },
+                {
+                    "name": "ws_url",
+                    "value": "websocket_url",
+                    "function": null
+                },
+                {
+                    "name": "msg",
+                    "value": "await client.recv()",
+                    "function": null
+                },
+                {
+                    "name": "msg",
+                    "value": "await server.recv()",
+                    "function": null
+                }
+            ]
+        }
+    ]
+}

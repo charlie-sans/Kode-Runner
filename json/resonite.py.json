@@ -1,0 +1,400 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/software/includes/python headers/resonite.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "get_random_string",
+                    "args": [
+                        {
+                            "name": "length",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "get random string\n\nArgs:\n    length (int): length of the string\n\nReturns:\n    string: random string",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_random_number",
+                    "args": [
+                        {
+                            "name": "length",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "get random number\n\nArgs:\n    length (int): length of the number\n\nReturns:\n    string: random number",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_random_string_and_number",
+                    "args": [
+                        {
+                            "name": "length",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "get random string and number\n\n\nArgs:\n    length (int): length of the string and number\n\nReturns:\n    string: random string and number",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_string_num_symbol",
+                    "args": [
+                        {
+                            "name": "length",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "get random string and number and symbols\n\n\nArgs:\n    length (int): length of the string and number and symbols\n\n\nReturns:\n    string: random string and number and symbols",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_random_str_num_symbol_uppercase",
+                    "args": [
+                        {
+                            "name": "length",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "get random string and number and symbols and upper case\n\n\nArgs:\n    length (int): length of the string and number and symbols and upper case\n\n\nReturns:\n    string: random string and number and symbols and upper case",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "logger",
+                    "args": [
+                        {
+                            "name": "func",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "logger wrapper\n\n\nArgs:\n    func (function): function to be wrapped\n\n\nReturns:\n    function: wrapped function",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "warning",
+                    "args": [
+                        {
+                            "name": "warning",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "warning function\n\n\nArgs:\n    warning (string): warning message",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "error",
+                    "args": [
+                        {
+                            "name": "error",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "error function\n\n\nArgs:\n    error (string): error message",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "info",
+                    "args": [
+                        {
+                            "name": "info",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "info function\n\n\nArgs:\n    info (string): info message",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "debug",
+                    "args": [
+                        {
+                            "name": "debug",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "\"debug function\n\n\nArgs:\n    debug (string): debug message",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "write",
+                    "args": [
+                        {
+                            "name": "code",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "name",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "write function\n\n\nArgs:\n    code (string): code to be written\n    name (string): name of the file",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "wnr",
+                    "args": [
+                        {
+                            "name": "code",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "name",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "command",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "command2",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "write and run the file\n\n\nArgs:\n    code (string): code to be written\n    name (string): name of the file\n    command (string): command to be run\n    command2 (string): command to be run",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "rn",
+                    "args": [
+                        {
+                            "name": "command",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "run command\n\n\nArgs:\n    command (string): command to be run",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "rn2",
+                    "args": [
+                        {
+                            "name": "command",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "command2",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "run command\n\n\nArgs:\n    command (string): first command to run\n    command2 (string): seccond command to run",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "rn3",
+                    "args": [
+                        {
+                            "name": "command",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "command2",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "command3",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "run command\n\n\nArgs:\n    command (string): first command to run\n    command2 (string): seccond command to run\n    command3 (string): third command to run",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_host_time",
+                    "args": [],
+                    "description": "get host time\n\n\n\nReturns:\n    string: host time",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_host_name",
+                    "args": [],
+                    "description": "get host name\n\n\n\nReturns:\n    string: host name",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_host_user",
+                    "args": [],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "mono",
+                    "args": [
+                        {
+                            "name": "path",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "code",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "mono software runner\n\n\nArgs:\n    path (string): the destination path\n    code (string): the code to be written",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "inner",
+                    "args": [],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": [
+                {
+                    "name": "letters",
+                    "value": "string.ascii_lowercase",
+                    "function": "get_random_string"
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": "get_random_string"
+                },
+                {
+                    "name": "letters",
+                    "value": "string.digits",
+                    "function": "get_random_number"
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": "get_random_number"
+                },
+                {
+                    "name": "letters",
+                    "value": "string.ascii_lowercase + string.digits",
+                    "function": "get_random_string_and_number"
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": "get_random_string_and_number"
+                },
+                {
+                    "name": "letters",
+                    "value": "string.ascii_lowercase + string.digits + string.punctuation",
+                    "function": "get_string_num_symbol"
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": "get_string_num_symbol"
+                },
+                {
+                    "name": "letters",
+                    "value": "string.ascii_lowercase + string.digits + string.punctuation + string.ascii_uppercase",
+                    "function": "get_random_str_num_symbol_uppercase"
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": "get_random_str_num_symbol_uppercase"
+                },
+                {
+                    "name": "name",
+                    "value": "os.path.splitext(path)[0]",
+                    "function": "mono"
+                },
+                {
+                    "name": "letters",
+                    "value": "string.ascii_lowercase",
+                    "function": null
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": null
+                },
+                {
+                    "name": "letters",
+                    "value": "string.digits",
+                    "function": null
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": null
+                },
+                {
+                    "name": "letters",
+                    "value": "string.ascii_lowercase + string.digits",
+                    "function": null
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": null
+                },
+                {
+                    "name": "letters",
+                    "value": "string.ascii_lowercase + string.digits + string.punctuation",
+                    "function": null
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": null
+                },
+                {
+                    "name": "letters",
+                    "value": "string.ascii_lowercase + string.digits + string.punctuation + string.ascii_uppercase",
+                    "function": null
+                },
+                {
+                    "name": "result_str",
+                    "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "function": null
+                },
+                {
+                    "name": "name",
+                    "value": "os.path.splitext(path)[0]",
+                    "function": null
+                }
+            ]
+        }
+    ]
+}

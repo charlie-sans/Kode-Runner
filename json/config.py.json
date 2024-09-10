@@ -1,0 +1,39 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/config.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "__init__",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "main",
+                    "args": [],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                }
+            ],
+            "variables": [
+                {
+                    "name": "conf",
+                    "value": "config()",
+                    "function": null
+                }
+            ]
+        }
+    ]
+}
