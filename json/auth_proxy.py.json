@@ -90,76 +90,91 @@
                 {
                     "name": "ws_url",
                     "value": "''",
+                    "type": "str",
                     "function": null
                 },
                 {
                     "name": "password",
                     "value": "''",
+                    "type": "str",
                     "function": null
                 },
                 {
                     "name": "conf",
                     "value": "config.config()",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "msg",
                     "value": "await client.recv()",
+                    "type": null,
                     "function": "ctos"
                 },
                 {
                     "name": "msg",
                     "value": "await server.recv()",
+                    "type": null,
                     "function": "stoc"
                 },
                 {
                     "name": "websocketurl",
                     "value": "ws_url + url",
+                    "type": null,
                     "function": "client"
                 },
                 {
                     "name": "passwd",
                     "value": "await socket.recv()",
+                    "type": null,
                     "function": "client"
                 },
                 {
                     "name": "password",
                     "value": "passwd",
+                    "type": null,
                     "function": "main"
                 },
                 {
                     "name": "ws_url",
                     "value": "websocket_url",
+                    "type": null,
                     "function": "main"
                 },
                 {
                     "name": "websocketurl",
                     "value": "ws_url + url",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "passwd",
                     "value": "await socket.recv()",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "password",
                     "value": "passwd",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "ws_url",
                     "value": "websocket_url",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "msg",
                     "value": "await client.recv()",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "msg",
                     "value": "await server.recv()",
+                    "type": null,
                     "function": null
                 }
             ]

@@ -31,6 +31,7 @@
                 {
                     "name": "conf",
                     "value": "config()",
+                    "type": "config",
                     "function": null
                 }
             ]

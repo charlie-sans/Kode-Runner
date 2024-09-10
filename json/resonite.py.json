@@ -287,111 +287,133 @@
                 {
                     "name": "letters",
                     "value": "string.ascii_lowercase",
+                    "type": null,
                     "function": "get_random_string"
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": "get_random_string"
                 },
                 {
                     "name": "letters",
                     "value": "string.digits",
+                    "type": null,
                     "function": "get_random_number"
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": "get_random_number"
                 },
                 {
                     "name": "letters",
                     "value": "string.ascii_lowercase + string.digits",
+                    "type": null,
                     "function": "get_random_string_and_number"
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": "get_random_string_and_number"
                 },
                 {
                     "name": "letters",
                     "value": "string.ascii_lowercase + string.digits + string.punctuation",
+                    "type": null,
                     "function": "get_string_num_symbol"
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": "get_string_num_symbol"
                 },
                 {
                     "name": "letters",
                     "value": "string.ascii_lowercase + string.digits + string.punctuation + string.ascii_uppercase",
+                    "type": null,
                     "function": "get_random_str_num_symbol_uppercase"
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": "get_random_str_num_symbol_uppercase"
                 },
                 {
                     "name": "name",
                     "value": "os.path.splitext(path)[0]",
+                    "type": null,
                     "function": "mono"
                 },
                 {
                     "name": "letters",
                     "value": "string.ascii_lowercase",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "letters",
                     "value": "string.digits",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "letters",
                     "value": "string.ascii_lowercase + string.digits",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "letters",
                     "value": "string.ascii_lowercase + string.digits + string.punctuation",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "letters",
                     "value": "string.ascii_lowercase + string.digits + string.punctuation + string.ascii_uppercase",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "result_str",
                     "value": "''.join((random.choice(letters) for i in range(length)))",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "name",
                     "value": "os.path.splitext(path)[0]",
+                    "type": null,
                     "function": null
                 }
             ]

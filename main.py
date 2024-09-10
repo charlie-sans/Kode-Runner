@@ -2,6 +2,22 @@ import os
 import ast
 import json
 
+def infer_type(value):
+    """Infer the type of a value."""
+    if isinstance(value, ast.Constant):
+        return type(value.value).__name__
+    elif isinstance(value, ast.List):
+        return "list"
+    elif isinstance(value, ast.Dict):
+        return "dict"
+    elif isinstance(value, ast.Tuple):
+        return "tuple"
+    elif isinstance(value, ast.Set):
+        return "set"
+    elif isinstance(value, ast.Call):
+        return value.func.id if isinstance(value.func, ast.Name) else None
+    return None
+
 def parse_function_def(node):
     """Parse a function definition node to extract relevant information."""
     func_info = {
@@ -34,6 +50,7 @@ def parse_variable_assignments(node, func_name=None):
                 var_info = {
                     "name": target.id,
                     "value": ast.unparse(node.value) if hasattr(ast, 'unparse') else ast.dump(node.value),
+                    "type": infer_type(node.value),
                     "function": func_name
                 }
                 variables.append(var_info)
@@ -85,7 +102,8 @@ def generate_json_for_directory(directory_path):
                 os.makedirs(os.path.dirname(json_file_path), exist_ok=True)
                 with open(json_file_path, "w") as json_file:
                     json.dump(project_info, json_file, indent=4)
+                print(f"Generated JSON for {file_path}")
 
 if __name__ == "__main__":
-    directory_path = "runner"
+    directory_path = "runner/"
     generate_json_for_directory(directory_path)

@@ -244,661 +244,793 @@
                 {
                     "name": "conf",
                     "value": "config.config()",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "_debug_enabled",
                     "value": "False",
+                    "type": "bool",
                     "function": null
                 },
                 {
                     "name": "stopped",
                     "value": "False",
+                    "type": "bool",
                     "function": null
                 },
                 {
                     "name": "current_process",
                     "value": "None",
+                    "type": "NoneType",
                     "function": null
                 },
                 {
                     "name": "current_process",
                     "value": "pexpect.spawn(command, encoding='utf-8')",
+                    "type": null,
                     "function": "execute_code"
                 },
                 {
                     "name": "stopped",
                     "value": "False",
+                    "type": "bool",
                     "function": "execute_code"
                 },
                 {
                     "name": "index",
                     "value": "current_process.expect(['\\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)",
+                    "type": null,
                     "function": "execute_code"
                 },
                 {
                     "name": "decolorised_text",
                     "value": "re.sub('\\\\x1b\\\\[[0-9;]*m', '', current_process.after)",
+                    "type": null,
                     "function": "execute_code"
                 },
                 {
                     "name": "stopped",
                     "value": "True",
+                    "type": "bool",
                     "function": "stop_current_process"
                 },
                 {
                     "name": "code",
                     "value": "await websocket.recv()",
+                    "type": null,
                     "function": "Write_code_Buffer"
                 },
                 {
                     "name": "first_line",
                     "value": "code.split('\\n')[0]",
+                    "type": null,
                     "function": "Write_code_Buffer"
                 },
                 {
                     "name": "comment_patterns",
                     "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
+                    "type": "list",
                     "function": "Write_code_Buffer"
                 },
                 {
                     "name": "project_name",
                     "value": "code.split('\\n')[2].split('Project: ')[1]",
+                    "type": null,
                     "function": "Write_code_Buffer"
                 },
                 {
                     "name": "File_name",
                     "value": "code.split('\\n')[1].split('File_name: ')[1]",
+                    "type": null,
                     "function": "Write_code_Buffer"
                 },
                 {
                     "name": "project_name",
                     "value": "code.split('\\n')[1].split('Project: ')[1]",
+                    "type": null,
                     "function": "Write_code_Buffer"
                 },
                 {
                     "name": "parsed_code",
                     "value": "json.loads(code)",
+                    "type": null,
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "Sysver",
                     "value": "parsed_code['PMS_System']",
+                    "type": null,
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "Project_name",
                     "value": "parsed_code['Project_Name']",
+                    "type": null,
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "Entry_point",
                     "value": "parsed_code['Main_File']",
+                    "type": null,
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "Output_Name",
                     "value": "parsed_code['Project_Output']",
+                    "type": null,
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "parsed_code['Project_Build_Systems']",
+                    "type": null,
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "arguments",
                     "value": "parsed_code['compiler-arguments']",
+                    "type": null,
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "_debug_enabled",
                     "value": "parsed_code['Debug_enabled']",
+                    "type": null,
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "project_vars",
                     "value": "[Sysver, Project_name, Entry_point, Output_Name, Project_Build_System, arguments, _debug_enabled]",
+                    "type": "list",
                     "function": "Read_PMS_File"
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": "init_node"
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": "init_node"
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": "init_node"
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": "init_node"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": "init_node"
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": "init_gpp"
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": "init_gpp"
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": "init_gpp"
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": "init_gpp"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": "init_gpp"
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": "init_cargo"
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": "init_cargo"
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": "init_cargo"
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": "init_cargo"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": "init_cargo"
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": "init_mono"
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": "init_mono"
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": "init_mono"
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": "init_mono"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": "init_mono"
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": "init_go"
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": "init_go"
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": "init_go"
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": "init_go"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": "init_go"
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": "init_cmake"
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": "init_cmake"
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": "init_cmake"
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": "init_cmake"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": "init_cmake"
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": "init_make"
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": "init_make"
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": "init_make"
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": "init_make"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": "init_make"
                 },
                 {
                     "name": "args",
                     "value": "project_vars[5]",
+                    "type": null,
                     "function": "init_make"
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": "Run_PMS_system"
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": "Run_PMS_system"
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": "Run_PMS_system"
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": "Run_PMS_system"
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": "Run_PMS_system"
                 },
                 {
                     "name": "project_vars",
                     "value": "json.loads(f.read())",
+                    "type": null,
                     "function": "Run_PMS_system"
                 },
                 {
                     "name": "code",
                     "value": "await websocket.recv()",
+                    "type": null,
                     "function": "PMS"
                 },
                 {
                     "name": "parsed_code",
                     "value": "json.loads(code)",
+                    "type": null,
                     "function": "PMS"
                 },
                 {
                     "name": "current_process",
                     "value": "pexpect.spawn(command, encoding='utf-8')",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "stopped",
                     "value": "True",
+                    "type": "bool",
                     "function": null
                 },
                 {
                     "name": "parsed_code",
                     "value": "json.loads(code)",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "parsed_code['PMS_System']",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "parsed_code['Project_Name']",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "parsed_code['Main_File']",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "parsed_code['Project_Output']",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "parsed_code['Project_Build_Systems']",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "arguments",
                     "value": "parsed_code['compiler-arguments']",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "_debug_enabled",
                     "value": "parsed_code['Debug_enabled']",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "project_vars",
                     "value": "[Sysver, Project_name, Entry_point, Output_Name, Project_Build_System, arguments, _debug_enabled]",
+                    "type": "list",
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "args",
                     "value": "project_vars[5]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Sysver",
                     "value": "project_vars[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_name",
                     "value": "project_vars[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Entry_point",
                     "value": "project_vars[2]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Output_Name",
                     "value": "project_vars[3]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "Project_Build_System",
                     "value": "project_vars[4]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "code",
                     "value": "await websocket.recv()",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "parsed_code",
                     "value": "json.loads(code)",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "code",
                     "value": "await websocket.recv()",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "first_line",
                     "value": "code.split('\\n')[0]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "comment_patterns",
                     "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
+                    "type": "list",
                     "function": null
                 },
                 {
                     "name": "project_vars",
                     "value": "json.loads(f.read())",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "stopped",
                     "value": "False",
+                    "type": "bool",
                     "function": null
                 },
                 {
                     "name": "index",
                     "value": "current_process.expect(['\\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "decolorised_text",
                     "value": "re.sub('\\\\x1b\\\\[[0-9;]*m', '', current_process.after)",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "project_name",
                     "value": "code.split('\\n')[2].split('Project: ')[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "File_name",
                     "value": "code.split('\\n')[1].split('File_name: ')[1]",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "project_name",
                     "value": "code.split('\\n')[1].split('Project: ')[1]",
+                    "type": null,
                     "function": null
                 }
             ]

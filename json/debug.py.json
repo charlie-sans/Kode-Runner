@@ -70,71 +70,85 @@
                 {
                     "name": "colortags",
                     "value": "{'blue': '#0000FF', 'red': '#FF0000', 'green': '#00FF00', 'yellow': '#FFFF00', 'black': '#000000'}",
+                    "type": "dict",
                     "function": "de_bug"
                 },
                 {
                     "name": "output",
                     "value": "'<color=#ffff00><<WARNING>></color>' + message",
+                    "type": null,
                     "function": "de_bug"
                 },
                 {
                     "name": "output",
                     "value": "'<color=#ff0000><<ERROR>></color>' + message",
+                    "type": null,
                     "function": "de_bug"
                 },
                 {
                     "name": "output",
                     "value": "'<color=#00ff00><<INFO>></color>' + message",
+                    "type": null,
                     "function": "de_bug"
                 },
                 {
                     "name": "output",
                     "value": "'<color=#0000ff><<DEBUG>></color>' + message",
+                    "type": null,
                     "function": "de_bug"
                 },
                 {
                     "name": "colortags",
                     "value": "{'blue': '#0000FF', 'red': '#FF0000', 'green': '#00FF00', 'yellow': '#FFFF00', 'black': '#000000'}",
+                    "type": "dict",
                     "function": "de_bug"
                 },
                 {
                     "name": "message",
                     "value": "await websocket.recv()",
+                    "type": null,
                     "function": "debug"
                 },
                 {
                     "name": "colortags",
                     "value": "{'blue': '#0000FF', 'red': '#FF0000', 'green': '#00FF00', 'yellow': '#FFFF00', 'black': '#000000'}",
+                    "type": "dict",
                     "function": null
                 },
                 {
                     "name": "colortags",
                     "value": "{'blue': '#0000FF', 'red': '#FF0000', 'green': '#00FF00', 'yellow': '#FFFF00', 'black': '#000000'}",
+                    "type": "dict",
                     "function": null
                 },
                 {
                     "name": "output",
                     "value": "'<color=#ffff00><<WARNING>></color>' + message",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "message",
                     "value": "await websocket.recv()",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "output",
                     "value": "'<color=#ff0000><<ERROR>></color>' + message",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "output",
                     "value": "'<color=#00ff00><<INFO>></color>' + message",
+                    "type": null,
                     "function": null
                 },
                 {
                     "name": "output",
                     "value": "'<color=#0000ff><<DEBUG>></color>' + message",
+                    "type": null,
                     "function": null
                 }
             ]
