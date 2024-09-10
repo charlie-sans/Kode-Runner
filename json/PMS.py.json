@@ -199,6 +199,24 @@
                     "async": true
                 },
                 {
+                    "name": "init_fortran",
+                    "args": [
+                        {
+                            "name": "project_vars",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "websocket",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
                     "name": "Run_PMS_system",
                     "args": [
                         {
@@ -309,7 +327,7 @@
                 },
                 {
                     "name": "comment_patterns",
-                    "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
+                    "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^\\\\!*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
                     "type": "list",
                     "function": "Write_code_Buffer"
                 },
@@ -600,6 +618,36 @@
                     "value": "project_vars[5]",
                     "type": null,
                     "function": "init_make"
+                },
+                {
+                    "name": "Sysver",
+                    "value": "project_vars[0]",
+                    "type": null,
+                    "function": "init_fortran"
+                },
+                {
+                    "name": "Project_name",
+                    "value": "project_vars[1]",
+                    "type": null,
+                    "function": "init_fortran"
+                },
+                {
+                    "name": "Entry_point",
+                    "value": "project_vars[2]",
+                    "type": null,
+                    "function": "init_fortran"
+                },
+                {
+                    "name": "Output_Name",
+                    "value": "project_vars[3]",
+                    "type": null,
+                    "function": "init_fortran"
+                },
+                {
+                    "name": "Project_Build_System",
+                    "value": "project_vars[4]",
+                    "type": null,
+                    "function": "init_fortran"
                 },
                 {
                     "name": "Sysver",
@@ -962,6 +1010,36 @@
                     "function": null
                 },
                 {
+                    "name": "Sysver",
+                    "value": "project_vars[0]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "Project_name",
+                    "value": "project_vars[1]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "Entry_point",
+                    "value": "project_vars[2]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "Output_Name",
+                    "value": "project_vars[3]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "Project_Build_System",
+                    "value": "project_vars[4]",
+                    "type": null,
+                    "function": null
+                },
+                {
                     "name": "code",
                     "value": "await websocket.recv()",
                     "type": null,
@@ -987,7 +1065,7 @@
                 },
                 {
                     "name": "comment_patterns",
-                    "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
+                    "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^\\\\!*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
                     "type": "list",
                     "function": null
                 },

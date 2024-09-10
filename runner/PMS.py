@@ -66,13 +66,17 @@ async def Write_code_Buffer(websocket, path):
             klog.logging.log("Third Line: " + code.split("\n")[2])
         # check if the first line is a comment
         comment_patterns = [
-            r"^#",  # For Python
+            r"^#",  # For Python, Perl, Ruby, etc.
             r"^//", # For C++, Java, JavaScript, etc.
             r"^/\*", # For C, C++, Java, JavaScript, etc.
             r"^<!--", # For HTML
             r"^\"\"\"", # For Python
             # for C 
             r"^\\*",
+            # for asm
+            r"^;",
+            # fortran
+            r"^\!*",
             r"^\/*",
             # for C++
             r"^//",
@@ -84,14 +88,60 @@ async def Write_code_Buffer(websocket, path):
             r"^:.*",  # For AppleScript
             r"^--\[\[", # For Lua
         ]
+        File_name_cases = [
+            r"File_name: ",
+            r"File_name:",
+            r" File_name: ",
+            r" File_name :",
+            r"File_name :",
+            r" File_name : ",
+            r" File_name : ",
+        ]
+        Project_name_cases = [
+            r"Project: ",
+            r"Project:",
+            r" Project: ",
+            r" Project :",
+            r"Project :",
+            r" Project : ",
+            r" Project : ",
+        ]
+        # check if the first line is a comment
         if any(re.match(pattern, first_line) for pattern in comment_patterns):
             # check if the comment has the filename in it
-            if re.search("File_name: ", code.split("\n")[1]): # check if the comment has the filename in it
+            if any(re.search(case, code) for case in File_name_cases):
                 # check if the comment has the project name in it
-                if re.search("Project: ", code.split("\n")[2]):
+                if any(re.search(case, code) for case in Project_name_cases): # please find the things in the fortran comment i beg you.
+                    print("Project name and filename found in comment")
                     # get the project name from the comment
-                    project_name = code.split("\n")[2].split("Project: ")[1]
-                    File_name = code.split("\n")[1].split("File_name: ")[1]
+                    print("Code: " + code)
+                    if any(re.search(case, code) for case in Project_name_cases):
+                        project_name_match = re.search(r"Project: (.*)", code)
+                        if project_name_match:
+                            project_name = project_name_match.group(1).strip().replace(" ", "_")
+                        else:
+                            project_name_match = re.search(r"Project (.*)", code)
+                            project_name = project_name_match.group(1).strip().replace(" ", "_")
+                    else:
+                        project_name_match = re.search(r"Project (.*)", code)
+                        project_name = project_name_match.group(1).strip().replace(" ", "_")
+
+                    # get the filename from the comment
+                    if any(re.search(case, code) for case in File_name_cases):
+                        file_name_match = re.search(r"File_name: (.*)", code)
+                        if file_name_match:
+                            File_name = file_name_match.group(1).strip().replace(" ", "_")
+                        else:
+                            file_name_match = re.search(r"File_name (.*)", code)
+                            File_name = file_name_match.group(1).strip().replace(" ", "_")
+                    else:
+                        file_name_match = re.search(r"File_name (.*)", code)
+                        File_name = file_name_match.group(1).strip().replace(" ", "_")
+                        
+                    
+                    print("Project Name: " + project_name)
+                    print("File Name: " + File_name)
+                    
                     if _debug_enabled:
                         klog.logging.log("Project Name: " + project_name)
                         klog.logging.log("File Name: " + File_name)
@@ -195,6 +245,24 @@ async def init_node(project_vars,websocket):
     Project_Build_System = project_vars[4]
     # init node without npm as we dont need it
     await execute_code("node " + Project_name + "/" + Entry_point, websocket)
+
+
+#init linux nasm
+async def init_nasm(project_vars,websocket):
+    # get the project vars
+    Sysver = project_vars[0]
+    Project_name = project_vars[1]  
+    Entry_point = project_vars[2]
+    Output_Name = project_vars[3]
+    print("Project Name: " + Project_name + "\n")
+    print("Entry Point: " + Entry_point + "\n")
+    print("Output Name: " + Output_Name + "\n")
+    
+    Project_Build_System = project_vars[4]
+    # init nasm
+    await execute_code("nasm -f elf64 " + Project_name + "/" + Entry_point, websocket)
+    await execute_code("ld " + Project_name + "/"+ Output_Name + ".o -o " + Project_name + "/" + Output_Name, websocket)
+    await execute_code("./" + Project_name + "/" + Output_Name, websocket)
 
 # init g++
 async def init_gpp(project_vars,websocket):
@@ -326,6 +394,25 @@ async def init_make(project_vars,websocket):
         await execute_code("make -C " + Project_name, websocket)
     # run the output
     await execute_code("./" + Project_name + "/" + Output_Name, websocket)
+    
+# init fortran
+async def init_fortran(project_vars,websocket):
+    # get the project vars
+    Sysver = project_vars[0]
+    Project_name = project_vars[1]  
+    Entry_point = project_vars[2]
+    Output_Name = project_vars[3]
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
+    
+    Project_Build_System = project_vars[4]
+    # init gfortran
+    await execute_code("gfortran " + Project_name + "/" + Entry_point + " -o " + Project_name + "/" + Output_Name, websocket)
+    await execute_code("./" + Project_name + "/" + Output_Name, websocket)
+    
+    
 async def Run_PMS_system(websocket, path,Project_name):
     print("Running PMS System\n")
     print("Path: " + path + "\n")
@@ -365,6 +452,8 @@ async def Run_PMS_system(websocket, path,Project_name):
             await execute_code("./" + Project_name + "/" + Output_Name, websocket)
         case "Go":
             await init_go(project_vars,websocket)
+        case "nasm":
+            await init_nasm(project_vars,websocket)
         case "mono":
             await init_mono(project_vars,websocket)
         case "bash":
@@ -377,7 +466,9 @@ async def Run_PMS_system(websocket, path,Project_name):
             await execute_code("ruby " + Project_name + "/" + Entry_point, websocket)
         case "lua":
             await execute_code("lua " + Project_name + "/" + Entry_point, websocket)
-    
+        case "gfortran":
+            await init_fortran(project_vars,websocket)
+            
 
             
 async def PMS(websocket, path):
