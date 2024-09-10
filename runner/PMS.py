@@ -61,17 +61,16 @@ async def Write_code_Buffer(websocket, path):
         # get the first line of the code
         first_line = code.split("\n")[0]
         if _debug_enabled:
-            klog.log("First Line: " + first_line)
-            klog.log("Second Line: " + code.split("\n")[1])
-            klog.log("Third Line: " + code.split("\n")[2])
+            klog.logging.log("First Line: " + first_line)
+            klog.logging.log("Second Line: " + code.split("\n")[1])
+            klog.logging.log("Third Line: " + code.split("\n")[2])
         # check if the first line is a comment
         comment_patterns = [
-            r"^#",
-            
-            r"^//",
-            r"^/\*",
-            r"^<!--",
-            r"^\"\"\"",
+            r"^#",  # For Python
+            r"^//", # For C++, Java, JavaScript, etc.
+            r"^/\*", # For C, C++, Java, JavaScript, etc.
+            r"^<!--", # For HTML
+            r"^\"\"\"", # For Python
             # for C 
             r"^\\*",
             r"^\/*",
@@ -94,8 +93,8 @@ async def Write_code_Buffer(websocket, path):
                     project_name = code.split("\n")[2].split("Project: ")[1]
                     File_name = code.split("\n")[1].split("File_name: ")[1]
                     if _debug_enabled:
-                        klog.log("Project Name: " + project_name)
-                        klog.log("File Name: " + File_name)
+                        klog.logging.log("Project Name: " + project_name)
+                        klog.logging.log("File Name: " + File_name)
                     # find the project directory if it exists
                     if os.path.exists(project_name):
                         # save the code to the project directory

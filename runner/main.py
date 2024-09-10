@@ -11,10 +11,8 @@ import pexpect
 import subprocess
 import re
 import sys
-
+import PMS
 from debug import de_bug
-import PMSsystem
-
 from debug import debug
 
 import auth_proxy
@@ -78,9 +76,9 @@ async def handler(websocket, path):
     match path:
         
         case "/PMS":
-            await PMSsystem.PMS(websocket, path)
+            await PMS.PMS(websocket, path)
         case "/code":
-            await PMSsystem. Write_code_Buffer (websocket, path)
+            await PMS. Write_code_Buffer (websocket, path)
         case "/PythonLSP":
             await PythonLSP(websocket, path)
         case "/debug":
@@ -90,7 +88,7 @@ async def handler(websocket, path):
             message = await websocket.recv()
             print("Received message:", message)
             if message:
-                await PMSsystem.stop_current_process()
+                await PMS.stop_current_process()
         case _: await websocket.send("Invalid path")
 
 
