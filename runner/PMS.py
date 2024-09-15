@@ -96,6 +96,16 @@ async def Write_code_Buffer(websocket, path):
             r"File_name :",
             r" File_name : ",
             r" File_name : ",
+            
+            # file_nane cases 
+            r"File_nane: ",
+            r"File_nane:",
+            r" File_nane: ",
+            r" File_nane :",
+            
+            r"#File_name: ",
+            r"#File_name:",
+            r"# File_name: ",
         ]
         Project_name_cases = [
             r"Project: ",
@@ -105,6 +115,9 @@ async def Write_code_Buffer(websocket, path):
             r"Project :",
             r" Project : ",
             r" Project : ",
+            r"#Project: ",
+            r"#Project:",
+            r"# Project: ",
         ]
         # check if the first line is a comment
         if any(re.match(pattern, first_line) for pattern in comment_patterns):
