@@ -1,8 +1,0 @@
-{
-    "name": "maow",
-    "description": "A test file for the coderunner_tools package.",
-    "type": "Websocket",
-    "test_data": "Hello, World!",
-    "expected_response": "Hello, World!",
-    "status": "data did not match!"
-}

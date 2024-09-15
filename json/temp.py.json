@@ -1,0 +1,82 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/temp.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "shell",
+                    "args": [
+                        {
+                            "name": "websocket",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "path",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "send_shell",
+                    "args": [],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "receive_shell",
+                    "args": [],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                }
+            ],
+            "variables": [
+                {
+                    "name": "process",
+                    "value": "await asyncio.create_subprocess_exec('/bin/bash', stdin=slave_fd, stdout=slave_fd, stderr=slave_fd, start_new_session=True, env={'TERM': 'xterm'})",
+                    "type": null,
+                    "function": "shell"
+                },
+                {
+                    "name": "output",
+                    "value": "await asyncio.get_event_loop().run_in_executor(None, os.read, master_fd, 1024)",
+                    "type": null,
+                    "function": "shell"
+                },
+                {
+                    "name": "start_server",
+                    "value": "websockets.serve(shell, 'localhost', 500)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "process",
+                    "value": "await asyncio.create_subprocess_exec('/bin/bash', stdin=slave_fd, stdout=slave_fd, stderr=slave_fd, start_new_session=True, env={'TERM': 'xterm'})",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "output",
+                    "value": "await asyncio.get_event_loop().run_in_executor(None, os.read, master_fd, 1024)",
+                    "type": null,
+                    "function": "send_shell"
+                },
+                {
+                    "name": "output",
+                    "value": "await asyncio.get_event_loop().run_in_executor(None, os.read, master_fd, 1024)",
+                    "type": null,
+                    "function": null
+                }
+            ]
+        }
+    ]
+}

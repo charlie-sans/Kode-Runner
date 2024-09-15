@@ -11,3 +11,5 @@ coderunner_tools/coderunner-build/target
 runner/lib/main.build
 runner/lib/main.dist
 runner/lib/main.onefile-build
+web/bin
+output

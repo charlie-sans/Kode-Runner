@@ -24,7 +24,7 @@ async def execute_CPP( websocket):
                 #await websocket.send(child.before)
                 break
         except pexpect.exceptions.TIMEOUT as e:
-            de_bug( f"Execution timed out {e}", "ERROR")
+            await de_bug( f"Execution timed out {e}", "ERROR")
             break
    
  

@@ -1,0 +1,305 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/klog.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "__init__",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_logger",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_formatter",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_console_handler",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_file_handler",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "set_level",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "level",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "set_formatter",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "formatter",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "set_console_handler",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "console_handler",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "set_file_handler",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "file_handler",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "remove_console_handler",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "remove_file_handler",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "log",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "debug",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "warning",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "error",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "critical",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "add_console_handler",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "add_file_handler",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "remove_all_handlers",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": []
+        }
+    ]
+}
