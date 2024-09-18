@@ -1,0 +1,103 @@
+/* Dark Theme for PySide6 Text Editor */
+
+QWidget {
+    background-color: #2b2b2b;
+    color: #d3d3d3;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+QTextEdit {
+    background-color: #1e1e1e;
+    color: #d3d3d3;
+    border: 1px solid #3c3c3c;
+    padding: 5px;
+}
+
+QScrollBar:vertical {
+    background-color: #2b2b2b;
+    width: 15px;
+    margin: 15px 3px 15px 3px;
+    border: 1px solid #3c3c3c;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #5c5c5c;
+    min-height: 20px;
+    border-radius: 5px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    background-color: #2b2b2b;
+    height: 15px;
+    subcontrol-origin: margin;
+    subcontrol-position: top;
+    border: 1px solid #3c3c3c;
+}
+
+QScrollBar::add-line:vertical:hover, QScrollBar::sub-line:vertical:hover {
+    background-color: #3c3c3c;
+}
+
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+    border: 2px solid #3c3c3c;
+    width: 3px;
+    height: 3px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QMenuBar {
+    background-color: #2b2b2b;
+    color: #d3d3d3;
+}
+
+QMenuBar::item {
+    background: transparent;
+    padding: 5px 10px;
+}
+
+QMenuBar::item:selected {
+    background: #3c3c3c;
+}
+
+QMenu {
+    background-color: #2b2b2b;
+    color: #d3d3d3;
+    border: 1px solid #3c3c3c;
+}
+
+QMenu::item {
+    padding: 5px 20px;
+}
+
+QMenu::item:selected {
+    background-color: #3c3c3c;
+}
+
+QToolBar {
+    background-color: #2b2b2b;
+    border: 1px solid #3c3c3c;
+}
+
+QToolButton {
+    background-color: #2b2b2b;
+    color: #d3d3d3;
+    border: none;
+    padding: 5px;
+}
+
+QToolButton:hover {
+    background-color: #3c3c3c;
+}
+
+QToolButton:pressed {
+    background-color: #5c5c5c;
+}
+
+QStatusBar {
+    background-color: #2b2b2b;
+    color: #d3d3d3;
+}

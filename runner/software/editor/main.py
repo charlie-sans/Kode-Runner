@@ -2,6 +2,9 @@ import PySide6.QtWidgets as QtWidgets
 import PySide6.QtCore as QtCore
 import PySide6.QtGui as QtGui
 import sys
+import json
+import websockets
+import asyncio
 
 class LineNumberArea(QtWidgets.QWidget):
     def __init__(self, editor):
@@ -18,37 +21,39 @@ class SyntaxHighlighter(QtGui.QSyntaxHighlighter):
     def __init__(self, document):
         super().__init__(document)
         self.highlighting_rules = []
+        self.load_keywords()
 
-        # Define your keywords and their respective colors
-        keywords = {
-            'def': QtGui.QColor(QtCore.Qt.blue),
-            'class': QtGui.QColor(QtCore.Qt.darkMagenta),
-            'import': QtGui.QColor(QtCore.Qt.darkCyan),
-            'from': QtGui.QColor(QtCore.Qt.darkCyan),
-            'self': QtGui.QColor(QtCore.Qt.darkRed),
-            'return': QtGui.QColor(QtCore.Qt.darkGreen),
-            'if': QtGui.QColor(QtCore.Qt.darkYellow),
-            'else': QtGui.QColor(QtCore.Qt.darkYellow),
-            'while': QtGui.QColor(QtCore.Qt.darkYellow),
-            'for': QtGui.QColor(QtCore.Qt.darkYellow),
-            'in': QtGui.QColor(QtCore.Qt.darkYellow),
-            'True': QtGui.QColor(QtCore.Qt.darkBlue),
-            'False': QtGui.QColor(QtCore.Qt.darkBlue),
-            'None': QtGui.QColor(QtCore.Qt.darkBlue),
-        }
+        # Highlight function definitions
+        self.add_highlight_rule(r'\bdef\b\s*(\w+)\s*\(', "blue", bold=True)
 
-        for keyword, color in keywords.items():
-            pattern = QtCore.QRegularExpression(f'\\b{keyword}\\b')
-            format = QtGui.QTextCharFormat()
-            format.setForeground(color)
-            self.highlighting_rules.append((pattern, format))
+        # Highlight function calls
+        self.add_highlight_rule(r'\b(\w+)\s*(?=\()', "lightblue")
+
+    def load_keywords(self):
+        try:
+            with open("colors.json", "r") as file:
+                keywords = json.load(file)
+            for keyword, color in keywords.items():
+                self.add_highlight_rule(rf'\b{keyword}\b', color)
+        except FileNotFoundError:
+            print("colors.json not found.")
+
+    def add_highlight_rule(self, pattern, color, bold=False):
+        regex = QtCore.QRegularExpression(pattern)
+        format = QtGui.QTextCharFormat()
+        format.setForeground(QtGui.QColor(color))
+        if bold:
+            format.setFontWeight(QtGui.QFont.Bold)
+        self.highlighting_rules.append((regex, format))
 
     def highlightBlock(self, text):
         for pattern, format in self.highlighting_rules:
             match_iterator = pattern.globalMatch(text)
             while match_iterator.hasNext():
                 match = match_iterator.next()
-                self.setFormat(match.capturedStart(), match.capturedLength(), format)
+                start = match.capturedStart()
+                length = match.capturedLength()
+                self.setFormat(start, length, format)
 
 class TextEditor(QtWidgets.QPlainTextEdit):
     def __init__(self):
@@ -64,13 +69,8 @@ class TextEditor(QtWidgets.QPlainTextEdit):
         self.highlight_current_line()
 
     def line_number_area_width(self):
-        digits = 1
-        max_block = max(1, self.blockCount())
-        while max_block >= 10:
-            max_block //= 10
-            digits += 1
-        space = 3 + self.fontMetrics().horizontalAdvance('9') * digits
-        return space
+        digits = len(str(max(1, self.blockCount())))
+        return 3 + self.fontMetrics().horizontalAdvance('9') * digits
 
     def update_line_number_area_width(self, _):
         self.setViewportMargins(self.line_number_area_width(), 0, 0, 0)
@@ -80,7 +80,6 @@ class TextEditor(QtWidgets.QPlainTextEdit):
             self.line_number_area.scroll(0, dy)
         else:
             self.line_number_area.update(0, rect.y(), self.line_number_area.width(), rect.height())
-
         if rect.contains(self.viewport().rect()):
             self.update_line_number_area_width(0)
 
@@ -94,104 +93,136 @@ class TextEditor(QtWidgets.QPlainTextEdit):
         painter.fillRect(event.rect(), QtCore.Qt.darkGray)
 
         block = self.firstVisibleBlock()
-        block_number = block.blockNumber()
         top = self.blockBoundingGeometry(block).translated(self.contentOffset()).top()
         bottom = top + self.blockBoundingRect(block).height()
 
         while block.isValid() and top <= event.rect().bottom():
             if block.isVisible() and bottom >= event.rect().top():
-                number = str(block_number + 1)
                 painter.setPen(QtCore.Qt.white)
                 painter.drawText(0, top, self.line_number_area.width(), self.fontMetrics().height(),
-                                 QtCore.Qt.AlignRight, number)
-
+                                 QtCore.Qt.AlignRight, str(block.blockNumber() + 1))
             block = block.next()
             top = bottom
             bottom = top + self.blockBoundingRect(block).height()
-            block_number += 1
 
     def highlight_current_line(self):
-        extra_selections = []
-
         if not self.isReadOnly():
             selection = QtWidgets.QTextEdit.ExtraSelection()
-            line_color = QtGui.QColor(QtCore.Qt.darkGray).lighter(160)
+            line_color = QtGui.QColor(QtCore.Qt.darkGray).lighter(20)
             selection.format.setBackground(line_color)
             selection.format.setProperty(QtGui.QTextFormat.FullWidthSelection, True)
             selection.cursor = self.textCursor()
             selection.cursor.clearSelection()
-            extra_selections.append(selection)
+            self.setExtraSelections([selection])
 
-        self.setExtraSelections(extra_selections)
+    def highlight_line_with_error(self, line_number):
+        if not self.isReadOnly():
+            selection = QtWidgets.QTextEdit.ExtraSelection()
+            line_color = QtGui.QColor(QtCore.Qt.red).lighter(160)
+            selection.format.setBackground(line_color)
+            selection.format.setProperty(QtGui.QTextFormat.FullWidthSelection, True)
+            cursor = QtGui.QTextCursor(self.document().findBlockByLineNumber(line_number))
+            selection.cursor = cursor
+            selection.cursor.clearSelection()
+            self.setExtraSelections([selection])
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Return:
+            self.auto_indent(event)
+        elif event.key() == QtCore.Qt.Key_Backspace:
+            self.auto_unindent(event)
+        else:
+            super().keyPressEvent(event)
+
+    def auto_indent(self, event):
+        cursor = self.textCursor()
+        block = cursor.block()
+        match = QtCore.QRegularExpression(r'^(\s*)').match(block.text())
+        cursor.insertText('\n' + match.captured(1))
+
+    def auto_unindent(self, event):
+        cursor = self.textCursor()
+        block = cursor.block()
+        if QtCore.QRegularExpression(r'^\s*$').match(block.text()).hasMatch():
+            cursor.removeSelectedText()
+        else:
+            super().keyPressEvent(event)
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.init_ui()
-
-    def init_ui(self):
         self.setWindowTitle("Text Editor")
         self.setGeometry(100, 100, 800, 600)
-        
-        self.code_ws = None
-        self.endpoints = {
-            "code": "ws://localhost:5000/code",
-            "PMS": "ws://localhost:5000/PMS"
-        }
-        self.port = None
-
-
         self.editor = TextEditor()
         self.setCentralWidget(self.editor)
-
+        self.editor.setTabStopDistance(4 * self.editor.fontMetrics().horizontalAdvance(' '))
         self.create_menu()
- 
+        self.server = None
+        self.port = None
 
     def create_menu(self):
         menubar = self.menuBar()
         file_menu = menubar.addMenu('File')
 
-        open_action = QtGui.QAction('Open', self)
-        open_action.triggered.connect(self.open_file)
-        file_menu.addAction(open_action)
+        file_menu.addAction(self.create_action('Open', self.open_file))
+        file_menu.addAction(self.create_action('Save', self.save_file))
+        file_menu.addAction(self.create_action('Connect to Server', self.connect_to_server))
+        file_menu.addAction(self.create_action('Disconnect from Server', self.disconnect_from_server))
 
-        save_action = QtGui.QAction('Save', self)
-        save_action.triggered.connect(self.save_file)
-        file_menu.addAction(save_action)
-        
-        connect_action = QtGui.QAction('Connect to Server', self)
-        connect_action.triggered.connect(self.connect_to_server)
-        file_menu.addAction(connect_action)
+    def create_action(self, name, method):
+        action = QtGui.QAction(name, self)
+        action.triggered.connect(method)
+        return action
 
     def open_file(self):
         options = QtWidgets.QFileDialog.Options()
         file_name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt);;All Files (*)", options=options)
         if file_name:
-            with open(file_name, 'r') as file:
-                self.editor.setPlainText(file.read())
+            try:
+                with open(file_name, 'r') as file:
+                    self.editor.setPlainText(file.read())
+            except Exception as e:
+                QtWidgets.QMessageBox.critical(self, "Error", f"Could not open file: {e}")
 
     def save_file(self):
         options = QtWidgets.QFileDialog.Options()
         file_name, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", "", "Text Files (*.txt);;All Files (*)", options=options)
         if file_name:
-            with open(file_name, 'w') as file:
-                file.write(self.editor.toPlainText())
-                
-    def connect_to_server(self):
-        with open("config.json", "r") as file:
-            config = json.load(file)
-            self.server = config["server"]
-            self.port = config["port"]
-   
-            self.code_ws = websockets.connect(f"ws://{self.server}:{self.port}/code")
-            self.PMS_ws = websockets.connect(f"ws://{self.server}:{self.port}/PMS")
-            
-    def set_style(self, style):
-        with open(style, 'r') as file:
-            self.setStyleSheet(file.read())
+            try:
+                with open(file_name, 'w') as file:
+                    file.write(self.editor.toPlainText())
+            except Exception as e:
+                QtWidgets.QMessageBox.critical(self, "Error", f"Could not save file: {e}")
 
-if __name__ == '__main__':
+    async def handle_websocket(self, uri):
+        try:
+            async with websockets.connect(uri) as websocket:
+                self.editor.appendPlainText(f"Connected to {uri}")
+                while True:
+                    message = await websocket.recv()
+                    self.editor.appendPlainText(f"Received: {message}")
+        except Exception as e:
+            self.editor.appendPlainText(f"WebSocket error: {e}")
+
+    def connect_to_server(self):
+        # Use QInputDialog to get server and port information
+        server, ok = QtWidgets.QInputDialog.getText(self, 'Connect to Server', 'Enter server address:')
+        if ok and server:
+            port, ok = QtWidgets.QInputDialog.getInt(self, 'Connect to Server', 'Enter port:')
+            if ok:
+                uri = f"ws://{server}:{port}"
+                self.server = server
+                self.port = port
+                asyncio.ensure_future(self.handle_websocket(uri))
+
+    def disconnect_from_server(self):
+        if self.server:
+            self.editor.appendPlainText(f"Disconnected from {self.server}:{self.port}")
+            self.server = None
+            self.port = None
+
+if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    editor = MainWindow()
-    editor.show()
+    window = MainWindow()
+    window.show()
     sys.exit(app.exec())
