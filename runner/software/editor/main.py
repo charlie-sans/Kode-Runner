@@ -159,8 +159,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.editor.setTabStopDistance(4 * self.editor.fontMetrics().horizontalAdvance(' '))
         self.create_menu()
         self.port = 8080  # Default port
-        
-        import asyncio
         asyncio.set_event_loop(asyncio.new_event_loop())
 
     def create_menu(self):
