@@ -1,10 +1,11 @@
 import PySide6.QtWidgets as QtWidgets
 import PySide6.QtCore as QtCore
 import PySide6.QtGui as QtGui
+from PySide6.QtGui import QAction
 import sys
 import json
-import websockets
 import asyncio
+import websockets
 
 class LineNumberArea(QtWidgets.QWidget):
     def __init__(self, editor):
@@ -157,69 +158,48 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(self.editor)
         self.editor.setTabStopDistance(4 * self.editor.fontMetrics().horizontalAdvance(' '))
         self.create_menu()
-        self.server = None
-        self.port = None
+        self.port = 8080  # Default port
+        
+        import asyncio
+        asyncio.set_event_loop(asyncio.new_event_loop())
 
     def create_menu(self):
         menubar = self.menuBar()
         file_menu = menubar.addMenu('File')
 
-        file_menu.addAction(self.create_action('Open', self.open_file))
-        file_menu.addAction(self.create_action('Save', self.save_file))
-        file_menu.addAction(self.create_action('Connect to Server', self.connect_to_server))
-        file_menu.addAction(self.create_action('Disconnect from Server', self.disconnect_from_server))
+        file_menu.addAction(self.create_action('Open', lambda: self.open_file()))
+        file_menu.addAction(self.create_action('Save', lambda: self.save_file()))
+        file_menu.addAction(self.create_action('Connect to Server', lambda: asyncio.run(self.connect_to_server())))
 
-    def create_action(self, name, method):
-        action = QtGui.QAction(name, self)
-        action.triggered.connect(method)
+    def create_action(self, text, slot):
+        action = QAction(text, self)
+        action.triggered.connect(slot)
         return action
+
+    async def connect_to_server(self):
+        try:
+            async with websockets.connect(f"ws://localhost:{self.port}") as websocket:
+                await websocket.send("Hello Server")
+                response = await websocket.recv()
+                print(f"Received: {response}")
+        except ConnectionRefusedError:
+            print("Unable to connect to server. Please make sure the server is running.")
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
 
     def open_file(self):
         options = QtWidgets.QFileDialog.Options()
         file_name, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "", "Text Files (*.txt);;All Files (*)", options=options)
         if file_name:
-            try:
-                with open(file_name, 'r') as file:
-                    self.editor.setPlainText(file.read())
-            except Exception as e:
-                QtWidgets.QMessageBox.critical(self, "Error", f"Could not open file: {e}")
+            with open(file_name, 'r') as file:
+                self.editor.setPlainText(file.read())
 
     def save_file(self):
         options = QtWidgets.QFileDialog.Options()
         file_name, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", "", "Text Files (*.txt);;All Files (*)", options=options)
         if file_name:
-            try:
-                with open(file_name, 'w') as file:
-                    file.write(self.editor.toPlainText())
-            except Exception as e:
-                QtWidgets.QMessageBox.critical(self, "Error", f"Could not save file: {e}")
-
-    async def handle_websocket(self, uri):
-        try:
-            async with websockets.connect(uri) as websocket:
-                self.editor.appendPlainText(f"Connected to {uri}")
-                while True:
-                    message = await websocket.recv()
-                    self.editor.appendPlainText(f"Received: {message}")
-        except Exception as e:
-            self.editor.appendPlainText(f"WebSocket error: {e}")
-
-    def connect_to_server(self):
-        # Use QInputDialog to get server and port information
-        server, ok = QtWidgets.QInputDialog.getText(self, 'Connect to Server', 'Enter server address:')
-        if ok and server:
-            port, ok = QtWidgets.QInputDialog.getInt(self, 'Connect to Server', 'Enter port:')
-            if ok:
-                uri = f"ws://{server}:{port}"
-                self.server = server
-                self.port = port
-                asyncio.ensure_future(self.handle_websocket(uri))
-
-    def disconnect_from_server(self):
-        if self.server:
-            self.editor.appendPlainText(f"Disconnected from {self.server}:{self.port}")
-            self.server = None
-            self.port = None
+            with open(file_name, 'w') as file:
+                file.write(self.editor.toPlainText())
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
