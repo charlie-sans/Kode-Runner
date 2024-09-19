@@ -1,66 +1,69 @@
 # CodeRunner
 
-Welcome to Runner! the interactive code enviroment brought to you by OpenStudio!
+Welcome to **CodeRunner**, an interactive code environment brought to you by OpenStudio! CodeRunner is a simple yet powerful tool that allows you to run code in various languages and view the output in real-time. It's perfect for testing code snippets or running scripts.
 
-Runner is a simple, yet powerful tool that allows you to run code in a variety of languages, and see the output in real time. It's perfect for testing out code snippets, or for running scripts.
+## What is CodeRunner?
 
-## Usage
+Ever wondered if you could type out code directly inside **Resonite** and have it just work? Now you can!
 
-clone the repo and cd into the runner directory.
+CodeRunner is a hardware/server solution that lets you run various programming languages, like Python, C, and C++, directly inside Resonite. It even includes a fully interactive terminal where you can run any code you wish.
 
-run `lib/main.py` on a linux system or wsl. sorry windows.
-spawn out Code from Charlie's public folder inside of a world in resonite and hit the purple button to connect to the server.
-once you hear tada.wav, you are connected and can start running code.
-
-type the code inside the main code box or drop one of the demo code files into the import area under the left monitor and click the green run button at the top right hand side of the window.
-the output will appear in the output window on the left monitor.
-
-this assumes that the UI theme issue hasn't been completed yet or you are using the default client included with the server.
+CodeRunner operates inside a Docker container to ensure safety and performance, giving you the freedom to execute code securely.
 
 ## Features
 
-- Run code in a variety of languages, including Python, C, C++, and more
-- See the output in real time
-- Fully interactive terminal
-- Run code in a safe, isolated environment using Docker
-- Easy to use, with a simple and intuitive interface
+- **Multi-language Support**: Run code in Python, C, C++, and more.
+- **Real-time Output**: See results instantly as you run your code.
+- **Interactive Terminal**: Use a fully interactive terminal for real-time input and output.
+- **Safe and Isolated Environment**: Code execution happens within a secure Docker container.
+- **User-friendly Interface**: Simple and intuitive to use, even for beginners.
+- **Open Source**: Free to use and contribute to!
 
-best part about this, is that it is all open source and free to use!
+## Setup and Usage
 
-if your docker container gets destroyed, you can rebuild it by running the following command in the runner directory:
+### 1. Cloning the Repository
+First, clone the repo and navigate to the `runner` directory:
+```bash
+git clone https://github.com/charlie-sans/Kode-Runner.git
+cd runner
+```
 
+### 2. Running CodeRunner
+Run the main script on a Linux system or through WSL (Windows Subsystem for Linux):
+```bash
+python3 lib/main.py
+```
+
+Once CodeRunner is set up, spawn **Code from Charlie's public folder** inside a world in **Resonite**. Hit the purple button to connect to the server.
+
+When you hear the `tada.wav` sound, you are successfully connected and can start running code.
+
+### 3. Running Code
+- **Type Code**: Type your code directly into the main code box.
+- **Import Files**: Drop one of the demo code files into the import area under the left monitor.
+- **Run Code**: Click the green run button in the top right corner of the window.
+- **View Output**: Output will appear in the output window on the left monitor.
+
+### 4. Rebuilding the Docker Container
+If your Docker container gets destroyed, you can rebuild it by running:
 ```bash
 docker build -t runner .
 ```
-
-this will rebuild the docker container and you can run the server again.
-
+This will rebuild the container, and you can start the server again.
 
 ## Contributing
 
-If you would like to contribute to Runner, please feel free to fork the repository and submit a pull request. We welcome contributions of all kinds, including bug fixes, new features, and improvements to the documentation.
+We welcome contributions! If you'd like to contribute to CodeRunner, feel free to fork the repository and submit a pull request. Contributions of all types are appreciated, whether it's bug fixes, new features, or improvements to the documentation.
 
-if you need more infomation, please read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+For more details on contributing, check out the [CONTRIBUTING.md](https://github.com/charlie-sans/Kode-Runner/blob/dev/CONTRIBUTING.md) file.
 
-## what is this?
+## FAQ
 
-ever wondered if you could literly type out text based languages inside of resonite and it just works?
+### What is CodeRunner?
+CodeRunner is a hardware/server duo that allows you to run various text-based programming languages (Python, C, C++, etc.) inside **Resonite**.
 
-well now you can!
+### How does it work?
+Using WebSockets and a Python server, CodeRunner executes code inside a Docker container and streams the output back to the client in real-time. This creates a fully interactive terminal experience within the client.
 
-code runner is a hardware/server duo that allows you to run python, c, c++ ect within resonite while still including the goodies such as watching cargo run take 24 hours because tokio hung itself for the 20th time today.
-
-code features a fully interactive terminal that allows you to run anything you wish*
-
-runner works through a docker container to run the code directly inside the docker container for safety and proformance*
-
-## how does it work?
-
-using websockets and a python server, we can run code inside of a docker container and send the output back to the client in real time.
-
-this also allows for streaming a terminal to the client, allowing for a fully interactive terminal experience.
-
-:DISCLAMER:
-please know that this can allow arbatrary code execution on your system in the included docker container.
-though it is running inside the container, just put caution.
-:DISCLAMER:
+### Is it safe?
+While CodeRunner runs the code in an isolated Docker container for safety and performance, please be aware that it can allow arbitrary code execution within that container. Use caution when running untrusted code.
