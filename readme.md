@@ -1,14 +1,15 @@
-# CodeRunner
+# Kode-Runner
 
-Welcome to **CodeRunner**, an interactive code environment brought to you by OpenStudio! CodeRunner is a simple yet powerful tool that allows you to run code in various languages and view the output in real-time. It's perfect for testing code snippets or running scripts.
+Welcome to **Kode-Runner**, an interactive code environment developed by **Finite**! Kode-Runner is a simple yet powerful tool that allows you to run code in various languages and view the output in real-time. It's perfect for testing code snippets or running scripts.
+## What is Kode-Runner?
 
-## What is CodeRunner?
+Ever wondered if you could write code directly inside **Resonite** and have it just work? Now you can—with **Kode-Runner**!
 
-Ever wondered if you could type out code directly inside **Resonite** and have it just work? Now you can!
+Kode-Runner is a hardware/server duo, developed by **Finite**, that allows you to run programming languages like Python, C, and C++ directly within Resonite. It features a fully interactive terminal, enabling you to run any code you wish.
 
-CodeRunner is a hardware/server solution that lets you run various programming languages, like Python, C, and C++, directly inside Resonite. It even includes a fully interactive terminal where you can run any code you wish.
+While Docker is typically safe and isolates your code in a secure environment, please be aware that security can depend on how you use it—after all, you're essentially running a full computer inside another operating system (Windows or Linux).
 
-CodeRunner operates inside a Docker container to ensure safety and performance, giving you the freedom to execute code securely.
+The Kode-Runner server is located at `runner/main.py`, and it provides a streamlined experience for coding and testing within Resonite.
 
 ## Features
 
@@ -28,13 +29,13 @@ git clone https://github.com/charlie-sans/Kode-Runner.git
 cd runner
 ```
 
-### 2. Running CodeRunner
+### 2. Running Kode-Runner
 Run the main script on a Linux system or through WSL (Windows Subsystem for Linux):
 ```bash
 python3 lib/main.py
 ```
 
-Once CodeRunner is set up, spawn **Code from Charlie's public folder** inside a world in **Resonite**. Hit the purple button to connect to the server.
+Once Kode-Runner is set up, spawn **Code from Charlie's public folder** inside a world in **Resonite**. Hit the purple button to connect to the server.
 
 When you hear the `tada.wav` sound, you are successfully connected and can start running code.
 
@@ -53,17 +54,18 @@ This will rebuild the container, and you can start the server again.
 
 ## Contributing
 
-We welcome contributions! If you'd like to contribute to CodeRunner, feel free to fork the repository and submit a pull request. Contributions of all types are appreciated, whether it's bug fixes, new features, or improvements to the documentation.
+We welcome contributions! If you'd like to contribute to Kode-Runner, feel free to fork the repository and submit a pull request. Contributions of all types are appreciated, whether it's bug fixes, new features, or improvements to the documentation.
 
 For more details on contributing, check out the [CONTRIBUTING.md](https://github.com/charlie-sans/Kode-Runner/blob/dev/CONTRIBUTING.md) file.
 
+
 ## FAQ
 
-### What is CodeRunner?
-CodeRunner is a hardware/server duo that allows you to run various text-based programming languages (Python, C, C++, etc.) inside **Resonite**.
+### What is Kode-Runner?
+**Kode-Runner** is a hardware/server duo, developed by **Finite**, that allows you to run various text-based programming languages (Python, C, C++, etc.) inside **Resonite**.
 
 ### How does it work?
-Using WebSockets and a Python server, CodeRunner executes code inside a Docker container and streams the output back to the client in real-time. This creates a fully interactive terminal experience within the client.
+Using WebSockets and a Python server, Kode-Runner executes code inside a Docker container and streams the output back to the client in real-time. This provides a fully interactive terminal experience within the Resonite environment.
 
 ### Is it safe?
-While CodeRunner runs the code in an isolated Docker container for safety and performance, please be aware that it can allow arbitrary code execution within that container. Use caution when running untrusted code.
+Kode-Runner runs code in an isolated Docker container for safety and performance. However, since you are effectively running a full computer inside another operating system, there is potential risk, especially when running untrusted code. Always use caution.
