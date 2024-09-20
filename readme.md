@@ -1,6 +1,7 @@
 # Kode-Runner
 
 Welcome to **Kode-Runner**, an interactive code environment developed by **Finite**! Kode-Runner is a simple yet powerful tool that allows you to run code in various languages and view the output in real-time. It's perfect for testing code snippets or running scripts.
+
 ## What is Kode-Runner?
 
 Ever wondered if you could write code directly inside **Resonite** and have it just work? Now you can—with **Kode-Runner**!
