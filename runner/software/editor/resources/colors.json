@@ -14,5 +14,9 @@
     "as": "#2E8B57",
     "True": "#008B0C",
     "False": "#5F5F5F",
-    "None": "#FF0000"
+    "None": "#FF0000",
+    "functions": "#FF00FF",
+    "comments": "#0000FF",
+    "strings": "#00FF00",
+    "numbers": "#FF0000"
 }
