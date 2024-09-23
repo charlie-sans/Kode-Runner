@@ -1,0 +1,125 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/software\\editor\\utils\\service.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "__init__",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "port",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "start",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "stop",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "send",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "client",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "sends message to client\n\nArgs:\n    client (self): client to send message to\n    message (string): message to send",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "receive",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "client",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "recieve message from client\n\nArgs:\n    client (self): client to recieve message from\n\nReturns:\n    strong: message from client",
+                    "return": null,
+                    "async": true
+                }
+            ],
+            "variables": [
+                {
+                    "name": "data",
+                    "value": "None",
+                    "type": "NoneType",
+                    "function": "receive"
+                },
+                {
+                    "name": "data",
+                    "value": "await client.recv()",
+                    "type": null,
+                    "function": "receive"
+                },
+                {
+                    "name": "data",
+                    "value": "None",
+                    "type": "NoneType",
+                    "function": null
+                },
+                {
+                    "name": "data",
+                    "value": "await client.recv()",
+                    "type": null,
+                    "function": null
+                }
+            ],
+            "function_count": 5,
+            "variable_count": 4
+        }
+    ]
+}

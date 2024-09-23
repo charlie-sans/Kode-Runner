@@ -34,7 +34,9 @@
                     "type": "config",
                     "function": null
                 }
-            ]
+            ],
+            "function_count": 2,
+            "variable_count": 1
         }
     ]
 }

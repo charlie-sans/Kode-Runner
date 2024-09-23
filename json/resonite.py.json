@@ -3,7 +3,7 @@
     "description": "description for file",
     "files": [
         {
-            "file_path": "runner/software/includes/python headers/resonite.py",
+            "file_path": "runner/software\\includes\\python headers\\resonite.py",
             "docstring": "",
             "functions": [
                 {
@@ -416,7 +416,9 @@
                     "type": null,
                     "function": null
                 }
-            ]
+            ],
+            "function_count": 20,
+            "variable_count": 22
         }
     ]
 }

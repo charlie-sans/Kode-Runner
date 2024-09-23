@@ -34,10 +34,12 @@ def parse_function_def(node):
             "type": None,
             "default": None
         }
+        if arg.annotation:
+            arg_info["type"] = ast.unparse(arg.annotation) if hasattr(ast, 'unparse') else ast.dump(arg.annotation)
         func_info["args"].append(arg_info)
 
     if node.returns:
-        func_info["return"] = node.returns.id if isinstance(node.returns, ast.Name) else None
+        func_info["return"] = ast.unparse(node.returns) if hasattr(ast, 'unparse') else ast.dump(node.returns)
 
     return func_info
 
@@ -77,32 +79,47 @@ def parse_python_file(file_path):
     return {
         "docstring": docstring,
         "functions": functions,
-        "variables": variables
+        "variables": variables,
+        "function_count": len(functions),
+        "variable_count": len(variables)
     }
 
 def generate_json_for_directory(directory_path):
     """Generate JSON representation for all Python files in a directory."""
+    total_functions = 0
+    total_variables = 0
+    all_files_info = []
+
     for root, _, files in os.walk(directory_path):
         for file in files:
             if file.endswith(".py"):
                 file_path = os.path.join(root, file)
                 file_info = parse_python_file(file_path)
-                project_info = {
-                    "name": "Python",
-                    "description": "description for file",
-                    "files": [{
-                        "file_path": file_path,
-                        "docstring": file_info["docstring"],
-                        "functions": file_info["functions"],
-                        "variables": file_info["variables"]
-                    }]
-                }
-                # write the contents to the json/ directory
-                json_file_path = os.path.join("json", f"{file}.json")
-                os.makedirs(os.path.dirname(json_file_path), exist_ok=True)
-                with open(json_file_path, "w") as json_file:
-                    json.dump(project_info, json_file, indent=4)
-                print(f"Generated JSON for {file_path}")
+                total_functions += file_info["function_count"]
+                total_variables += file_info["variable_count"]
+                all_files_info.append({
+                    "file_path": file_path,
+                    "docstring": file_info["docstring"],
+                    "functions": file_info["functions"],
+                    "variables": file_info["variables"],
+                    "function_count": file_info["function_count"],
+                    "variable_count": file_info["variable_count"]
+                })
+
+    project_info = {
+        "name": "Python",
+        "description": "description for file",
+        "total_function_count": total_functions,
+        "total_variable_count": total_variables,
+        "files": all_files_info
+    }
+
+    # write the contents to the json/ directory
+    json_file_path = os.path.join("json", "project_info.json")
+    os.makedirs(os.path.dirname(json_file_path), exist_ok=True)
+    with open(json_file_path, "w") as json_file:
+        json.dump(project_info, json_file, indent=4)
+    print(f"Generated JSON for directory {directory_path}")
 
 if __name__ == "__main__":
     directory_path = "runner/"

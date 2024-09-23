@@ -91,6 +91,24 @@
                     "async": true
                 },
                 {
+                    "name": "init_nasm",
+                    "args": [
+                        {
+                            "name": "project_vars",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "websocket",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
                     "name": "init_gpp",
                     "args": [
                         {
@@ -327,25 +345,97 @@
                 },
                 {
                     "name": "comment_patterns",
-                    "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^\\\\!*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
+                    "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^;', '^\\\\!*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
+                    "type": "list",
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "File_name_cases",
+                    "value": "['File_name: ', 'File_name:', ' File_name: ', ' File_name :', 'File_name :', ' File_name : ', ' File_name : ', 'File_nane: ', 'File_nane:', ' File_nane: ', ' File_nane :', '#File_name: ', '#File_name:', '# File_name: ']",
+                    "type": "list",
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "Project_name_cases",
+                    "value": "['Project: ', 'Project:', ' Project: ', ' Project :', 'Project :', ' Project : ', ' Project : ', '#Project: ', '#Project:', '# Project: ']",
                     "type": "list",
                     "function": "Write_code_Buffer"
                 },
                 {
                     "name": "project_name",
-                    "value": "code.split('\\n')[2].split('Project: ')[1]",
+                    "value": "code.split('\\n')[1].split('Project: ')[1]",
                     "type": null,
                     "function": "Write_code_Buffer"
                 },
                 {
-                    "name": "File_name",
-                    "value": "code.split('\\n')[1].split('File_name: ')[1]",
+                    "name": "project_name_match",
+                    "value": "re.search('Project: (.*)', code)",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "project_name_match",
+                    "value": "re.search('Project (.*)', code)",
                     "type": null,
                     "function": "Write_code_Buffer"
                 },
                 {
                     "name": "project_name",
-                    "value": "code.split('\\n')[1].split('Project: ')[1]",
+                    "value": "project_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "file_name_match",
+                    "value": "re.search('File_name: (.*)', code)",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "file_name_match",
+                    "value": "re.search('File_name (.*)', code)",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "File_name",
+                    "value": "file_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "project_name",
+                    "value": "project_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "project_name_match",
+                    "value": "re.search('Project (.*)', code)",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "project_name",
+                    "value": "project_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "File_name",
+                    "value": "file_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "file_name_match",
+                    "value": "re.search('File_name (.*)', code)",
+                    "type": null,
+                    "function": "Write_code_Buffer"
+                },
+                {
+                    "name": "File_name",
+                    "value": "file_name_match.group(1).strip().replace(' ', '_')",
                     "type": null,
                     "function": "Write_code_Buffer"
                 },
@@ -432,6 +522,36 @@
                     "value": "project_vars[4]",
                     "type": null,
                     "function": "init_node"
+                },
+                {
+                    "name": "Sysver",
+                    "value": "project_vars[0]",
+                    "type": null,
+                    "function": "init_nasm"
+                },
+                {
+                    "name": "Project_name",
+                    "value": "project_vars[1]",
+                    "type": null,
+                    "function": "init_nasm"
+                },
+                {
+                    "name": "Entry_point",
+                    "value": "project_vars[2]",
+                    "type": null,
+                    "function": "init_nasm"
+                },
+                {
+                    "name": "Output_Name",
+                    "value": "project_vars[3]",
+                    "type": null,
+                    "function": "init_nasm"
+                },
+                {
+                    "name": "Project_Build_System",
+                    "value": "project_vars[4]",
+                    "type": null,
+                    "function": "init_nasm"
                 },
                 {
                     "name": "Sysver",
@@ -974,6 +1094,36 @@
                     "function": null
                 },
                 {
+                    "name": "Sysver",
+                    "value": "project_vars[0]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "Project_name",
+                    "value": "project_vars[1]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "Entry_point",
+                    "value": "project_vars[2]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "Output_Name",
+                    "value": "project_vars[3]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "Project_Build_System",
+                    "value": "project_vars[4]",
+                    "type": null,
+                    "function": null
+                },
+                {
                     "name": "args",
                     "value": "project_vars[5]",
                     "type": null,
@@ -1065,7 +1215,19 @@
                 },
                 {
                     "name": "comment_patterns",
-                    "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^\\\\!*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
+                    "value": "['^#', '^//', '^/\\\\*', '^<!--', '^\\\\\"\\\\\"\\\\\"', '^\\\\\\\\*', '^;', '^\\\\!*', '^\\\\/*', '^//', \"^'''\", '^REM', '^;.*', '^%.*', '^--', '^:.*', '^--\\\\[\\\\[']",
+                    "type": "list",
+                    "function": null
+                },
+                {
+                    "name": "File_name_cases",
+                    "value": "['File_name: ', 'File_name:', ' File_name: ', ' File_name :', 'File_name :', ' File_name : ', ' File_name : ', 'File_nane: ', 'File_nane:', ' File_nane: ', ' File_nane :', '#File_name: ', '#File_name:', '# File_name: ']",
+                    "type": "list",
+                    "function": null
+                },
+                {
+                    "name": "Project_name_cases",
+                    "value": "['Project: ', 'Project:', ' Project: ', ' Project :', 'Project :', ' Project : ', ' Project : ', '#Project: ', '#Project:', '# Project: ']",
                     "type": "list",
                     "function": null
                 },
@@ -1095,23 +1257,85 @@
                 },
                 {
                     "name": "project_name",
-                    "value": "code.split('\\n')[2].split('Project: ')[1]",
+                    "value": "code.split('\\n')[1].split('Project: ')[1]",
                     "type": null,
                     "function": null
                 },
                 {
-                    "name": "File_name",
-                    "value": "code.split('\\n')[1].split('File_name: ')[1]",
+                    "name": "project_name_match",
+                    "value": "re.search('Project: (.*)', code)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_name_match",
+                    "value": "re.search('Project (.*)', code)",
                     "type": null,
                     "function": null
                 },
                 {
                     "name": "project_name",
-                    "value": "code.split('\\n')[1].split('Project: ')[1]",
+                    "value": "project_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "file_name_match",
+                    "value": "re.search('File_name: (.*)', code)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "file_name_match",
+                    "value": "re.search('File_name (.*)', code)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "File_name",
+                    "value": "file_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_name",
+                    "value": "project_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_name_match",
+                    "value": "re.search('Project (.*)', code)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_name",
+                    "value": "project_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "File_name",
+                    "value": "file_name_match.group(1).strip().replace(' ', '_')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "file_name_match",
+                    "value": "re.search('File_name (.*)', code)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "File_name",
+                    "value": "file_name_match.group(1).strip().replace(' ', '_')",
                     "type": null,
                     "function": null
                 }
-            ]
+            ],
+            "function_count": 15,
+            "variable_count": 176
         }
     ]
 }

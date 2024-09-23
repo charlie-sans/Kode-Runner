@@ -1,0 +1,422 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/software\\editor\\ui\\mainwindow.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "__init__",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "content",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "connect_to_server",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "open_file_from_tree",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "index",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "create_shortcuts",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "toggle_console",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "create_menu",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "open_file",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "save_file",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "save_file_as",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "send_file_to_server",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "send_config_to_server",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "send_code_to_server",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": [
+                {
+                    "name": "path",
+                    "value": "self.file_model.filePath(index)",
+                    "type": null,
+                    "function": "open_file_from_tree"
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": "open_file_from_tree"
+                },
+                {
+                    "name": "save_shortcut",
+                    "value": "QShortcut(QKeySequence('Ctrl+S'), self)",
+                    "type": "QShortcut",
+                    "function": "create_shortcuts"
+                },
+                {
+                    "name": "console_shortcut",
+                    "value": "QShortcut(QKeySequence('Ctrl+k'), self)",
+                    "type": "QShortcut",
+                    "function": "create_shortcuts"
+                },
+                {
+                    "name": "menubar",
+                    "value": "self.menuBar()",
+                    "type": null,
+                    "function": "create_menu"
+                },
+                {
+                    "name": "file_menu",
+                    "value": "menubar.addMenu('File')",
+                    "type": null,
+                    "function": "create_menu"
+                },
+                {
+                    "name": "open_action",
+                    "value": "file_menu.addAction('Open')",
+                    "type": null,
+                    "function": "create_menu"
+                },
+                {
+                    "name": "save_action",
+                    "value": "file_menu.addAction('Save')",
+                    "type": null,
+                    "function": "create_menu"
+                },
+                {
+                    "name": "exit_action",
+                    "value": "file_menu.addAction('Exit')",
+                    "type": null,
+                    "function": "create_menu"
+                },
+                {
+                    "name": "connect_to_server_action",
+                    "value": "file_menu.addAction('Connect to Server')",
+                    "type": null,
+                    "function": "create_menu"
+                },
+                {
+                    "name": "console_window",
+                    "value": "menubar.addMenu('Console')",
+                    "type": null,
+                    "function": "create_menu"
+                },
+                {
+                    "name": "console_action",
+                    "value": "console_window.addAction('Toggle Console')",
+                    "type": null,
+                    "function": "create_menu"
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": "open_file"
+                },
+                {
+                    "name": "content",
+                    "value": "self.editor.toPlainText()",
+                    "type": null,
+                    "function": "save_file"
+                },
+                {
+                    "name": "content",
+                    "value": "self.editor.toPlainText()",
+                    "type": null,
+                    "function": "save_file_as"
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": "send_file_to_server"
+                },
+                {
+                    "name": "config_file",
+                    "value": "os.path.join(os.path.dirname(self.current_file), 'config.json')",
+                    "type": null,
+                    "function": "send_config_to_server"
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": "send_config_to_server"
+                },
+                {
+                    "name": "response",
+                    "value": "self.PMS_Client.recv()",
+                    "type": null,
+                    "function": "send_config_to_server"
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": "send_code_to_server"
+                },
+                {
+                    "name": "path",
+                    "value": "self.file_model.filePath(index)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "save_shortcut",
+                    "value": "QShortcut(QKeySequence('Ctrl+S'), self)",
+                    "type": "QShortcut",
+                    "function": null
+                },
+                {
+                    "name": "console_shortcut",
+                    "value": "QShortcut(QKeySequence('Ctrl+k'), self)",
+                    "type": "QShortcut",
+                    "function": null
+                },
+                {
+                    "name": "menubar",
+                    "value": "self.menuBar()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "file_menu",
+                    "value": "menubar.addMenu('File')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "open_action",
+                    "value": "file_menu.addAction('Open')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "save_action",
+                    "value": "file_menu.addAction('Save')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "exit_action",
+                    "value": "file_menu.addAction('Exit')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "connect_to_server_action",
+                    "value": "file_menu.addAction('Connect to Server')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "console_window",
+                    "value": "menubar.addMenu('Console')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "console_action",
+                    "value": "console_window.addAction('Toggle Console')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "config_file",
+                    "value": "os.path.join(os.path.dirname(self.current_file), 'config.json')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "content",
+                    "value": "self.editor.toPlainText()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "content",
+                    "value": "self.editor.toPlainText()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "response",
+                    "value": "self.PMS_Client.recv()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "content",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": null
+                }
+            ],
+            "function_count": 12,
+            "variable_count": 40
+        }
+    ]
+}

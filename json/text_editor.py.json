@@ -1,0 +1,78 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/software\\editor\\widgets\\text_editor.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "__init__",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "highlight_current_line",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": [
+                {
+                    "name": "font",
+                    "value": "QFont('Monospace', 12)",
+                    "type": "QFont",
+                    "function": "__init__"
+                },
+                {
+                    "name": "cursor",
+                    "value": "self.textCursor()",
+                    "type": null,
+                    "function": "highlight_current_line"
+                },
+                {
+                    "name": "selection",
+                    "value": "QTextEdit.ExtraSelection()",
+                    "type": null,
+                    "function": "highlight_current_line"
+                },
+                {
+                    "name": "font",
+                    "value": "QFont('Monospace', 12)",
+                    "type": "QFont",
+                    "function": null
+                },
+                {
+                    "name": "cursor",
+                    "value": "self.textCursor()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "selection",
+                    "value": "QTextEdit.ExtraSelection()",
+                    "type": null,
+                    "function": null
+                }
+            ],
+            "function_count": 2,
+            "variable_count": 6
+        }
+    ]
+}

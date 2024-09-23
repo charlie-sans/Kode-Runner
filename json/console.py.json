@@ -1,0 +1,187 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/software\\editor\\widgets\\console.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "__init__",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "window",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "log_message",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "clear_console",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "highlight_text",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "text",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "ansi_to_html",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "match",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "log_message_with_highlight",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "message",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": [
+                {
+                    "name": "ansi_escape",
+                    "value": "re.compile('\\\\x1B\\\\[[0-?]*[ -/]*[@-~]')",
+                    "type": null,
+                    "function": "highlight_text"
+                },
+                {
+                    "name": "text",
+                    "value": "ansi_escape.sub(self.ansi_to_html, text)",
+                    "type": null,
+                    "function": "highlight_text"
+                },
+                {
+                    "name": "ansi_code",
+                    "value": "match.group()",
+                    "type": null,
+                    "function": "ansi_to_html"
+                },
+                {
+                    "name": "ansi_to_html_map",
+                    "value": "{'\\x1b[91m': '<span style=\"color:red;\">', '\\x1b[92m': '<span style=\"color:green;\">', '\\x1b[93m': '<span style=\"color:yellow;\">', '\\x1b[94m': '<span style=\"color:blue;\">', '\\x1b[0m': '</span>'}",
+                    "type": "dict",
+                    "function": "ansi_to_html"
+                },
+                {
+                    "name": "highlighted_message",
+                    "value": "self.highlight_text(message)",
+                    "type": null,
+                    "function": "log_message_with_highlight"
+                },
+                {
+                    "name": "ansi_escape",
+                    "value": "re.compile('\\\\x1B\\\\[[0-?]*[ -/]*[@-~]')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "text",
+                    "value": "ansi_escape.sub(self.ansi_to_html, text)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "ansi_code",
+                    "value": "match.group()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "ansi_to_html_map",
+                    "value": "{'\\x1b[91m': '<span style=\"color:red;\">', '\\x1b[92m': '<span style=\"color:green;\">', '\\x1b[93m': '<span style=\"color:yellow;\">', '\\x1b[94m': '<span style=\"color:blue;\">', '\\x1b[0m': '</span>'}",
+                    "type": "dict",
+                    "function": null
+                },
+                {
+                    "name": "highlighted_message",
+                    "value": "self.highlight_text(message)",
+                    "type": null,
+                    "function": null
+                }
+            ],
+            "function_count": 7,
+            "variable_count": 10
+        }
+    ]
+}
