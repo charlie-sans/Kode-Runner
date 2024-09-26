@@ -6,3 +6,5 @@ termplotlib
 pexpect
 textual
 PySide6
+requests
+
