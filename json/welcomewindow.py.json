@@ -1,0 +1,528 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/software\\editor\\ui\\welcomewindow.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "__init__",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "open_editor",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "open_editor_with_text",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "file_path",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "create_project",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "project_path",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "create_project_in_database",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "get_projects_from_database",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "add_project_to_list",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "create_project_files",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "add_project_to_list",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "open_project",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": [
+                {
+                    "name": "layout",
+                    "value": "QVBoxLayout()",
+                    "type": "QVBoxLayout",
+                    "function": "__init__"
+                },
+                {
+                    "name": "text_header",
+                    "value": "QLabel('Welcome to the Text Editor!')",
+                    "type": "QLabel",
+                    "function": "__init__"
+                },
+                {
+                    "name": "open_editor_button",
+                    "value": "QPushButton('Open Editor')",
+                    "type": "QPushButton",
+                    "function": "__init__"
+                },
+                {
+                    "name": "project_button",
+                    "value": "QPushButton('Create Project')",
+                    "type": "QPushButton",
+                    "function": "__init__"
+                },
+                {
+                    "name": "project_list",
+                    "value": "QListWidget()",
+                    "type": "QListWidget",
+                    "function": "__init__"
+                },
+                {
+                    "name": "container",
+                    "value": "QWidget()",
+                    "type": "QWidget",
+                    "function": "__init__"
+                },
+                {
+                    "name": "conn",
+                    "value": "sqlite3.connect('projects.db')",
+                    "type": null,
+                    "function": "__init__"
+                },
+                {
+                    "name": "cursor",
+                    "value": "conn.cursor()",
+                    "type": null,
+                    "function": "__init__"
+                },
+                {
+                    "name": "initial_text",
+                    "value": "None",
+                    "type": "NoneType",
+                    "function": "open_editor_with_text"
+                },
+                {
+                    "name": "file",
+                    "value": "QFileDialog.getOpenFileName(self, 'Open File', '', 'Python Files (*.py);;All Files (*)')",
+                    "type": null,
+                    "function": "open_editor_with_text"
+                },
+                {
+                    "name": "initial_text",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": "open_editor_with_text"
+                },
+                {
+                    "name": "project_name",
+                    "value": "QInputDialog.getText(self, 'Create Project', 'Enter project name:')",
+                    "type": null,
+                    "function": "create_project"
+                },
+                {
+                    "name": "project_path",
+                    "value": "QFileDialog.getExistingDirectory(self, 'Select Project Directory')",
+                    "type": null,
+                    "function": "create_project"
+                },
+                {
+                    "name": "project_path",
+                    "value": "os.path.join(project_path, project_name[0])",
+                    "type": null,
+                    "function": "create_project"
+                },
+                {
+                    "name": "conn",
+                    "value": "sqlite3.connect('projects.db')",
+                    "type": null,
+                    "function": "create_project_in_database"
+                },
+                {
+                    "name": "cursor",
+                    "value": "conn.cursor()",
+                    "type": null,
+                    "function": "create_project_in_database"
+                },
+                {
+                    "name": "conn",
+                    "value": "sqlite3.connect('projects.db')",
+                    "type": null,
+                    "function": "get_projects_from_database"
+                },
+                {
+                    "name": "cursor",
+                    "value": "conn.cursor()",
+                    "type": null,
+                    "function": "get_projects_from_database"
+                },
+                {
+                    "name": "projects",
+                    "value": "cursor.fetchall()",
+                    "type": null,
+                    "function": "get_projects_from_database"
+                },
+                {
+                    "name": "conn",
+                    "value": "sqlite3.connect('projects.db')",
+                    "type": null,
+                    "function": "get_projects_from_database"
+                },
+                {
+                    "name": "cursor",
+                    "value": "conn.cursor()",
+                    "type": null,
+                    "function": "get_projects_from_database"
+                },
+                {
+                    "name": "projects",
+                    "value": "self.get_projects_from_database()",
+                    "type": null,
+                    "function": "add_project_to_list"
+                },
+                {
+                    "name": "project_name",
+                    "value": "project[1]",
+                    "type": null,
+                    "function": "add_project_to_list"
+                },
+                {
+                    "name": "project_item",
+                    "value": "QListWidgetItem(project_name)",
+                    "type": "QListWidgetItem",
+                    "function": "add_project_to_list"
+                },
+                {
+                    "name": "project_files",
+                    "value": "['main.py', 'README.md', 'LICENSE']",
+                    "type": "list",
+                    "function": "create_project_files"
+                },
+                {
+                    "name": "projects",
+                    "value": "self.get_projects_from_database()",
+                    "type": null,
+                    "function": "add_project_to_list"
+                },
+                {
+                    "name": "project_name",
+                    "value": "project[1]",
+                    "type": null,
+                    "function": "add_project_to_list"
+                },
+                {
+                    "name": "project_item",
+                    "value": "QListWidgetItem(project_name)",
+                    "type": "QListWidgetItem",
+                    "function": "add_project_to_list"
+                },
+                {
+                    "name": "project_item",
+                    "value": "self.project_list.currentItem()",
+                    "type": null,
+                    "function": "open_project"
+                },
+                {
+                    "name": "project_path",
+                    "value": "os.path.join(self.project_path, project_item.text())",
+                    "type": null,
+                    "function": "open_project"
+                },
+                {
+                    "name": "app",
+                    "value": "QApplication([])",
+                    "type": "QApplication",
+                    "function": null
+                },
+                {
+                    "name": "welcome_window",
+                    "value": "WelcomeWindow()",
+                    "type": "WelcomeWindow",
+                    "function": null
+                },
+                {
+                    "name": "layout",
+                    "value": "QVBoxLayout()",
+                    "type": "QVBoxLayout",
+                    "function": null
+                },
+                {
+                    "name": "text_header",
+                    "value": "QLabel('Welcome to the Text Editor!')",
+                    "type": "QLabel",
+                    "function": null
+                },
+                {
+                    "name": "open_editor_button",
+                    "value": "QPushButton('Open Editor')",
+                    "type": "QPushButton",
+                    "function": null
+                },
+                {
+                    "name": "project_button",
+                    "value": "QPushButton('Create Project')",
+                    "type": "QPushButton",
+                    "function": null
+                },
+                {
+                    "name": "project_list",
+                    "value": "QListWidget()",
+                    "type": "QListWidget",
+                    "function": null
+                },
+                {
+                    "name": "container",
+                    "value": "QWidget()",
+                    "type": "QWidget",
+                    "function": null
+                },
+                {
+                    "name": "initial_text",
+                    "value": "None",
+                    "type": "NoneType",
+                    "function": null
+                },
+                {
+                    "name": "file",
+                    "value": "QFileDialog.getOpenFileName(self, 'Open File', '', 'Python Files (*.py);;All Files (*)')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_name",
+                    "value": "QInputDialog.getText(self, 'Create Project', 'Enter project name:')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "conn",
+                    "value": "sqlite3.connect('projects.db')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "cursor",
+                    "value": "conn.cursor()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "projects",
+                    "value": "self.get_projects_from_database()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_files",
+                    "value": "['main.py', 'README.md', 'LICENSE']",
+                    "type": "list",
+                    "function": null
+                },
+                {
+                    "name": "projects",
+                    "value": "self.get_projects_from_database()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_item",
+                    "value": "self.project_list.currentItem()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "conn",
+                    "value": "sqlite3.connect('projects.db')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "cursor",
+                    "value": "conn.cursor()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_path",
+                    "value": "QFileDialog.getExistingDirectory(self, 'Select Project Directory')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "conn",
+                    "value": "sqlite3.connect('projects.db')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "cursor",
+                    "value": "conn.cursor()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "projects",
+                    "value": "cursor.fetchall()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "conn",
+                    "value": "sqlite3.connect('projects.db')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "cursor",
+                    "value": "conn.cursor()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_name",
+                    "value": "project[1]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_item",
+                    "value": "QListWidgetItem(project_name)",
+                    "type": "QListWidgetItem",
+                    "function": null
+                },
+                {
+                    "name": "project_name",
+                    "value": "project[1]",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_item",
+                    "value": "QListWidgetItem(project_name)",
+                    "type": "QListWidgetItem",
+                    "function": null
+                },
+                {
+                    "name": "project_path",
+                    "value": "os.path.join(self.project_path, project_item.text())",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "initial_text",
+                    "value": "f.read()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "project_path",
+                    "value": "os.path.join(project_path, project_name[0])",
+                    "type": null,
+                    "function": null
+                }
+            ],
+            "function_count": 10,
+            "variable_count": 62
+        }
+    ]
+}

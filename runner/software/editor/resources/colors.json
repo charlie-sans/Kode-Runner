@@ -1,0 +1,22 @@
+{
+    "def": "#7474FF",
+    "class": "#008000",
+    "import": "#800080",
+    "from": "#800080",
+    "return": "#FF0000",
+    "if": "#FF00FF",
+    "else": "#FF00FF",
+    "for": "#FFA500",
+    "while": "#FFA500",
+    "try": "#A52A2A",
+    "except": "#A52A2A",
+    "with": "#2E8B57",
+    "as": "#2E8B57",
+    "True": "#008B0C",
+    "False": "#5F5F5F",
+    "None": "#FF0000",
+    "functions": "#FF00FF",
+    "comments": "#0000FF",
+    "strings": "#00FF00",
+    "numbers": "#FF0000"
+}

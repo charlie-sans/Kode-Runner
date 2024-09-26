@@ -1,0 +1,635 @@
+{
+    "name": "Python",
+    "description": "description for file",
+    "files": [
+        {
+            "file_path": "runner/software\\editor\\utils\\syntax_highlighter.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "__init__",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "parent",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "load_keywords",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "highlightBlock",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "text",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "highlightFunction",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "text",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "highlightClass",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "text",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "highlightString",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "text",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "highlightNumber",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "text",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "highlightComment",
+                    "args": [
+                        {
+                            "name": "self",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "text",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": [
+                {
+                    "name": "script_dir",
+                    "value": "os.path.dirname(os.path.abspath(__file__))",
+                    "type": null,
+                    "function": "load_keywords"
+                },
+                {
+                    "name": "json_path",
+                    "value": "os.path.join(script_dir, '..', 'resources', 'colors.json')",
+                    "type": null,
+                    "function": "load_keywords"
+                },
+                {
+                    "name": "keywords",
+                    "value": "json.load(f)",
+                    "type": null,
+                    "function": "load_keywords"
+                },
+                {
+                    "name": "format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": "load_keywords"
+                },
+                {
+                    "name": "match",
+                    "value": "pattern.globalMatch(text)",
+                    "type": null,
+                    "function": "highlightBlock"
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": "highlightBlock"
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart()",
+                    "type": null,
+                    "function": "highlightBlock"
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength()",
+                    "type": null,
+                    "function": "highlightBlock"
+                },
+                {
+                    "name": "function_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": "highlightFunction"
+                },
+                {
+                    "name": "function_pattern",
+                    "value": "QRegularExpression('\\\\bdef\\\\b\\\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\\\s*\\\\(')",
+                    "type": "QRegularExpression",
+                    "function": "highlightFunction"
+                },
+                {
+                    "name": "match",
+                    "value": "function_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": "highlightFunction"
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": "highlightFunction"
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart(1)",
+                    "type": null,
+                    "function": "highlightFunction"
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength(1)",
+                    "type": null,
+                    "function": "highlightFunction"
+                },
+                {
+                    "name": "class_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": "highlightClass"
+                },
+                {
+                    "name": "class_pattern",
+                    "value": "QRegularExpression('\\\\bclass\\\\b\\\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\\\s*')",
+                    "type": "QRegularExpression",
+                    "function": "highlightClass"
+                },
+                {
+                    "name": "match",
+                    "value": "class_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": "highlightClass"
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": "highlightClass"
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart(1)",
+                    "type": null,
+                    "function": "highlightClass"
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength(1)",
+                    "type": null,
+                    "function": "highlightClass"
+                },
+                {
+                    "name": "string_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": "highlightString"
+                },
+                {
+                    "name": "string_pattern",
+                    "value": "QRegularExpression('\".*\"')",
+                    "type": "QRegularExpression",
+                    "function": "highlightString"
+                },
+                {
+                    "name": "match",
+                    "value": "string_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": "highlightString"
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": "highlightString"
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart()",
+                    "type": null,
+                    "function": "highlightString"
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength()",
+                    "type": null,
+                    "function": "highlightString"
+                },
+                {
+                    "name": "number_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": "highlightNumber"
+                },
+                {
+                    "name": "number_pattern",
+                    "value": "QRegularExpression('\\\\b\\\\d+\\\\b')",
+                    "type": "QRegularExpression",
+                    "function": "highlightNumber"
+                },
+                {
+                    "name": "match",
+                    "value": "number_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": "highlightNumber"
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": "highlightNumber"
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart()",
+                    "type": null,
+                    "function": "highlightNumber"
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength()",
+                    "type": null,
+                    "function": "highlightNumber"
+                },
+                {
+                    "name": "comment_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": "highlightComment"
+                },
+                {
+                    "name": "comment_pattern",
+                    "value": "QRegularExpression('#.*')",
+                    "type": "QRegularExpression",
+                    "function": "highlightComment"
+                },
+                {
+                    "name": "match",
+                    "value": "comment_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": "highlightComment"
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": "highlightComment"
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart()",
+                    "type": null,
+                    "function": "highlightComment"
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength()",
+                    "type": null,
+                    "function": "highlightComment"
+                },
+                {
+                    "name": "app",
+                    "value": "QApplication(sys.argv)",
+                    "type": "QApplication",
+                    "function": null
+                },
+                {
+                    "name": "editor",
+                    "value": "QTextEdit()",
+                    "type": "QTextEdit",
+                    "function": null
+                },
+                {
+                    "name": "syntax_highlighter",
+                    "value": "SyntaxHighlighter(editor.document())",
+                    "type": "SyntaxHighlighter",
+                    "function": null
+                },
+                {
+                    "name": "test_text",
+                    "value": "'\\ndef hello_world():\\n    print(\"Hello, World!\")\\n    \\nclass MyClass:\\n    def __init__(self):\\n        self.value = 42\\n    \\n    def my_method(self):\\n        return self.value * 2\\n    \\nif __name__ == \"__main__\":\\n    obj = MyClass()\\n    result = obj.my_method()\\n    print(result)  # Output: 84\\n'",
+                    "type": "str",
+                    "function": null
+                },
+                {
+                    "name": "script_dir",
+                    "value": "os.path.dirname(os.path.abspath(__file__))",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "json_path",
+                    "value": "os.path.join(script_dir, '..', 'resources', 'colors.json')",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "function_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": null
+                },
+                {
+                    "name": "function_pattern",
+                    "value": "QRegularExpression('\\\\bdef\\\\b\\\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\\\s*\\\\(')",
+                    "type": "QRegularExpression",
+                    "function": null
+                },
+                {
+                    "name": "match",
+                    "value": "function_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "class_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": null
+                },
+                {
+                    "name": "class_pattern",
+                    "value": "QRegularExpression('\\\\bclass\\\\b\\\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\\\s*')",
+                    "type": "QRegularExpression",
+                    "function": null
+                },
+                {
+                    "name": "match",
+                    "value": "class_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "string_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": null
+                },
+                {
+                    "name": "string_pattern",
+                    "value": "QRegularExpression('\".*\"')",
+                    "type": "QRegularExpression",
+                    "function": null
+                },
+                {
+                    "name": "match",
+                    "value": "string_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "number_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": null
+                },
+                {
+                    "name": "number_pattern",
+                    "value": "QRegularExpression('\\\\b\\\\d+\\\\b')",
+                    "type": "QRegularExpression",
+                    "function": null
+                },
+                {
+                    "name": "match",
+                    "value": "number_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "comment_format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": null
+                },
+                {
+                    "name": "comment_pattern",
+                    "value": "QRegularExpression('#.*')",
+                    "type": "QRegularExpression",
+                    "function": null
+                },
+                {
+                    "name": "match",
+                    "value": "comment_pattern.globalMatch(text)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "match",
+                    "value": "pattern.globalMatch(text)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart(1)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength(1)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart(1)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength(1)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "keywords",
+                    "value": "json.load(f)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "format",
+                    "value": "QTextCharFormat()",
+                    "type": "QTextCharFormat",
+                    "function": null
+                },
+                {
+                    "name": "m",
+                    "value": "match.next()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "start",
+                    "value": "m.capturedStart()",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "length",
+                    "value": "m.capturedLength()",
+                    "type": null,
+                    "function": null
+                }
+            ],
+            "function_count": 8,
+            "variable_count": 80
+        }
+    ]
+}

@@ -177,7 +177,9 @@
                     "type": null,
                     "function": null
                 }
-            ]
+            ],
+            "function_count": 5,
+            "variable_count": 15
         }
     ]
 }

@@ -3,7 +3,7 @@
     "description": "description for file",
     "files": [
         {
-            "file_path": "runner/klog.py",
+            "file_path": "runner/software\\editor\\utils\\klog.py",
             "docstring": "",
             "functions": [
                 {
@@ -299,7 +299,9 @@
                     "async": false
                 }
             ],
-            "variables": []
+            "variables": [],
+            "function_count": 19,
+            "variable_count": 0
         }
     ]
 }

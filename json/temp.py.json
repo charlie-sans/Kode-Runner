@@ -76,7 +76,9 @@
                     "type": null,
                     "function": null
                 }
-            ]
+            ],
+            "function_count": 3,
+            "variable_count": 6
         }
     ]
 }
