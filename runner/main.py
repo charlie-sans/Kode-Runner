@@ -5,6 +5,7 @@ import sys
 import tempfile
 import json
 from config import config
+import PMS
 
 try:
     import websockets
@@ -86,12 +87,15 @@ async def PythonLSP(websocket, path):
 
 async def handler(websocket, path):
     print(websocket, path)
-    if path in WS_PATHS:
-        handler_function = globals().get(WS_PATHS[path])
-        if handler_function:
-            await handler_function(websocket, path)
-    else:
-        await websocket.send("Invalid path")
+    match path:
+        case "/PMS":
+            await PMS.PMS(websocket, path)
+        case "/code":
+            await PMS.Write_code_Buffer(websocket, path)
+        case "/PythonLSP":
+            await PythonLSP(websocket, path)
+        case _:
+            await websocket.send("Invalid path")
 
 # Start WebSocket server
 async def start_server():
