@@ -6,6 +6,7 @@ import tempfile
 import json
 from config import config
 import PMS
+import secure_authentication
 
 try:
     import websockets
@@ -17,7 +18,6 @@ except ImportError:
 import pexpect
 import PMS
 from debug import de_bug, debug
-import auth_proxy
 
 # Constants
 DEFAULT_PASSWORD = ""
@@ -110,7 +110,7 @@ async def start_server():
     if password:
         import threading
         print(f"\nAuth Proxy Starting at ws://{conf.passwd_proxy_host}:{conf.passwd_proxy_port}/")
-        threading.Thread(target=auth_proxy.main, args=(f"ws://localhost:{conf.WS_PORT}", password)).start()
+        threading.Thread(target=secure_authentication.main, args=(f"ws://localhost:{conf.WS_PORT}", password)).start()
     await ws_server
 
 if __name__ == "__main__":
