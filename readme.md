@@ -5,7 +5,7 @@ How to Use
 
 - Get the Docker Image: Pull the Kode-Runner Docker image from the releases.
 - Run the Docker Container: Start the container on port 5000.
-- Connect to the Client: In resonite, spawn the Kode client or any supported client using the following URL: resrec:///G-pussafire/R-7EDF219CF4884A1144CBB4F2A9FA271C7581CF20BFCC7AA10624ECC84998F18D. Click the purple connection button.
+- Connect to the Client: In resonite, spawn the Kode client from this public folder: resrec:///G-pussafire/R-7EDF219CF4884A1144CBB4F2A9FA271C7581CF20BFCC7AA10624ECC84998F18D or any client that supports KodeRunner. Click the purple connection button.
 - Connect: After a few seconds, you should be connected!
 
 Features
