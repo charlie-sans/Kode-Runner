@@ -100,8 +100,8 @@ async def handler(websocket, path):
 # Start WebSocket server
 async def start_server():
     ws_server = websockets.serve(handler, conf.WS_HOST, conf.WS_PORT)
-    print("CodeRunner Server version 2.0")
-    print("TEST SERVER: Things may break")
+    print("CodeRunner Server version 2.2")
+    # print("TEST SERVER: Things may break")
     print("Server started at port", conf.WS_PORT)
     print("Relay started at address ws://localhost:5000/")
     if password:
