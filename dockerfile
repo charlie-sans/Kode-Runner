@@ -11,11 +11,11 @@ RUN apt update -y && apt-get install -y python3-pip python3-dev python3-pexpect 
 # Set the working directory in the container
 
 # Install any needed packages specified in requirements.txt
-RUN pip install websockets --break-system-packages
-RUN pip install requests --break-system-packages
-RUN pip install --no-cache-dir -r requirements.txt --break-system-packages
+RUN pip install websockets asyncio websockets colorama pyte termplotlib pexpect textual PySide6 requests
+
+
 RUN apt-get install -y cmake 
-RUN apt-get install -y make gcc g++ libssl-dev libffi-dev python3-dev python3-pip python3-setuptools python3-venv python3-wheel python3-cffi
+
 
 # Make port 5000 available to the world outside this container
 COPY . /app
