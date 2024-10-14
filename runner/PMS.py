@@ -14,12 +14,22 @@ import time
 from queue import Queue
 
 conf = config.config()
-_debug_enabled = False
+_debug_enabled = conf._debug_enabled
 stopped = False
 current_process = None
 hotkey_queue = Queue()
 
 async def execute_code(command, websocket):
+    colorinfo = {
+        "<color=red>": "\033[31m",
+        "<color=green>": "\033[32m",
+        "<color=yellow>": "\033[33m",
+        "<color=blue>": "\033[34m",
+        "<color=purple>": "\033[35m",
+        "<color=cyan>": "\033[36m",
+        "<color=#fffffff>": "\033[7m",
+        "</color>": "\033[0m"
+    }
     global current_process, stopped
     # print("Executing code")
     # print("Command: " + command)
@@ -37,10 +47,12 @@ async def execute_code(command, websocket):
                 hotkey = hotkey_queue.get()
                 current_process.sendline(hotkey)
                 await websocket.send(f"Sent hotkey: {hotkey}\n")
-
+    
             index = current_process.expect(['\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0 or index == 1:
-                decolorised_text = re.sub(r'\x1b\[[0-9;]*m', '', current_process.after)
+                # Convert 24-bit color codes to hex
+                hex_color_pattern = re.compile(r'<color=#([0-9a-fA-F]{6})>')
+                decolorised_text = hex_color_pattern.sub(lambda match: f"\033[38;2;{int(match.group(1)[0:2], 16)};{int(match.group(1)[2:4], 16)};{int(match.group(1)[4:6], 16)}m", decolorised_text)
                 await websocket.send(decolorised_text)
             elif index == 2:
                 break
@@ -76,9 +88,9 @@ async def Write_code_Buffer(websocket, path):
         # get the first line of the code
         first_line = code.split("\n")[0].strip()
         if _debug_enabled:
-            klog.logging.log("First Line: " + first_line)
-            klog.logging.log("Second Line: " + code.split("\n")[1])
-            klog.logging.log("Third Line: " + code.split("\n")[2])
+            print("First Line: " + first_line)
+            print("Second Line: " + code.split("\n")[1])
+            print("Third Line: " + code.split("\n")[2])
         # check if the first line is a comment
         comment_patterns = [
             r"^#",  # For Python, Perl, Ruby, etc.
@@ -171,8 +183,8 @@ async def Write_code_Buffer(websocket, path):
                     #print("File Name: " + File_name)
                     
                     if _debug_enabled:
-                        klog.logging.log("Project Name: " + project_name)
-                        klog.logging.log("File Name: " + File_name)
+                        print("Project Name: " + project_name)
+                        print("File Name: " + File_name)
                     # find the project directory if it exists
                     if os.path.exists(project_name):
                         # save the code to the project directory
@@ -183,7 +195,7 @@ async def Write_code_Buffer(websocket, path):
                     else:
                         await websocket.send("<color=red>Error:</color> Project directory not found.\n")
                         if _debug_enabled:
-                            klog.error("Project directory not found")
+                            print("Project directory not found")
                         # create the project directory
                         os.system("mkdir " + project_name)
                         await websocket.send("Project directory created\n")
@@ -507,6 +519,9 @@ async def Run_PMS_system(websocket, path,Project_name):
             await execute_code("lua " + Project_name + "/" + Entry_point, websocket)
         case "gfortran":
             await init_fortran(project_vars,websocket)
+        case _:
+            await websocket.send("Invalid build system, remember it's case sensitive\n")
+            print("Invalid build system, remember it's case sensitive\n")
             
 
             

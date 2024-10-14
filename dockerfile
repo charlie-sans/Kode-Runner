@@ -2,7 +2,7 @@
 # Version: 1.0
 
 # Pull base image
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 # Install python
 RUN apt update -y

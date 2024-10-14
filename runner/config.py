@@ -15,7 +15,7 @@ class config:
         self.langServerSupport = []
         self.langServerProtocolSupport = []
         self.langServerProtocolSupportType = []
-        self._debug_enabled = False
+        self._debug_enabled = True
         self.supportedLangServer = []
         self.supportedBuildSystems = []
         self.supportedBuiltinBuildSystems = ["Coderunner-Tools"]
