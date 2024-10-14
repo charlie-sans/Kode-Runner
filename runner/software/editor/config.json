@@ -1,0 +1,8 @@
+{
+	"PMS_System": "1.2.0",
+    "Project_Name": "cat",
+    "Main_File": "main.c",
+    "Project_Build_Systems": "cmake",
+    "Project_Output": "main",
+    "Run_On_Build": "True"
+}

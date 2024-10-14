@@ -15,14 +15,16 @@ class Service:
     def __init__(self, port):
         
         self.port = port
-        self.log = logging()
+        
 
     
 
-    async def start(self):
-        self.PMS_Client = await websockets.connect(f"ws://localhost:{self.port}/PMS")
-        self.Code_Client = await websockets.connect(f"ws://localhost:{self.port}/Code")
-
+    def start(self):
+        self.PMS_Client = websockets.connect(f"ws://localhost:{self.port}/PMS")
+        self.Code_Client =  websockets.connect(f"ws://localhost:{self.port}/Code")
+        print("Connected to server")
+        print(self.PMS_Client)
+        print(self.Code_Client)
         return self.PMS_Client, self.Code_Client
         
     async def stop(self):
@@ -37,7 +39,17 @@ class Service:
             client (self): client to send message to
             message (string): message to send
         """
+        stopped = False
         await client.send(message)
+        while not stopped:
+            try:
+                response = await self.receive(client)
+                if response is not None:
+                    stopped = True
+                    return response
+            except Exception as e:
+                print(f"An error occurred: {str(e)}")
+                stopped = False
 
     
     async def receive(self, client):

@@ -1,8 +1,8 @@
 {
     "name": "Python",
     "description": "description for file",
-    "total_function_count": 136,
-    "total_variable_count": 474,
+    "total_function_count": 139,
+    "total_variable_count": 488,
     "files": [
         {
             "file_path": "runner/auth_proxy.py",
@@ -839,12 +839,6 @@
                     "function": "PythonLSP"
                 },
                 {
-                    "name": "handler_function",
-                    "value": "globals().get(WS_PATHS[path])",
-                    "type": null,
-                    "function": "handler"
-                },
-                {
                     "name": "ws_server",
                     "value": "websockets.serve(handler, conf.WS_HOST, conf.WS_PORT)",
                     "type": null,
@@ -887,12 +881,6 @@
                     "function": null
                 },
                 {
-                    "name": "handler_function",
-                    "value": "globals().get(WS_PATHS[path])",
-                    "type": null,
-                    "function": null
-                },
-                {
                     "name": "output",
                     "value": "json.loads(result.stdout)",
                     "type": null,
@@ -924,7 +912,7 @@
                 }
             ],
             "function_count": 5,
-            "variable_count": 30
+            "variable_count": 28
         },
         {
             "file_path": "runner/PMS.py",
@@ -1400,6 +1388,12 @@
                     "function": "Read_PMS_File"
                 },
                 {
+                    "name": "project_vars",
+                    "value": "[Sysver, Project_name, Entry_point, Output_Name, Project_Build_System, arguments, _debug_enabled]",
+                    "type": "list",
+                    "function": "Read_PMS_File"
+                },
+                {
                     "name": "arguments",
                     "value": "parsed_code['compiler-arguments']",
                     "type": null,
@@ -1412,9 +1406,15 @@
                     "function": "Read_PMS_File"
                 },
                 {
-                    "name": "project_vars",
-                    "value": "[Sysver, Project_name, Entry_point, Output_Name, Project_Build_System, arguments, _debug_enabled]",
-                    "type": "list",
+                    "name": "arguments",
+                    "value": "None",
+                    "type": "NoneType",
+                    "function": "Read_PMS_File"
+                },
+                {
+                    "name": "_debug_enabled",
+                    "value": "False",
+                    "type": "bool",
                     "function": "Read_PMS_File"
                 },
                 {
@@ -1790,18 +1790,6 @@
                     "function": null
                 },
                 {
-                    "name": "arguments",
-                    "value": "parsed_code['compiler-arguments']",
-                    "type": null,
-                    "function": null
-                },
-                {
-                    "name": "_debug_enabled",
-                    "value": "parsed_code['Debug_enabled']",
-                    "type": null,
-                    "function": null
-                },
-                {
                     "name": "project_vars",
                     "value": "[Sysver, Project_name, Entry_point, Output_Name, Project_Build_System, arguments, _debug_enabled]",
                     "type": "list",
@@ -2156,6 +2144,18 @@
                     "function": null
                 },
                 {
+                    "name": "arguments",
+                    "value": "parsed_code['compiler-arguments']",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "_debug_enabled",
+                    "value": "parsed_code['Debug_enabled']",
+                    "type": null,
+                    "function": null
+                },
+                {
                     "name": "project_vars",
                     "value": "json.loads(f.read())",
                     "type": null,
@@ -2171,6 +2171,18 @@
                     "name": "index",
                     "value": "current_process.expect(['\\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)",
                     "type": null,
+                    "function": null
+                },
+                {
+                    "name": "arguments",
+                    "value": "None",
+                    "type": "NoneType",
+                    "function": null
+                },
+                {
+                    "name": "_debug_enabled",
+                    "value": "False",
+                    "type": "bool",
                     "function": null
                 },
                 {
@@ -2259,7 +2271,7 @@
                 }
             ],
             "function_count": 15,
-            "variable_count": 176
+            "variable_count": 180
         },
         {
             "file_path": "runner/temp.py",
@@ -5069,6 +5081,120 @@
             ],
             "function_count": 20,
             "variable_count": 22
+        },
+        {
+            "file_path": "runner/software\\stteditor\\main.py",
+            "docstring": "",
+            "functions": [
+                {
+                    "name": "run",
+                    "args": [],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                },
+                {
+                    "name": "handle_connection",
+                    "args": [
+                        {
+                            "name": "websocket",
+                            "type": null,
+                            "default": null
+                        },
+                        {
+                            "name": "path",
+                            "type": null,
+                            "default": null
+                        }
+                    ],
+                    "description": "",
+                    "return": null,
+                    "async": true
+                },
+                {
+                    "name": "main",
+                    "args": [],
+                    "description": "",
+                    "return": null,
+                    "async": false
+                }
+            ],
+            "variables": [
+                {
+                    "name": "socket_url",
+                    "value": "'ws://localhost:5000'",
+                    "type": "str",
+                    "function": null
+                },
+                {
+                    "name": "rec_url",
+                    "value": "'ws://localhost:6789'",
+                    "type": "str",
+                    "function": null
+                },
+                {
+                    "name": "websocket_rec",
+                    "value": "None",
+                    "type": "NoneType",
+                    "function": null
+                },
+                {
+                    "name": "websocket_send",
+                    "value": "None",
+                    "type": "NoneType",
+                    "function": null
+                },
+                {
+                    "name": "websocket_rec",
+                    "value": "websockets.connect(socket_url)",
+                    "type": null,
+                    "function": "run"
+                },
+                {
+                    "name": "start_server",
+                    "value": "websockets.serve(handle_connection, 'localhost', 8765)",
+                    "type": null,
+                    "function": "run"
+                },
+                {
+                    "name": "websocket_send",
+                    "value": "websocket",
+                    "type": null,
+                    "function": "handle_connection"
+                },
+                {
+                    "name": "message",
+                    "value": "await websocket.recv()",
+                    "type": null,
+                    "function": "handle_connection"
+                },
+                {
+                    "name": "websocket_rec",
+                    "value": "websockets.connect(socket_url)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "start_server",
+                    "value": "websockets.serve(handle_connection, 'localhost', 8765)",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "websocket_send",
+                    "value": "websocket",
+                    "type": null,
+                    "function": null
+                },
+                {
+                    "name": "message",
+                    "value": "await websocket.recv()",
+                    "type": null,
+                    "function": null
+                }
+            ],
+            "function_count": 3,
+            "variable_count": 12
         }
     ]
 }

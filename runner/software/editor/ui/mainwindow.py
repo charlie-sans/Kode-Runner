@@ -100,6 +100,12 @@ class MainWindow(QMainWindow):
         exit_action = file_menu.addAction('Exit')
         exit_action.triggered.connect(self.close)
         
+        send_file_action = file_menu.addAction('Send File to Server')
+        send_file_action.triggered.connect(self.send_file_to_server)
+        
+        send_config_action = file_menu.addAction('Send Config to Server')
+        send_config_action.triggered.connect(self.send_config_to_server)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+        
         connect_to_server_action = file_menu.addAction('Connect to Server')
         connect_to_server_action.triggered.connect(self.connect_to_server)
 

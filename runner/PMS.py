@@ -1,5 +1,5 @@
-import pexpect 
-import json 
+import pexpect
+import json
 import os
 import websockets
 import asyncio
@@ -9,21 +9,20 @@ import sys
 import config
 import threading
 import subprocess
-import asyncio
-import threading
 import signal
 import time
+from queue import Queue
 
 conf = config.config()
 _debug_enabled = False
-### START
 stopped = False
 current_process = None
+hotkey_queue = Queue()
 
 async def execute_code(command, websocket):
     global current_process, stopped
-    print("Executing code")
-    print("Command: " + command)
+    # print("Executing code")
+    # print("Command: " + command)
     current_process = pexpect.spawn(command, encoding="utf-8")
     print(f"Process PID: {current_process.pid}")  # Print the PID of the current process
     while True:
@@ -33,6 +32,12 @@ async def execute_code(command, websocket):
             stopped = False  # Reset stopped to False
             break
         try:
+            # Check for hotkey commands
+            if not hotkey_queue.empty():
+                hotkey = hotkey_queue.get()
+                current_process.sendline(hotkey)
+                await websocket.send(f"Sent hotkey: {hotkey}\n")
+
             index = current_process.expect(['\n', '.', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0 or index == 1:
                 decolorised_text = re.sub(r'\x1b\[[0-9;]*m', '', current_process.after)
@@ -48,18 +53,28 @@ def stop_current_process():
     if current_process:
         print(f"Stopping process with PID: {current_process.pid}")  # Print the PID of the process being stopped
 
-async def Write_code_Buffer(websocket, path):
+def send_hotkey(hotkey):
+    hotkey_queue.put(hotkey)
+    print(f"Hotkey {hotkey} added to queue")
 
-    print("PMS Code")
-    print("Path: " + path)
-    print("Websocket: " + str(websocket))
+def stop_current_process():
+    global stopped
+    stopped = True
+    if current_process:
+        print(f"Stopping process with PID: {current_process.pid}")  # Print the PID of the process being stopped
+
+async def Write_code_Buffer(websocket, path):
+    if _debug_enabled:
+        print("PMS Code")
+        print("Path: " + path)
+        print("Websocket: " + str(websocket))
     while True:
         code = await websocket.recv()
         # we got the code now, just got to check the first line for the project name in the languages comment
         # then we can save the code to the project directory
         
         # get the first line of the code
-        first_line = code.split("\n")[0]
+        first_line = code.split("\n")[0].strip()
         if _debug_enabled:
             klog.logging.log("First Line: " + first_line)
             klog.logging.log("Second Line: " + code.split("\n")[1])
@@ -120,18 +135,18 @@ async def Write_code_Buffer(websocket, path):
             r"# Project: ",
         ]
         # check if the first line is a comment
-        if any(re.match(pattern, first_line) for pattern in comment_patterns):
+        if any(re.match(pattern, first_line.strip()) for pattern in comment_patterns):
             # check if the comment has the filename in it
-            if any(re.search(case, code) for case in File_name_cases):
+            if any(re.search(case, code.strip()) for case in File_name_cases):
                 # check if the comment has the project name in it
-                if any(re.search(case, code) for case in Project_name_cases): # please find the things in the fortran comment i beg you.
-                    print("Project name and filename found in comment")
+                if any(re.search(case, code.strip()) for case in Project_name_cases): # please find the things in the fortran comment i beg you.
+                    #print("Project name and filename found in comment")
                     # get the project name from the comment
-                    print("Code: " + code)
-                    if any(re.search(case, code) for case in Project_name_cases):
+                    #print("Code: " + code)
+                    if any(re.search(case, code.strip()) for case in Project_name_cases):
                         project_name_match = re.search(r"Project: (.*)", code)
                         if project_name_match:
-                            project_name = project_name_match.group(1).strip().replace(" ", "_")
+                            project_name = project_name_match.group(1).strip().replace(" ", "").replace(":", "").replace("#", "").replace("*", "").replace("/", "")
                         else:
                             project_name_match = re.search(r"Project (.*)", code)
                             project_name = project_name_match.group(1).strip().replace(" ", "_")
@@ -152,8 +167,8 @@ async def Write_code_Buffer(websocket, path):
                         File_name = file_name_match.group(1).strip().replace(" ", "_")
                         
                     
-                    print("Project Name: " + project_name)
-                    print("File Name: " + File_name)
+                    #print("Project Name: " + project_name)
+                    #print("File Name: " + File_name)
                     
                     if _debug_enabled:
                         klog.logging.log("Project Name: " + project_name)
@@ -175,7 +190,7 @@ async def Write_code_Buffer(websocket, path):
                         # save the code to the project directory
                         with open(project_name + "/" + File_name, "w") as f:
                             f.write(code)
-                            print("Code saved successfully\n")
+                            #print("Code saved successfully\n")
                         await websocket.send(f"Code saved successfully to {project_name}/{File_name}\n")
                         
                         
@@ -188,8 +203,8 @@ async def Write_code_Buffer(websocket, path):
                 # check if the file is a makefile
                 
                 # check for first line comment containing Makefile
-                print("Checking for Makefile")
-                print("First Line: " + first_line)
+                # print("Checking for Makefile")
+                # print("First Line: " + first_line)
                 if re.search("#Makefile", first_line):
                     # save the code to the project directory
                     project_name = code.split("\n")[1].split("Project: ")[1]
@@ -245,7 +260,7 @@ async def Read_PMS_File(websocket, path,code):
         
     await websocket.send("Project named: " + Project_name + " saved successfully\n")
     await websocket.send("Project vars for " + Project_name + " saved successfully\n")
-    await websocket.send("Running PMS System\n" )
+    await websocket.send("Running program!\n" )
     await Run_PMS_system(websocket,path,Project_name)
         
 # imit node
@@ -255,9 +270,10 @@ async def init_node(project_vars,websocket):
     Project_name = project_vars[1]  
     Entry_point = project_vars[2]
     Output_Name = project_vars[3]
-    print("Project Name: " + Project_name + "\n")
-    print("Entry Point: " + Entry_point + "\n")
-    print("Output Name: " + Output_Name + "\n")
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
     
     Project_Build_System = project_vars[4]
     # init node without npm as we dont need it
@@ -271,10 +287,11 @@ async def init_nasm(project_vars,websocket):
     Project_name = project_vars[1]  
     Entry_point = project_vars[2]
     Output_Name = project_vars[3]
-    print("Project Name: " + Project_name + "\n")
-    print("Entry Point: " + Entry_point + "\n")
-    print("Output Name: " + Output_Name + "\n")
-    
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
+        
     Project_Build_System = project_vars[4]
     # init nasm
     await execute_code("nasm -f elf64 " + Project_name + "/" + Entry_point, websocket)
@@ -288,9 +305,10 @@ async def init_gpp(project_vars,websocket):
     Project_name = project_vars[1]  
     Entry_point = project_vars[2]
     Output_Name = project_vars[3]
-    print("Project Name: " + Project_name + "\n")
-    print("Entry Point: " + Entry_point + "\n")
-    print("Output Name: " + Output_Name + "\n")
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
     
     Project_Build_System = project_vars[4]
     # init g++
@@ -304,10 +322,11 @@ async def init_cargo(project_vars,websocket):
     Project_name = project_vars[1]  
     Entry_point = project_vars[2]
     Output_Name = project_vars[3]
-    print("Project Name: " + Project_name + "\n")
-    print("Entry Point: " + Entry_point + "\n")
-    print("Output Name: " + Output_Name + "\n")
-    
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
+        
     Project_Build_System = project_vars[4]
     # init cargo through the cargo.toml file
     with open(Project_name + "/Cargo.toml", "w") as f:
@@ -327,10 +346,11 @@ async def init_mono(project_vars,websocket):
     Project_name = project_vars[1]  
     Entry_point = project_vars[2]
     Output_Name = project_vars[3]
-    print("Project Name: " + Project_name + "\n")
-    print("Entry Point: " + Entry_point + "\n")
-    print("Output Name: " + Output_Name + "\n")
-    
+    if _debug_enabled:
+        print("Project Name: " + Project_name + "\n")
+        print("Entry Point: " + Entry_point + "\n")
+        print("Output Name: " + Output_Name + "\n")
+        
     Project_Build_System = project_vars[4]
     # init dotnet
     await execute_code("csc " + Project_name + "/" + Entry_point, websocket)
@@ -373,7 +393,8 @@ async def init_cmake(project_vars,websocket):
         f.write("project(" + Project_name + ")\n")
         f.write("add_executable(" + Output_Name + " " + Entry_point + ")\n")
     # create the build directory
-    os.system("mkdir " + Project_name + "/build")
+    if not os.path.exists(Project_name + "/build"):
+        os.system("mkdir " + Project_name + "/build")# hmm, the dir is not being created. this should fix it
     if _debug_enabled:
         print("CMakeLists.txt created\n")
         print("Build directory created\n")
@@ -405,8 +426,8 @@ async def init_make(project_vars,websocket):
     # run make    
     if args: # if it's not empty then we can run make with the args that might point to a different makefile command
         await execute_code("make -C " + Project_name + " " + args, websocket)
-        print("Running make with args")
-        print("make -c " + Project_name + " " + args)
+       #  print("Running make with args")
+        # print("make -c " + Project_name + " " + args)
     else:
         await execute_code("make -C " + Project_name, websocket)
     # run the output
@@ -431,9 +452,10 @@ async def init_fortran(project_vars,websocket):
     
     
 async def Run_PMS_system(websocket, path,Project_name):
-    print("Running PMS System\n")
-    print("Path: " + path + "\n")
-    print("Websocket: " + str(websocket) + "\n")
+    if _debug_enabled:
+        print("Running PMS System\n")
+        print("Path: " + path + "\n")
+        print("Websocket: " + str(websocket) + "\n")
 
     # get the project vars
     with open(Project_name + "/project_vars.json", "r") as f:
@@ -498,6 +520,6 @@ async def PMS(websocket, path):
 
     code = await websocket.recv()
     parsed_code = json.loads(code)
-    print("Code: " + str(parsed_code))
+    # print("Code: " + str(parsed_code))
     await Read_PMS_File(websocket,path, code)
         
