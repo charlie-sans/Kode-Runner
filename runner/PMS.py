@@ -74,7 +74,7 @@ async def Write_code_Buffer(websocket, path):
         # then we can save the code to the project directory
         
         # get the first line of the code
-        first_line = code.split("\n")[0]
+        first_line = code.split("\n")[0].strip()
         if _debug_enabled:
             klog.logging.log("First Line: " + first_line)
             klog.logging.log("Second Line: " + code.split("\n")[1])
@@ -135,18 +135,18 @@ async def Write_code_Buffer(websocket, path):
             r"# Project: ",
         ]
         # check if the first line is a comment
-        if any(re.match(pattern, first_line) for pattern in comment_patterns):
+        if any(re.match(pattern, first_line.strip()) for pattern in comment_patterns):
             # check if the comment has the filename in it
-            if any(re.search(case, code) for case in File_name_cases):
+            if any(re.search(case, code.strip()) for case in File_name_cases):
                 # check if the comment has the project name in it
-                if any(re.search(case, code) for case in Project_name_cases): # please find the things in the fortran comment i beg you.
+                if any(re.search(case, code.strip()) for case in Project_name_cases): # please find the things in the fortran comment i beg you.
                     #print("Project name and filename found in comment")
                     # get the project name from the comment
                     #print("Code: " + code)
-                    if any(re.search(case, code) for case in Project_name_cases):
+                    if any(re.search(case, code.strip()) for case in Project_name_cases):
                         project_name_match = re.search(r"Project: (.*)", code)
                         if project_name_match:
-                            project_name = project_name_match.group(1).strip().replace(" ", "_")
+                            project_name = project_name_match.group(1).strip().replace(" ", "").replace(":", "").replace("#", "").replace("*", "").replace("/", "")
                         else:
                             project_name_match = re.search(r"Project (.*)", code)
                             project_name = project_name_match.group(1).strip().replace(" ", "_")
